@@ -1,0 +1,16 @@
+from bundlebuilder import AppBuilder, main
+
+a = AppBuilder(
+    name='VIDLE.app',
+    mainprogram='idle.py',
+    argv_emulation=0,
+    #iconfile=
+    standalone=0,
+)
+
+a.plist['CFBundleDocumentTypes'] = [
+    { "CFBundleTypeOSTypes" : [
+        "****" ],
+      "CFBundleTypeRole" : "Viewer" }]
+
+main(a)

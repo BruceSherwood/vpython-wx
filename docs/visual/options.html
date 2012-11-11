@@ -1,0 +1,203 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>options</title>
+<!-- InstanceEndEditable -->
+<!-- InstanceBeginEditable name="head" -->
+<link href="VisualRef.css" rel="stylesheet" type="text/css" />
+<!-- InstanceEndEditable -->
+<script type="text/javascript">
+<!--
+function MM_jumpMenu(targ,selObj,restore){ //v3.0
+  eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
+  if (restore) selObj.selectedIndex=0;
+}
+//-->
+</script>
+<link href="VisualRef.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<table width="800" border="0" cellpadding="0" cellspacing="0">
+  <!--DWLayoutDefaultTable-->
+  <tr>
+    <td width="10" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
+    <td width="10" height="272" valign="top" bgcolor="#DDDDDD"><p>&nbsp;</p>    </td>
+    <td width="173" valign="top" bgcolor="#DDDDDD"><p class="Normal"><a href="index.html">Home</a></p>
+      <p class="Normal">If you're new to Python <br />
+      and VPython: <a href="VisualIntro.html">Introduction</a></p>
+      <p class="Normal">A VPython <a href="VPython_Intro.pdf" target="_blank">tutorial</a></p>
+      <p class="Normal"><a href="primitives.html">Pictures</a> of 3D objects</p>
+      <p class="Normal">Choose an object:</p>
+        <select name="jumpMenu4" id="jumpMenu4" onchange="MM_jumpMenu('parent',this,0)">
+          <option>Choose an object</option>
+          <option value="cylinder.html">Overview</option>
+          <option value="arrow.html">arrow</option>
+          <option value="box.html">box</option>
+          <option value="cone.html">cone</option>
+          <option value="convex.html">convex</option>
+          <option value="curve.html">curve</option>
+          <option value="cylinder.html">cylinder</option>
+          <option value="ellipsoid.html">ellipsoid</option>
+          <option value="extrusion.html">extrusion</option>
+          <option value="faces.html">faces</option>
+          <option value="frame.html">frame</option>
+          <option value="helix.html">helix</option>
+          <option value="label.html">label</option>
+          <option value="lights.html">lights</option>
+          <option value="points.html">points</option>
+          <option value="pyramid.html">pyramid</option>
+          <option value="ring.html">ring</option>
+          <option value="sphere.html">sphere</option>
+          <option value="text.html">text</option>
+        </select>
+        
+      <p class="Normal">Work with objects:</p>
+        <select name="jumpMenu4" id="jumpMenu5" onchange="MM_jumpMenu('parent',this,0)">
+          <option>Choose an option</option>
+          <option value="color.html">Color/Opacity</option>
+          <option value="materials.html">Materials/Textures</option>
+          <option value="shapes.html">Shapes Library</option>
+          <option value="paths.html">Paths Library</option>
+          <option value="defaults.html">Defaults</option>
+          <option value="rate.html">Animation Speed</option>
+          <option value="rotation.html">Rotations</option>
+          <option value="options.html">Additional Options</option>
+          <option value="delete.html">Delete an Object</option>
+          <option value="float.html">3/4 = 0?</option>
+          <option value="controls.html">Buttons/Sliders</option>
+          <option value="graph.html">Graphs</option>
+          <option value="lights.html">Lighting</option>
+          <option value="files.html">Read/Write Files</option>
+          <option value="trail.html">Leaving a Trail</option>
+          <option value="vector.html">Vector Operations </option>
+          <option value="factorial.html">factorial/combin</option>
+        </select>
+        
+      <p class="Normal">Windows &amp Events:</p>
+        <select name="jumpMenu4" id="jumpMenu6" onchange="MM_jumpMenu('parent',this,0)">
+          <option>Choose a topic</option>
+          <option value="display.html">Windows</option>
+          <option value="mouse.html">Mouse Events</option>
+          <option value="mouse_click.html">&nbsp;&nbsp;&nbsp;Mouse Click</option>
+          <option value="mouse_drag.html">&nbsp;&nbsp;&nbsp;Mouse Drag</option>
+          <option value="keyboard.html">Keyboard Events</option>
+        </select>
+        
+    <p class="Normal">What's new in <a href="new_features.html">Visual 5</a></p>
+    <p class="Normal"><a href="http://vpython.org" target="_blank">VPython web site</a><br />
+      <a href="license.txt" target="_blank">Visual license</a><br />
+      <a href="http://www.python.org" target="_blank">Python web site</a> <br />
+      <a href="http://www.python.org/doc/2.5.2/lib/module-math.html" target="_blank">Math module</a> (sqrt etc.)<br />
+    <a href="http://www.scipy.org/Documentation" target="_blank">Numpy module</a> (arrays)    </p></td>
+    <td width="21" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
+    <td width="586" rowspan="2" valign="top"><!-- InstanceBeginEditable name="content" -->
+      <div>
+        <h1 class="Heading-1"> <font color="#0000A0">Additional Attributes</font></h1>
+      </div>
+      <div>
+        <p class="Normal"> The following attributes apply to all VPython objects:</p>
+        <p class="attributes"> <span class="attribute">visible</span> If False, 
+          
+          object is not displayed; e.g. <span class="attribute">ball.visible = False</span><em class="program"><br />
+        </em> Use <span class="attribute">ball.visible = True</span> to make the ball 
+          
+          visible again.</p>
+      <p class="attributes"><span class="attribute">frame</span> Place this object 
+          
+          into a specified frame, as in <span class="attribute">ball = sphere(frame 
+            
+            = f1)</span> </p>
+        <p class="attributes"> <span class="attribute">display</span> When you start 
+          
+          a VPython program, for convenience Visual creates a display window and names 
+          
+          it <span class="attribute">scene</span>. By default, objects you create go 
+          
+          into that display window. You can choose to put an object in a different display 
+          
+          like this: </p>
+        <p class="attributes"> <span class="attribute">make_trail</span> You can specify that a trail be left behind a moving arrow, box, cone, cylinder, ellipsoid, pyramid, ring, or sphere object. For details, see <strong><a href="trail.html">Leaving a Trail</a></strong>.</p>
+
+          <p class="program">scene2 = display( title = &quot;Act IV, Scene 2&quot; ) <br />
+          rod = cylinder( display = scene2 )</p>
+          <p class="Normal">Executing <span class="attribute">myscene = </span><font color="#FF0000">display.get_selected()</font> returns
+            a reference to the display in which objects are currently being 
+            created. Given a specific display named scene2, <span class="attribute">scene2.select()</span><span class="attributes"> makes
+            scene2 be the &quot;selected display&quot;, so that objects
+            will be drawn into scene2 by default. </span></p>
+          <p class="Normal">There is a <a href="rotation.html">rotate function</a> for
+            all objects other than the &quot;array objects&quot; curve, convex, extrusion, faces, text, and points (which can
+            be put into a frame and the frame rotated).</p>
+      <p class="attributes"><span class="attribute">__class__</span> Name of the class 
+          of object. For example, <span class="attribute">ball.__class__ is sphere</span> is true if <span class="attribute">ball</span> is a sphere object. There are 
+          two underscores before and after the word <span class="attribute">class</span>. 
+          In a list of visible objects provided by <a href="display.html">scene.objects</a>, 
+          if <span class="attribute">obj</span> is in this list you can determine the 
+          class of the object with <span class="attribute">obj.__class__</span>. <span class="Normal">You can check for a specific kind of object by using a standard Python function: isinstance(obj, sphere) is true if &quot;obj&quot; is a sphere object.</span></p>
+        <p class="attributes"><span class="attribute">__copy__</span><span class="attribute">()</span> Makes
+          a copy  of an object. There are two underscores before and after <span class="attribute">copy</span>.
+           Without any arguments, this results in creating a second object in
+          the exact  same position as the first, which is probably not what you
+          want. The <font color="#FF0000">__copy__()</font> function takes a
+          list of keyword=value argument pairs which are applied to  the new
+          object before making it visible. For example, to clone an object from
+           one display to another, you would execute: <font color="#FF0000">new_object
+            = old_object.__copy__( display=new_display)</font>. Restriction:
+            If the original  object is within a frame, and the new object is
+            on a different display, you  must supply both a new display and a
+            new frame for the new object (the new  frame may be None). This is
+            due to the restriction that an object may not  be located within
+            a frame that is in a separate display.</p>
+
+      <p class="Normal">Here is an example that uses the <span class="attribute">__copy__()</span> function.
+        The following routine  copies all of the Visual objects currently existing
+        in one display into  a previously defined second display, as long as
+        there are no nested frames (frames within frames):</p>
+
+<p class="program">def clone_universe( new_display, old_display):<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;# Create a dictionary of frames in  old display to <br />
+            &nbsp;&nbsp;&nbsp;&nbsp;# the corresponding frames in the new display.<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;frames = {} # create empty dictionary <br />
+            &nbsp;&nbsp;&nbsp;&nbsp;for obj in old_display.objects:<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if obj.__class__ == frame:<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;frames[obj] = obj.__copy__( frame=None, <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            display=new_display)<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;# For each old frame within another reference frame,<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;# place the new  frame in appropriate frame in  new<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;# display. Here old is an object and new is its<br />
+&nbsp;&nbsp;&nbsp;&nbsp;#            frame in the new display.<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;for old, new in frames.iteritems():<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if old.frame:<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;new.frame = frames[old.frame]<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;# Copy over the universe.<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;for obj in old_display.objects:<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if obj.__class__ == frame:<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Already taken care of above.<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pass<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;elif obj.frame:<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# 
+            Initialize with the corresponding  frame<br /> 
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# in the new display:<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;obj.__copy__( display=new_display, <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            frame=frames[obj.frame])<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else:<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# 
+            No frame issue;<br />
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;obj.__copy__( display=new_display)</p>
+
+        <p class="Normal">See <a href="display.html">Controlling One or More Visual 
+          Display Windows</a> for more information on creating and manipulating display 
+          objects.</p>
+        <p class="Normal">&nbsp;</p>
+
+    <!-- InstanceEndEditable --></td>
+  </tr>
+  <tr>
+    <td height="16" colspan="4"></td>
+  </tr>
+</table>
+</body>
+<!-- InstanceEnd --></html>

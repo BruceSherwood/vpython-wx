@@ -1,0 +1,210 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>drag</title>
+<!-- InstanceEndEditable -->
+<!-- InstanceBeginEditable name="head" -->
+<link href="VisualRef.css" rel="stylesheet" type="text/css" />
+<!-- InstanceEndEditable -->
+<script type="text/javascript">
+<!--
+function MM_jumpMenu(targ,selObj,restore){ //v3.0
+  eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
+  if (restore) selObj.selectedIndex=0;
+}
+//-->
+</script>
+<link href="VisualRef.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<table width="800" border="0" cellpadding="0" cellspacing="0">
+  <!--DWLayoutDefaultTable-->
+  <tr>
+    <td width="10" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
+    <td width="10" height="272" valign="top" bgcolor="#DDDDDD"><p>&nbsp;</p>    </td>
+    <td width="173" valign="top" bgcolor="#DDDDDD"><p class="Normal"><a href="index.html">Home</a></p>
+      <p class="Normal">If you're new to Python <br />
+      and VPython: <a href="VisualIntro.html">Introduction</a></p>
+      <p class="Normal">A VPython <a href="VPython_Intro.pdf" target="_blank">tutorial</a></p>
+      <p class="Normal"><a href="primitives.html">Pictures</a> of 3D objects</p>
+      <p class="Normal">Choose an object:</p>
+        <select name="jumpMenu4" id="jumpMenu4" onchange="MM_jumpMenu('parent',this,0)">
+          <option>Choose an object</option>
+          <option value="cylinder.html">Overview</option>
+          <option value="arrow.html">arrow</option>
+          <option value="box.html">box</option>
+          <option value="cone.html">cone</option>
+          <option value="convex.html">convex</option>
+          <option value="curve.html">curve</option>
+          <option value="cylinder.html">cylinder</option>
+          <option value="ellipsoid.html">ellipsoid</option>
+          <option value="extrusion.html">extrusion</option>
+          <option value="faces.html">faces</option>
+          <option value="frame.html">frame</option>
+          <option value="helix.html">helix</option>
+          <option value="label.html">label</option>
+          <option value="lights.html">lights</option>
+          <option value="points.html">points</option>
+          <option value="pyramid.html">pyramid</option>
+          <option value="ring.html">ring</option>
+          <option value="sphere.html">sphere</option>
+          <option value="text.html">text</option>
+        </select>
+        
+      <p class="Normal">Work with objects:</p>
+        <select name="jumpMenu4" id="jumpMenu5" onchange="MM_jumpMenu('parent',this,0)">
+          <option>Choose an option</option>
+          <option value="color.html">Color/Opacity</option>
+          <option value="materials.html">Materials/Textures</option>
+          <option value="shapes.html">Shapes Library</option>
+          <option value="paths.html">Paths Library</option>
+          <option value="defaults.html">Defaults</option>
+          <option value="rate.html">Animation Speed</option>
+          <option value="rotation.html">Rotations</option>
+          <option value="options.html">Additional Options</option>
+          <option value="delete.html">Delete an Object</option>
+          <option value="float.html">3/4 = 0?</option>
+          <option value="controls.html">Buttons/Sliders</option>
+          <option value="graph.html">Graphs</option>
+          <option value="lights.html">Lighting</option>
+          <option value="files.html">Read/Write Files</option>
+          <option value="trail.html">Leaving a Trail</option>
+          <option value="vector.html">Vector Operations </option>
+          <option value="factorial.html">factorial/combin</option>
+        </select>
+        
+      <p class="Normal">Windows &amp Events:</p>
+        <select name="jumpMenu4" id="jumpMenu6" onchange="MM_jumpMenu('parent',this,0)">
+          <option>Choose a topic</option>
+          <option value="display.html">Windows</option>
+          <option value="mouse.html">Mouse Events</option>
+          <option value="mouse_click.html">&nbsp;&nbsp;&nbsp;Mouse Click</option>
+          <option value="mouse_drag.html">&nbsp;&nbsp;&nbsp;Mouse Drag</option>
+          <option value="keyboard.html">Keyboard Events</option>
+        </select>
+        
+    <p class="Normal">What's new in <a href="new_features.html">Visual 5</a></p>
+    <p class="Normal"><a href="http://vpython.org" target="_blank">VPython web site</a><br />
+      <a href="license.txt" target="_blank">Visual license</a><br />
+      <a href="http://www.python.org" target="_blank">Python web site</a> <br />
+      <a href="http://www.python.org/doc/2.5.2/lib/module-math.html" target="_blank">Math module</a> (sqrt etc.)<br />
+    <a href="http://www.scipy.org/Documentation" target="_blank">Numpy module</a> (arrays)    </p></td>
+    <td width="21" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
+    <td width="586" rowspan="2" valign="top"><!-- InstanceBeginEditable name="content" -->
+      <p class="Normal"><strong><font color="#0000A0">Drag example</font></strong></p>
+      <p class="Normal">Here is the sequence of mouse events involved in dragging something:</p>
+      <p class="Normal">1) m1.press is true when you depress the mouse button (it is 
+        'left' if left button; any quantity that is nonzero is considered true in Python).      </p>
+      <p class="Normal">2) m1.drag is true when the mouse coordinates change from what they were at 
+        the time of m1.press.<br />
+        <br />
+        At the time of the drag event, the mouse position is reported to be what it 
+        was at the time of the press event, so that the dragging can start at the place 
+        where the user first pressed the mouse button. If the mouse is in motion at the time of the press 
+        event, it is quite possible that the next position seen by the computer, at 
+        the time of the drag event, could be quite far from the click position. This 
+        is why the position of the drag event is reported as though it occurred at the 
+      press location.</p>
+      <p class="Normal">        3) No events occur while dragging; you continually use scene.mouse.pos to update 
+        what you're dragging.</p>
+      <p class="Normal">        4) m1.drop is true when you release the mouse button.</p>
+      <p class="Normal">You can program dragging with the mouse simply by continually 
+        reading the current value of <span class="attribute">scene.mouse.pos</span>. 
+        Here is a complete routine for dragging a sphere with the left button down. Copy this into an edit window and try it! </p>
+      <p class="program">from visual import *<br />
+	  scene.range = 5 # fixed size, no autoscaling<br />
+      ball = sphere(pos=(-3,0,0), color=color.cyan)<br />
+      cube = box(pos=(+3,0,0), size=(2,2,2), color=color.red)<br />
+      pick = None # no object picked out of the scene yet<br />
+      while True: <br />
+      &nbsp;&nbsp;&nbsp;&nbsp;if scene.mouse.events: <br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;m1 = scene.mouse.getevent() 
+        # get  event<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if m1.drag 
+        and m1.pick == ball: # if touched ball<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;drag_pos 
+        = m1.pickpos # where on the ball<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pick 
+        = m1.pick # pick  now true (not None)
+        <br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;elif m1.drop: 
+        # released at end of drag<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pick 
+        = None # end dragging (None is false)<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;if pick:<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# project onto xy plane, even if scene rotated:<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;new_pos = scene.mouse.project(normal=(0,0,1)) 
+        <br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if new_pos 
+        != drag_pos: # if  mouse has moved<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# offset for where the ball was clicked:<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pick.pos 
+        += new_pos - drag_pos <br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;drag_pos 
+        = new_pos # update drag position</p>
+      <p class="Normal">If you do a lot of processing of each mouse movement, or you 
+        are leaving a trail behind the moving object, you may need to check whether 
+        the &quot;new&quot; mouse position is in fact different from the previous position 
+        before processing the &quot;move&quot;, as is done in the example above. For 
+        example, a trail drawn with a curve object that contains a huge number of points 
+        all at the same location may not display properly.</p>
+      <p class="Normal">Most VPython objects can be &quot;picked&quot; by 
+        clicking them. Here is a more general routine 
+        which lets you drag either the tail or the tip of an arrow. Copy this into an edit window and try it! </p>
+      <p class="program">from visual import *<br />
+	  scene.range = 8 # fixed size, no autoscaling<br />
+      arr = arrow(pos=(2,0,0),axis=(0,5,0))<br />
+      by = 0.3 # click this close to tail or tip<br />
+      drag = None # have not selected tail 
+        or tip of arrow<br />
+      while True: <br />
+      &nbsp;&nbsp;&nbsp;&nbsp;if scene.mouse.events: <br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;m1 = scene.mouse.getevent() 
+        # obtain event<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if m1.press:<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if 
+        mag(arr.pos-m1.pos) &lt;= by:<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;drag 
+        = 'tail' # near tail of arrow<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;elif 
+        mag((arr.pos+arr.axis)-m1.pos) &lt;= by:<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;drag 
+        = 'tip' #  near tip of arrow<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;drag_pos 
+        = m1.pos # save press location
+        <br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;elif m1.drop: 
+        # released at end of drag<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;drag 
+        = None # end dragging (None is False)
+        <br />
+      &nbsp;&nbsp;&nbsp;&nbsp;if drag: <br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;new_pos = scene.mouse.pos<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if new_pos 
+        != drag_pos: # if mouse has moved<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;displace 
+        = new_pos - drag_pos # moved how far <br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;drag_pos 
+        = new_pos # update drag position<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if 
+        drag == 'tail':<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;arr.pos 
+        += displace # displace the tail<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else:<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;arr.axis 
+      += displace # displace the tip</p>
+
+          <p class="Normal">Here is <a href="mouse.html"> general mouse 
+            documentation</a>.</p>
+          
+    <!-- InstanceEndEditable --></td>
+  </tr>
+  <tr>
+    <td height="16" colspan="4"></td>
+  </tr>
+</table>
+</body>
+<!-- InstanceEnd --></html>

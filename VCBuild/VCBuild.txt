@@ -1,0 +1,150 @@
+Building vpython with from Visual Studio C++ 
+
+	You may find Eclipse a useful development and CVS environment (eclipse.org)		
+	
+	VPython CVS
+	    Check-out the vpython-core2 module from
+		:pserver:anonymous@visualpython.cvs.sourceforge.net:/cvsroot/visualpython
+
+	PythonX.N
+		Install Python X.N via the Windows Installer at http://www.python.org/download/.
+		Make sure it is installed on the same drive as vpython-core2, in \PythonXN.
+		
+	Install these Python modules: numpy, FontTools, ttfquery.
+	
+	Copy into C:\PythonXN\Lib\site-packages the folders site-packages\vis and site-packages\visual
+	and docs found in \YourCVS\vpython-core2
+                
+    Install Visual C++ 2008 Express Edition, which includes the platform SDK (System Development Kit)
+        from http://www.microsoft.com/Express/Download/#webInstall
+        
+    It is important to use the older 2008 version of Visual C++, because that's what built Python 2.7.
+    However, see the following for how to try to use Visual C++ 2010 with Python 2.7:
+    	http://nukeit.org/compile-python-2-7-packages-with-visual-studio-2010-express
+	Also, make sure that in the Visual Studio 2010 project properties, Linker > Input,
+	you specify "Ignore Specific Default Libraries" to /NODEFAULTLIB:MSVCRT.lib.
+	To avoid the link error Error 1 error LNK1220: '/DELAYSIGN' requires '/KEYFILE' or '/KEYCONTAINER'
+	you need to go to Visual Studio project properties, Linker > Advanced, and clear Delay Sign.
+
+    Unzip Boost
+        Extract the files in vpython-core2/dependencies/win_boost.zip so that 
+        there is a folder vpython-core2/dependencies/boost_files containing 
+        boost (include files) and win_libs folders.
+        
+        These files were obtained from http://www.boostpro.com/download
+        (If these files are not up to date with the current Python, you may have to
+        build the Boost libraries from source. See below. This was the case in 
+        Aug. 2010 when the standard release of Python was 2.7, but the boostpro 
+        libraries had been built for Python 2.6.)
+        
+	On Vista, in Command Prompt, link from Python site-packages to the CVS files
+	(YourCVS is the directory where you have put the CVS files)
+        cd C:\Python2N\Lib\site-packages
+		mklink /D visual \YourCVS\vpython-core2\site-packages\visual
+	
+	If you are using XP, you will need to copy/update these files 
+		from CVS to C:\Python25\Lib\site-packages:
+			visual, examples, docs
+
+	Build cvisual.pyd
+        Open the cvisual.sln project file in Visual Studio Express, make Release the active 
+        configuration, then press F7.
+
+        The .pyd file is placed in vpython-core2\site-packages\vis
+        Copy this file to C:\PythonXN\Lib\site-packages\vis
+
+        This is the only step that needs to be repeated as you make changes to the C++ source code.
+        
+    Get Polygon module.
+    In setup.py I tried setting withNumPy=True and defaultStyle='STYLE_NUMPY', but it won't compile.
+    In the Polygon directory execute C:\Python2N\python setup.py install
+    
+    Process MakeVPython.iss with Innosetup (innosetup.org) to build an installer:
+    1) Run compilevisual.py from the Visual source package to
+	   Python-compile all the Visual .py files (produces .pyc files).
+	2) Make sure that C:\Python2N\Lib\idlelib\config-main.def has edit startup and 
+	autosave set to 1 and that help is set for Visual before building the package.
+	3) Double-click MakeVPython.iss. 
+	4) Near the start of the file, update AppVerName if necessary.
+	5) Do Build > Compile to produce a Windows installer.
+	6) Run the installer.
+	This produces a Windows installer that can be used by an administrator to
+	install a fully-compiled Visual into a protected area that users can't write
+	to. Without this second inno setup to get the .pyc files, every user would
+	have to recompile some of the site-packages/visual/*.py files. No big deal,
+	but nicer to have these files already compiled.
+
+DEBUGGING
+Go to the "System" control panel and choose advanced settings, then environment variables
+Create a user variable "VPYTHON_DEBUG" and give it the value 1.
+
+Run the Windows command prompt, found in Accessories in the program listings, cd to a
+directory with a Python script, and execute this:
+
+\Python2N\python.exe sometest.py
+
+You'll get a trace of the VPYTHON_NOTE entries in the source code.
+
+BUILDING BOOST FROM SOURCE
+Download latest Boost (boost_1_43_0.zip, for example) from www.boost.org.
+Unzip into boost_1_43_0, for example.
+
+The following must be done from a Windows typescript, 
+or the Visual Studio Command Prompt, NOT from Msys.
+> cd boost_1_43_0
+
+cd to the Boost directory and execute 
+
+.\bootstrap.bat
+
+to create the bjam tool and project-config.jam.
+
+In the file project-config.jam, add the Python version (such as 3.1) for which the Boost
+libaries are to be built:
+
+using python : 3.1 ;
+
+To build the Boost libraries, execute this for Python 2.x
+
+.\bjam --build-type=complete --with-python --with-thread --with-signals stage
+
+or this for Python 3.x
+
+.\bjam --build-type=complete --with-python --with-thread --with-signals --with-random stage
+
+"complete" means "make various variants of the libraries".
+
+The files you want will be in stage/lib.
+Move the following multithreaded static libraries to dependencies/boost_files/win_libs.
+
+For Python 2.x:
+libboost_python-vc90-mt-s-1_43.lib
+libboost_signals-vc90-mt-s-1_43.lib
+libboost_thread-vc90-mt-s-1_43.lib
+
+For Python 3.x:
+libboost_python3-vc90-mt-s-1_43.lib (and then change the name in win_libs to libboost_python-vc90-mt-s-1_43.lib)
+libboost_signals-vc90-mt-s-1_43.lib
+libboost_thread-vc90-mt-s-1_43.lib
+
+Also, you need to copy the directory named boost from the Boost files into dependencies\boost_file.
+
+For Boost 1_42_0, in line 21 of boost\python\exception_translator.hpp you maay need
+to change bind to boost::bind. 
+
+Problem bulding with Boost 1.37; found this on the web (this problem disappeared for Boost 1.42):
+Furthermore building pyrap with boost-1.37 and gcc-4.3.2 gave an error 
+due to a missing include. The following patch has to be applied to boost:
+
+Index: boost/python/detail/translate_exception.hpp
+===================================================================
+--- boost/python/detail/translate_exception.hpp (revision 50228)
++++ boost/python/detail/translate_exception.hpp (working copy)
+@@ -9,6 +9,7 @@
+ 
+ # include <boost/call_traits.hpp>
+ # include <boost/type_traits/add_const.hpp>
++# include <boost/type_traits/add_reference.hpp>
+ 
+ # include <boost/function/function0.hpp>
+--------------------------------------

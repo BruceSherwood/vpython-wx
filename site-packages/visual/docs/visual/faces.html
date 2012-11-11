@@ -1,0 +1,190 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>faces</title>
+<!-- InstanceEndEditable -->
+<!-- InstanceBeginEditable name="head" -->
+<link href="VisualRef.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+<!--
+.style1 {font-size: x-large}
+.style2 {font-size: xx-large}
+-->
+</style>
+<!-- InstanceEndEditable -->
+<script type="text/javascript">
+<!--
+function MM_jumpMenu(targ,selObj,restore){ //v3.0
+  eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
+  if (restore) selObj.selectedIndex=0;
+}
+//-->
+</script>
+<link href="VisualRef.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<table width="800" border="0" cellpadding="0" cellspacing="0">
+  <!--DWLayoutDefaultTable-->
+  <tr>
+    <td width="10" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
+    <td width="10" height="272" valign="top" bgcolor="#DDDDDD"><p>&nbsp;</p>    </td>
+    <td width="173" valign="top" bgcolor="#DDDDDD"><p class="Normal"><a href="index.html">Home</a></p>
+      <p class="Normal">If you're new to Python <br />
+      and VPython: <a href="VisualIntro.html">Introduction</a></p>
+      <p class="Normal">A VPython <a href="VPython_Intro.pdf" target="_blank">tutorial</a></p>
+      <p class="Normal"><a href="primitives.html">Pictures</a> of 3D objects</p>
+      <p class="Normal">Choose an object:</p>
+        <select name="jumpMenu4" id="jumpMenu4" onchange="MM_jumpMenu('parent',this,0)">
+          <option>Choose an object</option>
+          <option value="cylinder.html">Overview</option>
+          <option value="arrow.html">arrow</option>
+          <option value="box.html">box</option>
+          <option value="cone.html">cone</option>
+          <option value="convex.html">convex</option>
+          <option value="curve.html">curve</option>
+          <option value="cylinder.html">cylinder</option>
+          <option value="ellipsoid.html">ellipsoid</option>
+          <option value="extrusion.html">extrusion</option>
+          <option value="faces.html">faces</option>
+          <option value="frame.html">frame</option>
+          <option value="helix.html">helix</option>
+          <option value="label.html">label</option>
+          <option value="lights.html">lights</option>
+          <option value="points.html">points</option>
+          <option value="pyramid.html">pyramid</option>
+          <option value="ring.html">ring</option>
+          <option value="sphere.html">sphere</option>
+          <option value="text.html">text</option>
+        </select>
+        
+      <p class="Normal">Work with objects:</p>
+        <select name="jumpMenu4" id="jumpMenu5" onchange="MM_jumpMenu('parent',this,0)">
+          <option>Choose an option</option>
+          <option value="color.html">Color/Opacity</option>
+          <option value="materials.html">Materials/Textures</option>
+          <option value="shapes.html">Shapes Library</option>
+          <option value="paths.html">Paths Library</option>
+          <option value="defaults.html">Defaults</option>
+          <option value="rate.html">Animation Speed</option>
+          <option value="rotation.html">Rotations</option>
+          <option value="options.html">Additional Options</option>
+          <option value="delete.html">Delete an Object</option>
+          <option value="float.html">3/4 = 0?</option>
+          <option value="controls.html">Buttons/Sliders</option>
+          <option value="graph.html">Graphs</option>
+          <option value="lights.html">Lighting</option>
+          <option value="files.html">Read/Write Files</option>
+          <option value="trail.html">Leaving a Trail</option>
+          <option value="vector.html">Vector Operations </option>
+          <option value="factorial.html">factorial/combin</option>
+        </select>
+        
+      <p class="Normal">Windows &amp Events:</p>
+        <select name="jumpMenu4" id="jumpMenu6" onchange="MM_jumpMenu('parent',this,0)">
+          <option>Choose a topic</option>
+          <option value="display.html">Windows</option>
+          <option value="mouse.html">Mouse Events</option>
+          <option value="mouse_click.html">&nbsp;&nbsp;&nbsp;Mouse Click</option>
+          <option value="mouse_drag.html">&nbsp;&nbsp;&nbsp;Mouse Drag</option>
+          <option value="keyboard.html">Keyboard Events</option>
+        </select>
+        
+    <p class="Normal">What's new in <a href="new_features.html">Visual 5</a></p>
+    <p class="Normal"><a href="http://vpython.org" target="_blank">VPython web site</a><br />
+      <a href="license.txt" target="_blank">Visual license</a><br />
+      <a href="http://www.python.org" target="_blank">Python web site</a> <br />
+      <a href="http://www.python.org/doc/2.5.2/lib/module-math.html" target="_blank">Math module</a> (sqrt etc.)<br />
+    <a href="http://www.scipy.org/Documentation" target="_blank">Numpy module</a> (arrays)    </p></td>
+    <td width="21" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
+    <td width="586" rowspan="2" valign="top"><!-- InstanceBeginEditable name="content" -->
+      <table width="100%" border="1">
+        <tr>
+          <td width="77%"><div align="center"><span class="style1 style2"><font color="#0000A0">faces</font></span></div></td>
+          <td width="23%"><div align="center"><img src="images/faces.jpg" alt="faces" width="131" height="127" /><a href="arrow.html"></a></div></td>
+        </tr>
+      </table>
+      <div>
+        <p class="Normal">The &quot;faces&quot; primitive takes a list
+            of triangles (position, color, and normal for each vertex). This
+            is useful for writing routines in Python to import 3D models made
+            with other 3D modeling tools. You would still need to do lots of
+            calculations of normals and so on, but you would not need to do C
+          coding to import an arbitrary model file.</p>
+        <p class="Normal">The faces object is an array primitive (like curve, convex, etc), so you 
+          have to use a frame to move it around. It consists of a set of one-sided triangles 
+          with user-specified vertices, colors, and normals. The <font color="#FF0000">pos</font>, <font color="#FF0000">color</font>, and <font color="#FF0000">normal</font> attributes look like this:</p>
+        <p class="program"> pos = [ t0v0, t0v1, t0v2, <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;          t1v0, t1v1, t1v2, <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;          t2v0, t2v1, 
+          t2v2, ... ] </p>
+        <p class="Normal">where t0v0 is the position vector (x,y,z) of vertex
+          0 of triangle 0, t0v1 is vertex 1 of  triangle 0, etc. Other faces
+          attributes are <font color="#FF0000">red</font>, <font color="#FF0000">green</font>,
+          <font color="#FF0000">blue</font>, <font color="#FF0000">visible</font>, <font color="#FF0000">material</font>, <font color="#FF0000">frame</font>, and <font color="#FF0000">display</font>.</p>
+        <p class="Normal">Creating a faces object in terms of triangles and normals can be very tedious. A convenient way to create a faces object is to create an <a href="extrusion.html"><strong>extrusion</strong></a> or <a href="text.html"><strong>text</strong></a> object and then use the create_faces() function, as described in the documentation for extrusion and text.</p>
+        <p class="Normal">Each face is a one-sided surface. Which side is illuminated is determined 
+          by the &quot;winding&quot; order of the face. When you are looking at a face, 
+          it is illuminated if the order of the vertices in the <span class="attribute">pos</span> list goes counter-clockwise. If you need the triangle to be visible from both 
+          sides, you must create another triangle with the opposite winding order. If you have made a one-sided faces object named myfaces, you can make all faces be two-sided with <font color="#FF0000">myfaces.make_twosided()</font>. This function became available with VPython 5.3.</p>
+        <p class="Normal">If you don't specify normals at the vertices, the face is illuminated only 
+          by &quot;ambient&quot; light. In order for the main lighting to affect the 
+          appearance, you must specify normals to the surface at the vertices. In the 
+          simplest case, a normal at a vertex is perpendicular to the face, and adjoining 
+          faces have a hard edge where they join. A soft edge can be produced by averaging 
+          the normals to the two faces at their common vertices. The brightness of a 
+          face is proportional to the cosine of the angle between the normal and the 
+          light. If you have created a faces object named myfaces without specifying normals, you can create normals perpendicular to all the faces with <font color="#FF0000">myfaces.make_normals()</font>. </p>
+        <p class="Normal">After creating a faces object named myfaces, <font color="#FF0000">myfaces.smooth()</font> will
+          average similar normals at a vertex and make the object look smoother.
+          The smoothing criterion is that normals will be averaged whose directions
+          differ by an angle whose cosine is greater than or equal to 0.95, which
+          means angles less than 18 degrees. You must make sure that all vertices
+          have nonzero normals before using the smooth function; a simple scheme
+          is to use <font color="#FF0000">myfaces.make_normals()</font> to
+          make normals perpendicular to all the faces and then use the smooth
+          function to adjust them for improved appearance. You can specify
+          the smoothing criterion. For example, <font color="#FF0000">myfaces.smooth(0.7)</font> will
+          average normals whose directions differ by an angle whose cosine is
+          greater than or equal to 0.7 (angles less than 45 degrees).</p>
+        <p class="Normal">If you specify different colors at the vertices of one triangular face, VPython 
+          interpolates across the face, in which case the face is not all one color. 
+          There is a similar interpolation for normals if there are different normals 
+          at the vertices, in which case the face is not all one brightness.</p>
+        <p class="Normal">You can append  additional vertices to an existing
+          faces object with one of the following four forms (assuming the object
+          is named f):</p>
+        <p class="program"> f.append(pos=(x,y,z))<br />
+f.append(pos=(x,y,z), normal=(nx,ny,nz))<br />
+          f.append(pos=(x,y,z), normal=(nx,ny,nz), color=(r,g,b))<br />
+f.append(pos=(x,y,z), normal=(nx,ny,nz), <br />
+ &nbsp;&nbsp;&nbsp;&nbsp;         red=r, green=g, blue=b)</p>
+        <p class="Normal">Another convenient way to construct a faces object
+          is to create a list or numpy array of positions, then create the faces
+          object with the <font color="#FF0000">pos</font> attribute set to the
+          list or array. Then use <font color="#FF0000">make_normals()</font>, <font color="#FF0000">make_twosided()</font>, and <font color="#FF0000">smooth()</font> to
+          complete the task.</p>
+        <p class="Normal">The faces object is intended to help with writing model importers and other 
+          new primitives in Python, not for direct manipulation by normal programs. 
+          It is considerably lower-level than any of the other objects in Visual (although 
+          it is not necessarily any faster, at least right now). It is flexible enough 
+          to implement smooth or facet shading, per-vertex coloration, two-sided or 
+          one-sided lighting, etc, but all of these calculations must be made by the 
+        programmer (when setting up <font color="#FF0000">pos</font>, <font color="#FF0000">color</font>, <font color="#FF0000">normal</font>), although much of this can be done using the make_normals, make_twosided, and smooth functions.</p>
+<p class="Normal">You can specify a  <a href="materials.html">material</a>, but
+          currently you can not specify opacity for faces.</p>
+        <p class="Normal">See description of <a href="options.html">Additional
+            Attributes</a> available for all 3D display objects.</p>
+        <p class="Normal">For examples of the use of the faces object, see the faces demo programs.</p>
+      </div>
+      <div></div>
+    <!-- InstanceEndEditable --></td>
+  </tr>
+  <tr>
+    <td height="16" colspan="4"></td>
+  </tr>
+</table>
+</body>
+<!-- InstanceEnd --></html>

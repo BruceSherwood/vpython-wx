@@ -1,0 +1,55 @@
+cInstructions for creating a Mac installer.
+
+To use the Apple Package Manager to create an installer, create a folder named "stage"
+at the same level as vpython-core2, for assembling an installer for Python 3 (if you
+are assembling an installer for Python 2.7, name the folder "stage2"). 
+
+Place in stage:
+	Files that will go to site-packages:
+		vis and visual folders (from vpython-core2/site-packages)
+		vidle (from vpython-core2/site-packages or site-packages)
+		numpy files (folder and file from site-packages)
+		FontTools folder and fonttools .egg-info file
+		Polygon folder and Polygon .egg-info file
+		ttfquery folder and TTFQuery .egg-info file
+	
+	Files that will go to Applications/VPython:
+	VPython/examples folder
+	VPython/docs folder
+	VPython/VIDLE launcher (unzip from src/mac/PackageMaker/VIDLE_launcher.zip)
+
+Clean out irrelevant files from these folders (e.g. CVS folders, make files).
+
+The VIDLE launcher was created starting from the IDLE launcher found in the
+/Applications/Python X.Y folder. Make a copy of this IDLE launcher.
+If you right-click (ctrl-click) IDLE, you can gain access to the contents
+of what is actually a folder. The Python script Resources/idlemain.py was 
+edited with TextEdit to change idlelib.PyShell to vidle.PyShell. 
+Doubleclick info.plist to use the plist editor to change IDLE to VIDLE
+in "Executable file", "Bundle identifier", and "Bundle name".
+Change the name of MacOS/IDLE to MacOS/VIDLE.
+You don't need to change IDLE to VIDLE in the icon file names (*.icns).
+Finally, change the name of the IDLE launcher to VIDLE.
+
+Ctrl-click the stage folder and choose Get Info.
+Expose Sharing & Permissions.
+Click the lock and enter your password.
+Set "everyone" to have Read & Write access.
+At the bottom of the window, click the star menu icon and choose "Apply to enclosed items".
+	This is necessary to permit someone to install over an existing installation.
+
+Now go to PackageMaker folder and doubleclick the package manager file.
+
+Choose Project > Install Properties to specify the minimum operating system required.
+
+For the VPython folder component (Examples, Documentation, VIDLE shortcut), click the folder
+in the left panel. Highlight the Configuration tab and set the destination to
+/Applications/VPython-PyX.Y (e.g. /Applications/VPython-Py2.7). Make sure that in the stage
+folder for vidle the file config-main.def the HelpFiles entry also specifies 
+/Applications/VPython-PyX.Y.
+
+Next, highlight the Components tab. 
+IMPORTANT: Make sure that Allow Relocation for VIDLE.app is NOT checked.
+This must be every time you build the installer; the setting is not saved.
+
+Build the installer. 

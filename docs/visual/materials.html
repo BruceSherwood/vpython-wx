@@ -1,0 +1,259 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>materials and textures</title>
+<!-- InstanceEndEditable -->
+<!-- InstanceBeginEditable name="head" -->
+<link href="VisualRef.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+<!--
+.style1 {color: #0000A0}
+-->
+</style>
+<style type="text/css">
+<!--
+.style2 {font-size: x-large}
+.style2 {font-size: xx-large}
+-->
+</style>
+<!-- InstanceEndEditable -->
+<script type="text/javascript">
+<!--
+function MM_jumpMenu(targ,selObj,restore){ //v3.0
+  eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
+  if (restore) selObj.selectedIndex=0;
+}
+//-->
+</script>
+<link href="VisualRef.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<table width="800" border="0" cellpadding="0" cellspacing="0">
+  <!--DWLayoutDefaultTable-->
+  <tr>
+    <td width="10" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
+    <td width="10" height="272" valign="top" bgcolor="#DDDDDD"><p>&nbsp;</p>    </td>
+    <td width="173" valign="top" bgcolor="#DDDDDD"><p class="Normal"><a href="index.html">Home</a></p>
+      <p class="Normal">If you're new to Python <br />
+      and VPython: <a href="VisualIntro.html">Introduction</a></p>
+      <p class="Normal">A VPython <a href="VPython_Intro.pdf" target="_blank">tutorial</a></p>
+      <p class="Normal"><a href="primitives.html">Pictures</a> of 3D objects</p>
+      <p class="Normal">Choose an object:</p>
+        <select name="jumpMenu4" id="jumpMenu4" onchange="MM_jumpMenu('parent',this,0)">
+          <option>Choose an object</option>
+          <option value="cylinder.html">Overview</option>
+          <option value="arrow.html">arrow</option>
+          <option value="box.html">box</option>
+          <option value="cone.html">cone</option>
+          <option value="convex.html">convex</option>
+          <option value="curve.html">curve</option>
+          <option value="cylinder.html">cylinder</option>
+          <option value="ellipsoid.html">ellipsoid</option>
+          <option value="extrusion.html">extrusion</option>
+          <option value="faces.html">faces</option>
+          <option value="frame.html">frame</option>
+          <option value="helix.html">helix</option>
+          <option value="label.html">label</option>
+          <option value="lights.html">lights</option>
+          <option value="points.html">points</option>
+          <option value="pyramid.html">pyramid</option>
+          <option value="ring.html">ring</option>
+          <option value="sphere.html">sphere</option>
+          <option value="text.html">text</option>
+        </select>
+        
+      <p class="Normal">Work with objects:</p>
+        <select name="jumpMenu4" id="jumpMenu5" onchange="MM_jumpMenu('parent',this,0)">
+          <option>Choose an option</option>
+          <option value="color.html">Color/Opacity</option>
+          <option value="materials.html">Materials/Textures</option>
+          <option value="shapes.html">Shapes Library</option>
+          <option value="paths.html">Paths Library</option>
+          <option value="defaults.html">Defaults</option>
+          <option value="rate.html">Animation Speed</option>
+          <option value="rotation.html">Rotations</option>
+          <option value="options.html">Additional Options</option>
+          <option value="delete.html">Delete an Object</option>
+          <option value="float.html">3/4 = 0?</option>
+          <option value="controls.html">Buttons/Sliders</option>
+          <option value="graph.html">Graphs</option>
+          <option value="lights.html">Lighting</option>
+          <option value="files.html">Read/Write Files</option>
+          <option value="trail.html">Leaving a Trail</option>
+          <option value="vector.html">Vector Operations </option>
+          <option value="factorial.html">factorial/combin</option>
+        </select>
+        
+      <p class="Normal">Windows &amp Events:</p>
+        <select name="jumpMenu4" id="jumpMenu6" onchange="MM_jumpMenu('parent',this,0)">
+          <option>Choose a topic</option>
+          <option value="display.html">Windows</option>
+          <option value="mouse.html">Mouse Events</option>
+          <option value="mouse_click.html">&nbsp;&nbsp;&nbsp;Mouse Click</option>
+          <option value="mouse_drag.html">&nbsp;&nbsp;&nbsp;Mouse Drag</option>
+          <option value="keyboard.html">Keyboard Events</option>
+        </select>
+        
+    <p class="Normal">What's new in <a href="new_features.html">Visual 5</a></p>
+    <p class="Normal"><a href="http://vpython.org" target="_blank">VPython web site</a><br />
+      <a href="license.txt" target="_blank">Visual license</a><br />
+      <a href="http://www.python.org" target="_blank">Python web site</a> <br />
+      <a href="http://www.python.org/doc/2.5.2/lib/module-math.html" target="_blank">Math module</a> (sqrt etc.)<br />
+    <a href="http://www.scipy.org/Documentation" target="_blank">Numpy module</a> (arrays)    </p></td>
+    <td width="21" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
+    <td width="586" rowspan="2" valign="top"><!-- InstanceBeginEditable name="content" -->
+
+        <table width="100%" border="1">
+          <tr>
+            <td width="76%"><div align="center"><span class="style2"><font color="#0000A0">Materials
+                    &amp; Textures</font></span></div></td>
+            <td width="24%"><img src="images/material_etc.jpg" alt="material etc" width="334" height="235" /></td>
+          </tr>
+        </table>
+        <p class="Normal">You can specify a material such as wood for any object
+          other than a points object:</p>
+        <p class="program">sphere(color=color.orange, material=materials.wood)</p>
+        <p class="Normal">The materials that are currently available include these:</p>
+        <p class="program">materials.wood<br />
+materials.rough<br />
+materials.marble<br />
+materials.plastic<br />
+materials.earth<br />
+materials.diffuse<br />
+        materials.emissive (looks like it glows)<br />
+materials.unshaded (unaffected by lighting)</p>
+        <p class="Normal">New as of VPython 5.50:</p>
+      <p class="program">materials.shiny<br />
+        materials.chrome<br />
+        materials.blazed<br />
+        materials.silver<br />
+        materials.BlueMarbe (earth with clouds)<br />
+        materials.bricks<br />
+        </p>
+        <p class="Normal">The example program <strong>material_test.py</strong> displays
+          all of these materials. The <strong>emissive</strong> material is particularly
+          appropriate for simulating the appearance of a light glowing with the
+          specified color. This apparent light has no lighting effect on other
+          objects, but you may wish to place a local_light at the same location,
+          as is done with the swinging light in the example program <strong>texture_and_lighting.py</strong>.
+          The appearance of the <strong>unshaded</strong> material  is unaffected
+          by lighting and is useful when you want to display an object whose
+      appearance is determined solely by its own attributes.</p>
+        <p class="Normal">If you specify <span class="attribute">scene.material = materials.plastic</span>, all objects created thereafter will by default be plastic unless a different material is specifically assigned.</p>
+      <p class="Normal">Materials will work with graphics cards that support
+          Pixel Shader 3.0 (&quot;PS 3.0&quot;). For details, see<br />
+        <a href="http://en.wikipedia.org/wiki/Pixel_shader#Hardware" target="_blank">http://en.wikipedia.org/wiki/Pixel_shader#Hardware</a>. <em>Some</em> materials
+        may work with graphics cards that support PS 2.0, but other materials
+        may need to be manually disabled; see instructions in the <strong>site-settings.py</strong> module
+        in the Visual package in your site-packages folder. If the graphics hardware
+        does not support pixel shaders, the material property is ignored. If
+        you think you should be able to use materials but have trouble with their
+        display or performance, we highly recommend upgrading your video card
+        drivers to the latest version.</p>
+        <p class="Normal">Some materials such as wood are oriented to the specified axis. For example,
+        a wood box with default axis = (1,0,0) shows tree rings on its yz surfaces
+        and stripes on the other faces. Changing the axis changes which face you see
+        the tree rings on. </p>
+        <p class="Normal style1"><strong><font color="#0000A0">Creating your own texture</font> </strong></p>
+        <p class="Normal">You can create a texture object and then apply it to the surface of an object. 
+          A surface texture 
+          is an M by N  array of slots containing 1, 2, 3, or 4 numerical values. M and 
+          N must be powers of 2 (1, 2, 4, 8, 16, 32, 64, 128, 256, 512, etc.). The numerical values can represent color, luminance (brightness or shades of gray), or opacity.</p>
+      <p class="Normal">Here are the possibilities 
+          for each slot in the  array:</p>
+        <blockquote>
+          <p class="Normal">1 value: luminance by default, or specify <span class="attribute">channels=[&quot;opacity&quot;]</span> to represent opacity</p>
+          <p class="Normal">2 values: luminance and opacity</p>
+          <p class="Normal">3 values: red,green,blue </p>
+          <p class="Normal">4 values: red,green,blue,opacity</p>
+        </blockquote>
+      <p class="Normal">Here is an example program in which a 4 by 4 by 1 checkerboard
+          texture is created and applied to a box:</p>
+      <p class="program">from visual import *<br />
+      checkerboard = ( (0,1,0,1), <br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (1,0,1,0),<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (0,1,0,1),<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (1,0,1,0) )<br />
+      tex = materials.texture(data=checkerboard,<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mapping=&quot;rectangular&quot;,<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;interpolate=False)<br />
+      box(axis=(0,0,1), color=color.cyan, material=tex)</p>
+    <p class="Normal">The example above uses a <span class="attribute">rectangular</span> mapping, which places the texture on
+          two opposing faces of a box, with stripes along the sides. By default, one of the faces is in the (1,0,0)
+          direction, but this can be changed by specifying a different axis for the box, as was done in the example above. A <span class="attribute">sign</span> mapping is similar
+          to rectangular but  is unaffected by the color of the object
+          and appears on only one face of a box (determined by the axis of the
+          box).
+          A   <span class="attribute">spherical</span> mapping wraps around the entire object. In the example program <strong>texture_and_lighting.py</strong> you can find a creation of
+          a beach ball using spherical mapping.</p>
+      <p class="Normal">By default <span class="attribute">interpolate</span> is True, but to get a sharply defined checkerboard
+          in the example above, it was set to False. </p>
+        <p class="Normal">You can save the texture data in a  file for later use::</p>
+      <p class="program">materials.saveTGA(&quot;checks&quot;, checkerboard)</p>
+        <p class="Normal">This saves the checkboard pattern in a file &quot;checks.tga&quot;, a targa file which many graphics applications can display. In later programs you can use this data without recreating it:</p>
+        <p class="program">data = materials.loadTGA(&quot;checks&quot;)</p>
+        <p class="Normal">More generally, any targa file whose
+          width and height are both powers of 2 can be read as data using <strong>materials.loadTGA(filename)</strong>.
+          If the actual file name is &quot;checks.tga&quot; you can give the full file
+          name or just &quot;checks&quot;.</p>
+        <p class="Normal">One way to create a pattern is to start by creating a numpy array of zeros, then assign values to individual slots:</p>
+<p class="program">pattern = zeros((4,8,3)) # 4 by 8 by 3 numpy array of 0's<br />
+          pattern[0][0] = (1,.5,.7) # assign first rgb triple<br />
+        </p>
+      <p class="Normal"><strong><font color="#0000A0">Another  example </font></strong></p>
+      <p class="Normal">Here is an example of placing a  &quot;sign&quot; on one face of a box, consisting of a 2 by 2 by 3 grid of color components: </p>
+      <p class="program">from visual import *<br />
+        grid = ( (color.red, (1, 0.7 ,0)),<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;((0, 1, 0.3), color.magenta) )<br />
+        tgrid = materials.texture(data=grid,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        mapping=&quot;sign&quot;,<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;interpolate=False)<br />
+      box(axis=(0,0,1), material=tgrid)</p>
+      <p class="Normal style1"><strong><font color="#0000A0">Making a texture from a photo</font></strong></p>
+      <p class="Normal">A texture can be created from a targa file, and various graphics applications can convert photos in jpeg or other formats to targa files. One tool for doing this is PIL, the Python Imaging Library, which can be downloaded and installed (you can find it with a web search). Here is an example of PIL code which converts a jpeg photo into a targa file which can be used to create a texture for displaying the image, as in the example program <strong>stonehenge.py</strong>.</p>
+      <p class="program">from visual import *<br />
+        import Image # Must install PIL<br />
+        name = &quot;flower&quot;<br />
+        width = 128 # must be power of 2<br />
+        height = 128 # must be power of 2<br />
+        im = Image.open(name+&quot;.jpg&quot;)<br />
+        #print(im.size) # optionally, see size of image<br />
+        # Optional cropping:<br />
+        #im = im.crop((x1,y1,x2,y2)) # (0,0) is upper left<br />
+        im = im.resize((width,height), Image.ANTIALIAS)<br />
+materials.saveTGA(name,im)</p>
+      <p class="Normal">At a later time you can say <strong>data
+        = materials.loadTGA(name)</strong>        to retrieve the image data from the targa file.</p>
+      <p class="Normal">As a convenience, a texture can also be created directly from the PIL image data, like this:</p>
+      <p class="program">tex = materials.texture(data=im, mapping=&quot;sign&quot;)</p>
+      <p class="Normal"><strong><font color="#0000A0">Efficiency issues</font></strong></p>
+      <p class="Normal">Normally you create a data pattern containing values in the range from 0.0 to 1.0, the standard range of color components and opacity in Visual. However, the underlying graphics machinery works with values in the range of 0 to 255, which can be expressed in one 8-bit byte of computer memory. If you are dealing with large textures and time is critical, you should avoid conversions from the range 0-1 to the range 0-255 by constructing the texture data from a numpy array of unsigned 8-bit bytes. An unsigned byte is referred to as <strong>ubyte</strong>. Here is a simple example:</p>
+      <p class="program">checkers = array( ( (0,255,0,255), <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;(255,0,255,0),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;(0,255,0,255),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;(255,0,255,0) ), ubyte)</p>
+      <p class="Normal">The array function converts a sequence of values into a numpy array. In this case the values are 8-bit bytes.</p>
+      <p class="Normal"><strong><font color="#0000A0">Channels</font></strong></p>
+      <p class="Normal">Data &quot;channels&quot; are a part of the definition of a texture. For the most part, these channels are assigned automatically for you, like this:</p>
+      <blockquote>
+        <p class="Normal">1 value: <span class="attribute">channels=[&quot;luminance&quot;]</span> by default, <span class="attribute">channels=[&quot;opacity&quot;]</span> to represent opacity</p>
+        <p class="Normal">2 values: <span class="attribute">channels=</span><span class="attribute">[&quot;luminance&quot;,&quot;opacity&quot;]</span></p>
+        <p class="Normal">3 values: <span class="attribute">channels=</span><span class="attribute">[&quot;red&quot;,&quot;green&quot;,&quot;blue&quot;]</span> </p>
+        <p class="Normal">4 values: <span class="attribute">channels=[&quot;red&quot;,&quot;green&quot;,&quot;blue&quot;,&quot;opacity&quot;]</span></p>
+      </blockquote>
+      <p class="Normal">Except for specifying that a pattern represents opacity rather than luminance (brightness, or shade of gray), it isn't necessary to specify channels when constructing a texture because the channel options shown above are currently the only valid sets of channels. However, it is expected that in the future there may be additional channels available, such as glossiness.</p>
+      <p class="Normal"><strong><font color="#0000A0">mipmap </font></strong></p>
+      <p class="Normal">When an object in the scene is small and far away, there is no need to display its texture in full detail. With the default <span class="attribute">mipmap=True</span>, Visual prepares a set of smaller textures to use when appropriate. These additional textures take some time to prepare for later use, and required storage space is one-third larger, but they can speed up the rendering of a scene. It should rarely be the case that you would need to set mipmap=False. </p>
+      <p class="Normal"><strong><font color="#0000A0">Creating your own materials </font></strong></p>
+      <p class="Normal">Creating your own materials (in contrast to creating textures) is technically somewhat challenging. The program <strong>materials.py</strong>, a component of the Visual module, contains the shader models for wood and other materials, and it also contains instructions on how to build your own materials. Shader models are written in a C-like language, GLSL (OpenGL Shader Language).</p>
+    <!-- InstanceEndEditable --></td>
+  </tr>
+  <tr>
+    <td height="16" colspan="4"></td>
+  </tr>
+</table>
+</body>
+<!-- InstanceEnd --></html>

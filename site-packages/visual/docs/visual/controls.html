@@ -1,0 +1,230 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>controls</title>
+<!-- InstanceEndEditable -->
+<!-- InstanceBeginEditable name="head" -->
+<link href="VisualRef.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+<!--
+.style1 {font-size: x-large}
+.style2 {font-size: xx-large}
+-->
+</style>
+<!-- InstanceEndEditable -->
+<script type="text/javascript">
+<!--
+function MM_jumpMenu(targ,selObj,restore){ //v3.0
+  eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
+  if (restore) selObj.selectedIndex=0;
+}
+//-->
+</script>
+<link href="VisualRef.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<table width="800" border="0" cellpadding="0" cellspacing="0">
+  <!--DWLayoutDefaultTable-->
+  <tr>
+    <td width="10" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
+    <td width="10" height="272" valign="top" bgcolor="#DDDDDD"><p>&nbsp;</p>    </td>
+    <td width="173" valign="top" bgcolor="#DDDDDD"><p class="Normal"><a href="index.html">Home</a></p>
+      <p class="Normal">If you're new to Python <br />
+      and VPython: <a href="VisualIntro.html">Introduction</a></p>
+      <p class="Normal">A VPython <a href="VPython_Intro.pdf" target="_blank">tutorial</a></p>
+      <p class="Normal"><a href="primitives.html">Pictures</a> of 3D objects</p>
+      <p class="Normal">Choose an object:</p>
+        <select name="jumpMenu4" id="jumpMenu4" onchange="MM_jumpMenu('parent',this,0)">
+          <option>Choose an object</option>
+          <option value="cylinder.html">Overview</option>
+          <option value="arrow.html">arrow</option>
+          <option value="box.html">box</option>
+          <option value="cone.html">cone</option>
+          <option value="convex.html">convex</option>
+          <option value="curve.html">curve</option>
+          <option value="cylinder.html">cylinder</option>
+          <option value="ellipsoid.html">ellipsoid</option>
+          <option value="extrusion.html">extrusion</option>
+          <option value="faces.html">faces</option>
+          <option value="frame.html">frame</option>
+          <option value="helix.html">helix</option>
+          <option value="label.html">label</option>
+          <option value="lights.html">lights</option>
+          <option value="points.html">points</option>
+          <option value="pyramid.html">pyramid</option>
+          <option value="ring.html">ring</option>
+          <option value="sphere.html">sphere</option>
+          <option value="text.html">text</option>
+        </select>
+        
+      <p class="Normal">Work with objects:</p>
+        <select name="jumpMenu4" id="jumpMenu5" onchange="MM_jumpMenu('parent',this,0)">
+          <option>Choose an option</option>
+          <option value="color.html">Color/Opacity</option>
+          <option value="materials.html">Materials/Textures</option>
+          <option value="shapes.html">Shapes Library</option>
+          <option value="paths.html">Paths Library</option>
+          <option value="defaults.html">Defaults</option>
+          <option value="rate.html">Animation Speed</option>
+          <option value="rotation.html">Rotations</option>
+          <option value="options.html">Additional Options</option>
+          <option value="delete.html">Delete an Object</option>
+          <option value="float.html">3/4 = 0?</option>
+          <option value="controls.html">Buttons/Sliders</option>
+          <option value="graph.html">Graphs</option>
+          <option value="lights.html">Lighting</option>
+          <option value="files.html">Read/Write Files</option>
+          <option value="trail.html">Leaving a Trail</option>
+          <option value="vector.html">Vector Operations </option>
+          <option value="factorial.html">factorial/combin</option>
+        </select>
+        
+      <p class="Normal">Windows &amp Events:</p>
+        <select name="jumpMenu4" id="jumpMenu6" onchange="MM_jumpMenu('parent',this,0)">
+          <option>Choose a topic</option>
+          <option value="display.html">Windows</option>
+          <option value="mouse.html">Mouse Events</option>
+          <option value="mouse_click.html">&nbsp;&nbsp;&nbsp;Mouse Click</option>
+          <option value="mouse_drag.html">&nbsp;&nbsp;&nbsp;Mouse Drag</option>
+          <option value="keyboard.html">Keyboard Events</option>
+        </select>
+        
+    <p class="Normal">What's new in <a href="new_features.html">Visual 5</a></p>
+    <p class="Normal"><a href="http://vpython.org" target="_blank">VPython web site</a><br />
+      <a href="license.txt" target="_blank">Visual license</a><br />
+      <a href="http://www.python.org" target="_blank">Python web site</a> <br />
+      <a href="http://www.python.org/doc/2.5.2/lib/module-math.html" target="_blank">Math module</a> (sqrt etc.)<br />
+    <a href="http://www.scipy.org/Documentation" target="_blank">Numpy module</a> (arrays)    </p></td>
+    <td width="21" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
+    <td width="586" rowspan="2" valign="top"><!-- InstanceBeginEditable name="content" -->
+      <table width="100%" border="1">
+        <tr>
+          <td width="76%"><div align="center">
+            <h1><font color="#0000A0">Controls:
+              buttons, sliders, toggles, and menus</font></h1>
+          </div></td>
+          <td width="24%"><a href="controls.html"><img src="images/controls.jpg" alt="controls" width="267" height="250" /></a><a href="arrow.html"></a></td>
+        </tr>
+      </table>
+      <div></div>
+      <div>
+        <p class="Normal">You can create buttons, sliders, toggle switches, and pull-down menus to 
+          control your program. You import these capabilities with this statement:</p>
+        <div>
+          <p class="program"> from visual.controls import *</p>
+        </div>
+        <p class="Normal">Importing from <span class="attribute">visual.controls</span> makes available 
+          all Visual objects plus the controls module. To use the control features, 
+          you create a special controls window and add control objects to that window, 
+          specifying what actions should take place when the controls are manipulated. 
+          For example, an action associated with a button might be the execution of 
+          a function to change the color of a Visual object. For a detailed example, see the VPython 
+          demo program <span class="attribute">controlstest.py</span>. </p>
+        <p class="Normal">Here is a small example. All it does is change the button text when you click 
+          the button. The Python construction &quot;lambda:&quot; is required for the 
+          controls module to have the correct context (&quot;namespace&quot;) for calling 
+          the specified routine.</p>
+        <p class="program">from visual.controls import *<br />
+        &nbsp;<br />
+        def change(): # Called by controls 
+          when button clicked<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;if b.text == 'Click me':<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b.text = 'Try again'<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;else:<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b.text = 'Click me'<br />
+        &nbsp;<br />
+        c = controls() # Create controls window<br />
+        # Create a button in the controls window:<br />
+        b = button( pos=(0,0), width=60, height=60, <br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text='Click 
+          me', action=lambda: change() )        
+        <p class="Normal"></p>
+        <p class="Normal">Technical note: It used to be necessary to call c.interact() repeatedly in order for the controls to be active, but this is no longer necessary. The interact function still exists for backward compatibility, but it does nothing.</p>
+</div>
+<p class="Normal"><font color="#0000A0">Controls window</font></p>
+      <p class="attributes"> <span class="attribute">controls()</span> Creates a controls 
+        window with the specified attributes, and returns it. For example, the following 
+        creates a controls window 300 by 300, located at (0,400) with respect to the 
+        upper left corner of the screen, with 'Controlling the Scene' in the title bar, 
+        and a range of 50 (window coordinates from -50 to +50 in x and y):</p>
+      <div>
+        <p class="program"> c = controls(title='Controlling the Scene',<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x=0, y=400, width=300, height=300, 
+          range=50)</p>
+      </div>
+      <div></div>
+      <div>
+        <div>
+          <p class="Normal"><font color="#0000A0">Controls window parameters</font></p>
+          <p class="attributes"> <span class="attribute">x</span>, <span class="attribute">y</span> Position of the window on the screen (pixels from upper left)</p>
+          <p class="attributes"> <span class="attribute">width</span>, <span class="attribute">height</span> Width and height of the display area in pixels.</p>
+          <p class="attributes"> <span class="attribute">title</span> Text in the control 
+            window's title bar.</p>
+          <p class="attributes"><span class="attribute">range</span> The extent
+            of the  region of interest away from the center along each axis.
+            The default is  100. The center of a controls window is always (0,0).</p>
+          <p class="attributes"> <span class="attribute">display </span><span class="Normal">Every
+              controls window has the attribute <span class="attribute">display</span>;
+              sphere(display=c.display) will place a sphere in the controls window
+              named c.</span></p>
+          <p class="Normal"><font color="#0000A0">Control objects</font></p>
+          <p class="Normal">After creating a controls window, you can create the following 
+            control objects that will appear in that window:</p>
+          <p class="attributes"> <span class="attribute"><b>button</b></span> A button 
+            to click.</p>
+          <p class="attributes"> <span class="attribute"><b>slider</b></span> Drag a 
+            slider to enter a numeric value graphically.</p>
+          <p class="attributes"> <span class="attribute"><b>toggle</b></span> Click 
+            on the handle to flip a toggle switch.</p>
+          <p class="attributes"><span class="attribute"><b>menu</b></span> A pull-down 
+            menu of options.</p>
+          <p class="Normal">Control objects have the following attributes:</p>
+          <p class="attributes"> <span class="attribute">pos</span><span class="attribute"></span> Position of the control (center of button or toggle, one end of slider, 
+            upper left corner of menu title)</p>
+          <p class="attributes"> <span class="attribute">color</span> Gray by default</p>
+          <p class="attributes"> <span class="attribute">width</span><span class="attribute"></span> Width of button, toggle, or menu</p>
+          <p class="attributes"> <span class="attribute">height</span> Height of button, 
+            toggle, or menu</p>
+          <p class="attributes"><span class="attribute">axis</span> Axis for slider, 
+            pointing from <span class="attribute">pos</span><span class="attribute"></span> to other end (as for cylinder or arrow)</p>
+          <p class="attributes"> <span class="attribute">length</span> Length of slider 
+            (in direction of axis)</p>
+          <p class="attributes"> <span class="attribute">min, max</span> Minimum and 
+            maximum values for a slider</p>
+          <p class="attributes"> <span class="attribute">value</span> Value of
+            toggle  (0 or 1), slider (depends on slider min and max), or menu
+            (the text just selected on the menu). The value of a toggle
+            or slider (but not a menu) can be set as well as read. If you set
+            the value of a toggle or slider, the control moves to the position
+            that corresponds to that value.</p>
+          <p class="attributes"> <span class="attribute">text</span> Text to
+            display  on a button, or the header at the top of a menu</p>
+          <p class="attributes"> <span class="attribute">text0</span> Text to display 
+            below a toggle switch (associated with toggle value = 0)</p>
+          <p class="attributes"> <span class="attribute">text1</span> Text to display 
+            above a toggle switch (associated with toggle value = 1)</p>
+          <p class="attributes"> <span class="attribute">action</span> Specify Python 
+            statement to be executed when a control is manipulated</p>
+          <p class="attributes"> <span class="attribute">items</span> For menus only, 
+            list of menu items to choose from. Here is how to add a menu item to a menu 
+            named m1:</p>
+          <p class="program">m1.items.append( ('Red', lambda: cubecolor(color.red)) )</p>
+          <p class="attributes"></p>
+          <p class="attributes"> This adds to the pull-down menu an item 'Red' which 
+            when chosen will pass the value color.red to the subroutine cubecolor(). 
+            The Python construction &quot;lambda:&quot; is required for the controls 
+            module to have the correct context (&quot;namespace&quot;) for calling the 
+            specified routine.</p>
+        </div>
+      </div>
+      <!-- InstanceEndEditable --></td>
+  </tr>
+  <tr>
+    <td height="16" colspan="4"></td>
+  </tr>
+</table>
+</body>
+<!-- InstanceEnd --></html>

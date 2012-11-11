@@ -1,0 +1,345 @@
+# This Makefile.in contains rules to build Visual Python on MS Windows with 
+# MinGW, Apple OSX, and Unix-like systems.  You must process this file with 
+# config.status to produce the Makefile.
+
+# This Makefile uses the quiet approach currently favored by the Linux kernel
+# version 2.6
+
+@SET_MAKE@
+.PHONY: clean distclean distdir install depclean deps install-strip \
+	all uninstall
+.DEFAULT: all
+.SUFFIXES:
+LOGFILE = build.log
+
+# Programs determined by configure
+CXX = @CXX@
+LIBTOOL = @LIBTOOL@
+INSTALL = @INSTALL@
+PYTHON = @PYTHON@
+SHELL = @SHELL@
+depcomp = $(SHELL) $(top_srcdir)/depcomp
+CXXDEPMODE = @CXXDEPMODE@
+STRIP = @STRIP@
+MKDIR = $(SHELL) $(top_srcdir)/install-sh -d
+
+# System configurable variables determined by configure
+PYTHON_PREFIX = @PYTHON_PREFIX@
+PYTHON_VERSION = @PYTHON_VERSION@
+PYTHON_PLATFORM = @PYTHON_PLATFORM@
+PYTHON_INCLUDES = @PYTHON_INCLUDES@
+PYTHON_INCLUDES += -I${prefix}/lib/python${PYTHON_VERSION}/dist-packages/numpy/core/include
+#BOOST_INCLUDES = # @BOOST_INCLUDES@
+
+# System configuration variables only found on Win32
+#  the two-part version string without the period.
+WIN32_PYTHON_VERSION = $(subst .,"",$(PYTHON_VERSION))
+WIN32_LIBS = -lpython$(WIN32_PYTHON_VERSION) \
+	-lboost_python$(WIN32_PYTHON_VERSION) -lgdi32 -lopengl32 -lglu32
+WIN32_CPPFLAGS = -mthreads -mms-bitfields -I$(top_srcdir)/include/win32
+WIN32_CPPFLAGS = -mthreads -mms-bitfields \
+	-IC:/Python$(WIN32_PYTHON_VERSION)/include
+WIN32_LDFLAGS = -mthreads
+
+# Prevent using the broken Apple C preprocessor,
+# silence a warning from Python 2.3, which uses a long double for padding
+# in an inconvient place for Apple's GCC.
+OSX_CPPFLAGS = #-no-cpp-precomp -fno-common -Wno-long-double
+
+# System configuration variables for Unix-like systems
+GTK_LIBS = @GTK_LIBS@
+GTK_CFLAGS = @GTK_CFLAGS@ -I$(top_srcdir)/include/gtk2
+GTHREAD_LIBS = @GTHREAD_LIBS@
+GTHREAD_CFLAGS = @GTHREAD_CFLAGS@
+
+# Option flags for the compiler, constructed from the above.
+CVISUAL_CPPFLAGS = $(BOOST_INCLUDES) $(PYTHON_INCLUDES) -DHAVE_CONFIG_H \
+        -I$(top_srcdir)/dependencies/threadpool/include \
+		-I$(top_srcdir)/include -I$(top_builddir)/include
+LDFLAGS = @LDFLAGS@
+LIBS = @LIBS@
+CXXFLAGS = @CXXFLAGS@ -ftemplate-depth-120 -DNDEBUG
+CPPFLAGS = @CPPFLAGS@
+
+# Object file list.  Since we are building a shared library with PIC code, we 
+#   follow the libtool convention of using a .lo extension.
+CVISUAL_OBJS = atomic_queue.lo displaylist.lo errors.lo extent.lo \
+	gl_extensions.lo gl_free.lo icososphere.lo \
+	quadric.lo render_manager.lo rgba.lo shader_program.lo texture.lo tmatrix.lo vector.lo \
+	arrow.lo axial.lo box.lo cone.lo cylinder.lo display_kernel.lo \
+	ellipsoid.lo extrusion.lo frame.lo label.lo light.lo material.lo \
+	mouse_manager.lo mouseobject.lo primitive.lo pyramid.lo rectangular.lo \
+	renderable.lo ring.lo sphere.lo text.lo \
+	display.lo font_renderer.lo render_surface.lo timer.lo\
+	arrayprim.lo convex.lo curve.lo cvisualmodule.lo faces.lo num_util.lo \
+	numeric_texture.lo points.lo slice.lo \
+	wrap_arrayobjects.lo wrap_display_kernel.lo \
+	wrap_primitive.lo wrap_rgba.lo wrap_vector.lo 
+
+# Distribution file list.
+DISTFILES = linux-symbols.map osx-symbols.txt core gtk2 python win32
+
+# The "soversion" for this iteration of Visual.
+CVISUAL_VERSION_INFO = 3:0:0
+	
+# Installation target locations
+pythondir = @pythondir@
+pythonpkgdir = $(pythondir)/visual
+srcdir = @srcdir@
+top_builddir = @top_builddir@
+# The absolute path to the top build directory.
+top_builddir_abs = $(shell cd $(top_builddir) && pwd)
+top_srcdir = @top_srcdir@
+prefix = @prefix@
+exec_prefix = @exec_prefix@
+
+VPATH = $(srcdir) $(srcdir)/core $(srcdir)/core/util \
+ $(srcdir)/gtk2 $(srcdir)/python $(srcdir)/win32
+
+################################################################################
+# The implementation of each rule, to be chosen below.
+
+# Linker rules for Win32 and OSX
+_WIN32_DLLRULE = $(CXX) -shared -s $(CVISUAL_LDFLAGS) $(LDFLAGS) -o $@ $^ \
+	$(CVISUAL_LIBS) $(LIBS)
+define WIN32_DLLRULE
+	@echo Linking $@ ...
+	@echo $(_WIN32_DLLRULE) >> $(LOGFILE)
+	@$(_WIN32_DLLRULE) 2>> $(LOGFILE)
+endef
+
+# Why the -v flag, you might wonder?  Because FSF GCC fails to properly parse
+# the -bundle and -bundle_loader options otherwise.
+# The strange line concerning libGL.dylib is due to changes that arrived with OSX 10.5.
+# In the words of Martin Costabel, "This should be a no-op (it tells the linker: 
+# "When you are asked to load /System/..../libGL.dylib, then really load this library 
+# and not another one with a similar name that you happen to fancy"), but it isn't.
+# On Leopard (10.5), it must be used whenever you link with /usr/X11/lib/libGL.dylib 
+# (even indirectly, for example by linking with libgtkgl-2.0.dylib)."
+_OSX_SORULE = $(CXX) -v -bundle -bundle_loader $(PYTHON) \
+	$(CVISUAL_LDFLAGS) $(LDFLAGS) -o $@ $^ $(CVISUAL_LIBS) $(LIBS) \
+	-Wl,-exported_symbols_list,$(srcdir)/osx-symbols.txt \
+	-Wl,-dylib_file,/System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/libGL.dylib:/System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/libGL.dylib
+	
+define OSX_SORULE$
+	@echo Linking $@ ...
+	@echo $(_OSX_SORULE) >> $(LOGFILE)
+	@$(_OSX_SORULE) 2>> $(LOGFILE)
+endef
+
+# Default compile rules to use when on Win32 or OSX.
+_DEFAULT_CXX_RULE = $(CXX) $(CVISUAL_CPPFLAGS) $(CPPFLAGS) $(CVISUAL_CXXFLAGS) \
+	$(CXXFLAGS) -MMD -MF $*.d -MT "$*.d $*.lo" -c -o $@ $<
+define DEFAULT_CXX_RULE
+	@echo Compiling $< ...
+	@echo $(_DEFAULT_CXX_RULE) >> $(LOGFILE)
+	@$(_DEFAULT_CXX_RULE) 2>> $(LOGFILE)
+endef
+
+# Fall back on these rules when not on OSX or Win32.
+_LT_CXX_RULE = $(LIBTOOL) --mode=compile $(_DEFAULT_CXX_RULE)
+define LT_CXX_RULE
+	@echo Compiling $< ...
+	@echo $(_LT_CXX_RULE) >> $(LOGFILE)
+	@$(_LT_CXX_RULE) 2>> $(LOGFILE) 1>&2
+endef
+
+_LT_LINKRULE = $(LIBTOOL) --mode=link $(CXX) $(CVISUAL_LDFLAGS) \
+	$(LDFLAGS) $^ $(CVISUAL_LIBS) $(LIBS) -module \
+	-version-info $(CVISUAL_VERSION_INFO) -o $@ \
+	-Wl,--version-script=$(srcdir)/linux-symbols.map \
+	-rpath $(pythondir)/$(PLATFORM_TARGET)
+define LT_LINKRULE
+	@echo Linking $@ ...
+	@echo $(_LT_LINKRULE) >> $(LOGFILE)
+	@$(_LT_LINKRULE) 2>> $(LOGFILE) 1>&2
+endef
+
+# The installation rule for targets that don't use Libtool.
+_GENERIC_INSTALLRULE = $(INSTALL) $< $@
+define GENERIC_INSTALLRULE
+	@echo Installing $< to $@
+	@echo $(_GENERIC_INSTALLRULE) >> $(LOGFILE)
+	@$(_GENERIC_INSTALLRULE) 2>> $(LOGFILE) 1>&2
+endef
+
+# The installation rule for targets that do use Libtool.
+_LT_INSTALLRULE = $(LIBTOOL) --mode=install $(_GENERIC_INSTALLRULE)
+define LT_INSTALLRULE
+	@echo Installing $< to $@
+	@echo $(_LT_INSTALLRULE) >> $(LOGFILE)
+	@$(_LT_INSTALLRULE) 2>> $(LOGFILE) 1>&2
+endef
+
+
+################################################################################
+# Select the actual ruleset, based on the PYTHON_PLATFORM
+
+ifeq ($(PYTHON_PLATFORM),win32)
+  # Windows -- Only MinGW is directly supported.
+  CXX_RULE = $(DEFAULT_CXX_RULE)
+  LINK_RULE = $(WIN32_DLLRULE)
+  CVISUAL_CPPFLAGS += $(WIN32_CPPFLAGS) $(GTK_CFLAGS) $(GTHREAD_CFLAGS)
+  CVISUAL_LIBS += $(WIN32_LIBS) $(GTK_LIBS) $(GTHREAD_LIBS) -lboost_thread-mt -lboost_signals-mt
+  CVISUAL_LDFLAGS += $(WIN32_LDFLAGS)
+  PLATFORM_TARGET = cvisual.pyd
+  PLATFORM_OBJS = winrate.lo
+  INSTALL_RULE = $(GENERIC_INSTALLRULE)
+else 
+  # These options are common to both Linux and OSX.
+  # The filter-out statement removes an extraneous flag brought in by 
+  # gmodule-2.0.pc on some platforms.  This reduces the symbol table (and
+  # size of the final binary) by about 1 MB, and makes Python's "import" go 
+  # _much_ faster at runtime.
+  _FILTER_OUT = "-Wl,--export-dynamic"
+  CVISUAL_CPPFLAGS += $(GTK_CFLAGS) $(GTHREAD_CFLAGS) $(PYTHON_INCLUDES)
+  CVISUAL_CXXFLAGS += -fpic -DPIC
+
+  PLATFORM_OBJS = rate.lo
+
+  ifeq ($(PYTHON_PLATFORM),darwin)
+    # Special rules for OSX
+    CVISUAL_LIBS += $(filter-out $(_FILTER_OUT), $(GTK_LIBS) \
+       $(GTHREAD_LIBS) /sw/lib/libboost_python-mt.a -lboost_thread-mt -lboost_signals)
+    CXX_RULE = $(DEFAULT_CXX_RULE)
+    LINK_RULE = $(OSX_SORULE)
+    PLATFORM_TARGET = cvisualmodule.so
+    CVISUAL_CPPFLAGS += $(OSX_CPPFLAGS)
+    INSTALL_RULE = $(GENERIC_INSTALLRULE)
+ else
+    # Libtoolish rules.  These should apply to all POSIX-like systems.
+    CVISUAL_LIBS += $(filter-out $(_FILTER_OUT), $(GTK_LIBS) \
+       $(GTHREAD_LIBS) -lboost_python -lboost_thread -lboost_signals)
+#       $(GTHREAD_LIBS) -lboost_python-gcc44-mt -lboost_thread-gcc44-mt -lboost_signals-gcc44-mt)
+#    $(GTHREAD_LIBS) \
+#    -l$(top_srcdir)/dependencies/boost_files/linux_libs/boost_python \
+#    -l$(top_srcdir)/dependencies/boost_files/linux_libs/boost_signals \
+#    -l$(top_srcdir)/dependencies/boost_files/linux_libs/boost_thread)
+    CXX_RULE = $(LT_CXX_RULE)
+    LINK_RULE = $(LT_LINKRULE)
+    PLATFORM_TARGET = cvisualmodule.la
+    CVISUAL_LIBS += -lstdc++
+    INSTALL_RULE = $(LT_INSTALLRULE)
+  endif
+endif
+
+# Create a dependency list from the object list.
+DEPS = $(subst .lo,.d,$(CVISUAL_OBJS) $(PLATFORM_OBJS))
+
+# The pattern rules themselves.
+
+%.lo: %.cpp
+	$(CXX_RULE)
+	
+
+################################################################################
+# The targets.
+
+all: log_message $(top_builddir_abs)/site-packages/vis/$(PLATFORM_TARGET)
+
+# This rule "installs" the built plugin to vis.  This way, you can
+# test the build in-place immediately after building it and before installing
+# it.
+$(top_builddir_abs)/site-packages/vis/$(PLATFORM_TARGET): $(PLATFORM_TARGET)
+	$(INSTALL_RULE)
+
+$(PLATFORM_TARGET): $(CVISUAL_OBJS) $(PLATFORM_OBJS)
+	$(LINK_RULE)	
+
+log_message:
+	@echo This is a quiet Makefile.  If make exits with an error, check \
+	src/build.log to see the complete error message\(s\).  In the event \
+	of an error that you cannot debug, please send a message to \
+	visualpython-users@lists.sourceforge.net, including key portions of \
+	the files config.log and src/build.log, requesting assistance. \
+	If you try to send the entire files, the mailing list will reject \
+	the transmission.
+	@echo "Spoken once" >> $@
+
+clean:
+ifneq ($(PYTHON_PLATFORM),darwin)
+ ifneq ($(PYTHON_PLATFORM),win32)
+	$(LIBTOOL) --mode=clean rm -f $(CVISUAL_OBJS) $(PLATFORM_TARGET) \
+	$(PLATFORM_OBJS)
+	$(LIBTOOL) --mode=uninstall rm -f \
+	$(top_builddir_abs)/site-packages/vis/$(PLATFORM_TARGET)
+ else
+	-rm -f $(CVISUAL_OBJS) $(PLATFORM_TARGET) $(PLATFORM_OBJS)
+ endif
+else
+	-rm -f $(CVISUAL_OBJS) $(PLATFORM_TARGET) $(PLATFORM_OBJS)
+endif
+
+
+distclean: clean depclean
+	-rm -f Makefile config.h $(LOGFILE) log_message
+
+deps: $(DEPS)
+
+depclean:
+	-rm -f $(DEPS)
+
+install: $(DESTDIR)$(pythondir)/vis/$(PLATFORM_TARGET)
+
+$(DESTDIR)$(pythondir)/vis/$(PLATFORM_TARGET): $(PLATFORM_TARGET)
+	$(MKDIR) $(DESTDIR)$(pythondir)/vis	
+	$(INSTALL_RULE)
+
+# Strips the platform-specific plugin lib after installing it.
+install-strip: install
+	@echo stripping $(DESTDIR)$(pythondir)/vis/$(PLATFORM_TARGET) ...
+ifneq ($(PYTHON_PLATFORM),darwin)
+	@echo $(STRIP) $(DESTDIR)$(pythondir)/vis/$(PLATFORM_TARGET) >> $(LOGFILE)
+	@$(STRIP) $(DESTDIR)$(pythondir)/vis/$(PLATFORM_TARGET) 2>> $(LOGFILE) 1>&2
+else
+	# On OSX
+	@echo $(STRIP) -x $(DESTDIR)$(pythondir)/vis/$(PLATFORM_TARGET) >> $(LOGFILE)
+	@$(STRIP) -x $(DESTDIR)$(pythondir)/vis/$(PLATFORM_TARGET) 2>> $(LOGFILE) 1>&2
+endif
+
+uninstall:
+ifneq ($(PYTHON_PLATFORM),darwin)
+ ifneq ($(PYTHON_PLATFORM),win32)
+	@# On Linux and other places that libtool actually works
+	$(LIBTOOL) --mode=uninstall $(RM) $(pythondir)/vis/$(PLATFORM_TARGET)
+ else
+	@# On Windows
+	$(RM) $(pythondir)/vis/$(PLATFORM_TARGET)
+ endif
+else
+	@# On OSX
+	$(RM) $(pythondir)/vis/$(PLATFORM_TARGET)
+endif
+
+# Use the compiler-generated dependency files.
+@AMDEP_TRUE@-include $(DEPS)
+
+# Magic for building the tarball.  Taken directly from a Makefile.in generated
+# by Automake 1.9.
+distdir: 
+	@srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`; \
+	topsrcdirstrip=`echo "$(top_srcdir)" | sed 's|.|.|g'`; \
+	list='$(DISTFILES)'; for file in $$list; do \
+	  case $$file in \
+	    $(srcdir)/*) file=`echo "$$file" | sed "s|^$$srcdirstrip/||"`;; \
+	    $(top_srcdir)/*) file=`echo "$$file" | sed "s|^$$topsrcdirstrip/|$(top_builddir)/|"`;; \
+	  esac; \
+	  if test -f $$file || test -d $$file; then d=.; else d=$(srcdir); fi; \
+	  dir=`echo "$$file" | sed -e 's,/[^/]*$$,,'`; \
+	  if test "$$dir" != "$$file" && test "$$dir" != "."; then \
+	    dir="/$$dir"; \
+	    $(mkdir_p) "$(distdir)$$dir"; \
+	  else \
+	    dir=''; \
+	  fi; \
+	  if test -d $$d/$$file; then \
+	    if test -d $(srcdir)/$$file && test $$d != $(srcdir); then \
+	      cp -pR $(srcdir)/$$file $(distdir)$$dir || exit 1; \
+	    fi; \
+	    cp -pR $$d/$$file $(distdir)$$dir || exit 1; \
+	  else \
+	    test -f $(distdir)/$$file \
+	    || cp -p $$d/$$file $(distdir)/$$file \
+	    || exit 1; \
+	  fi; \
+	done

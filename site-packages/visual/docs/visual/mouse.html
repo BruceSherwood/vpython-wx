@@ -1,0 +1,262 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>mouse</title>
+<!-- InstanceEndEditable -->
+<!-- InstanceBeginEditable name="head" -->
+<link href="VisualRef.css" rel="stylesheet" type="text/css" />
+<!-- InstanceEndEditable -->
+<script type="text/javascript">
+<!--
+function MM_jumpMenu(targ,selObj,restore){ //v3.0
+  eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
+  if (restore) selObj.selectedIndex=0;
+}
+//-->
+</script>
+<link href="VisualRef.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<table width="800" border="0" cellpadding="0" cellspacing="0">
+  <!--DWLayoutDefaultTable-->
+  <tr>
+    <td width="10" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
+    <td width="10" height="272" valign="top" bgcolor="#DDDDDD"><p>&nbsp;</p>    </td>
+    <td width="173" valign="top" bgcolor="#DDDDDD"><p class="Normal"><a href="index.html">Home</a></p>
+      <p class="Normal">If you're new to Python <br />
+      and VPython: <a href="VisualIntro.html">Introduction</a></p>
+      <p class="Normal">A VPython <a href="VPython_Intro.pdf" target="_blank">tutorial</a></p>
+      <p class="Normal"><a href="primitives.html">Pictures</a> of 3D objects</p>
+      <p class="Normal">Choose an object:</p>
+        <select name="jumpMenu4" id="jumpMenu4" onchange="MM_jumpMenu('parent',this,0)">
+          <option>Choose an object</option>
+          <option value="cylinder.html">Overview</option>
+          <option value="arrow.html">arrow</option>
+          <option value="box.html">box</option>
+          <option value="cone.html">cone</option>
+          <option value="convex.html">convex</option>
+          <option value="curve.html">curve</option>
+          <option value="cylinder.html">cylinder</option>
+          <option value="ellipsoid.html">ellipsoid</option>
+          <option value="extrusion.html">extrusion</option>
+          <option value="faces.html">faces</option>
+          <option value="frame.html">frame</option>
+          <option value="helix.html">helix</option>
+          <option value="label.html">label</option>
+          <option value="lights.html">lights</option>
+          <option value="points.html">points</option>
+          <option value="pyramid.html">pyramid</option>
+          <option value="ring.html">ring</option>
+          <option value="sphere.html">sphere</option>
+          <option value="text.html">text</option>
+        </select>
+        
+      <p class="Normal">Work with objects:</p>
+        <select name="jumpMenu4" id="jumpMenu5" onchange="MM_jumpMenu('parent',this,0)">
+          <option>Choose an option</option>
+          <option value="color.html">Color/Opacity</option>
+          <option value="materials.html">Materials/Textures</option>
+          <option value="shapes.html">Shapes Library</option>
+          <option value="paths.html">Paths Library</option>
+          <option value="defaults.html">Defaults</option>
+          <option value="rate.html">Animation Speed</option>
+          <option value="rotation.html">Rotations</option>
+          <option value="options.html">Additional Options</option>
+          <option value="delete.html">Delete an Object</option>
+          <option value="float.html">3/4 = 0?</option>
+          <option value="controls.html">Buttons/Sliders</option>
+          <option value="graph.html">Graphs</option>
+          <option value="lights.html">Lighting</option>
+          <option value="files.html">Read/Write Files</option>
+          <option value="trail.html">Leaving a Trail</option>
+          <option value="vector.html">Vector Operations </option>
+          <option value="factorial.html">factorial/combin</option>
+        </select>
+        
+      <p class="Normal">Windows &amp Events:</p>
+        <select name="jumpMenu4" id="jumpMenu6" onchange="MM_jumpMenu('parent',this,0)">
+          <option>Choose a topic</option>
+          <option value="display.html">Windows</option>
+          <option value="mouse.html">Mouse Events</option>
+          <option value="mouse_click.html">&nbsp;&nbsp;&nbsp;Mouse Click</option>
+          <option value="mouse_drag.html">&nbsp;&nbsp;&nbsp;Mouse Drag</option>
+          <option value="keyboard.html">Keyboard Events</option>
+        </select>
+        
+    <p class="Normal">What's new in <a href="new_features.html">Visual 5</a></p>
+    <p class="Normal"><a href="http://vpython.org" target="_blank">VPython web site</a><br />
+      <a href="license.txt" target="_blank">Visual license</a><br />
+      <a href="http://www.python.org" target="_blank">Python web site</a> <br />
+      <a href="http://www.python.org/doc/2.5.2/lib/module-math.html" target="_blank">Math module</a> (sqrt etc.)<br />
+    <a href="http://www.scipy.org/Documentation" target="_blank">Numpy module</a> (arrays)    </p></td>
+    <td width="21" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
+    <td width="586" rowspan="2" valign="top"><!-- InstanceBeginEditable name="content" -->
+
+        <h1 class="Heading-1"> <font color="#0000A0">Mouse Interactions</font></h1>
+
+        <p class="Normal"><strong><font color="#0000A0">Introduction</font></strong></p>
+        <p class="Normal"> Mouse objects are obtained from the mouse attribute of a 
+          display object such as <span class="attribute">scene</span>. For example, 
+          to obtain mouse input from the default window created by Visual, refer to <span class="attribute">scene.mouse</span>. For basic examples of mouse handling, 
+          see <a href="mouse_click.html">Click example</a>, <a href="mouse_drag.html">Drag 
+            example</a>, and <a href="#pause">Pausing for either mouse or keyboard input</a>.</p>
+        <p class="Normal"> A mouse object has a group of attributes corresponding to 
+          the current state of the mouse. It also has functions <span class="attribute">getevent()</span> and <span class="attribute">getclick()</span>, which return an object with 
+          similar attributes corresponding to the state of the mouse when the user last 
+          did something with the mouse buttons. If the user has not already done something 
+          with the mouse buttons, <span class="attribute">getevent()</span> and <span class="attribute">getclick()</span> will stop program execution until this happens.</p>
+        <p class="Normal"><strong><font color="#0000A0">Different kinds of mouse</font></strong></p>
+        <p class="Normal">The mouse routines can handle a three-button mouse,
+          with &quot;left&quot;, 
+          &quot;right&quot;, and &quot;middle&quot; buttons. For systems with
+          a two-button  mouse, the &quot;middle&quot; button consists of the
+          left and right buttons  pressed together. For systems with a one button
+          mouse, the right button is  invoked by holding down the Command key,
+          and the middle button is invoked by holding down the Option key. </p>
+        <p class="Normal"><strong><font color="#0000A0">Design for left-button events if possible</font></strong></p>
+        <p class="Normal">Visual 5 provides the basic mouse event functionality that was present in Visual 3 for handling events from right and middle buttons when userspin or userzoom is disabled, out of concern for supporting old programs. However, it has become evident that there are limitations to this approach which could preclude some kinds of mouse handling that people might want to do in the future. For example, you might want to allow userspin with right drags yet also pick up right clicks. For that reason it is conceivable that future developments in this area might break existing programs, and therefore for maximum forward compatibility it is prudent to use only left-button interactions in new programs.</p>
+      <p class="Normal"><strong> <font color="#0000A0">Current state of mouse</font></strong></p>
+        <p class="attributes"> <span class="attribute">pos</span> The current 3D position 
+          of the mouse cursor; <span class="attribute">scene.mouse.pos</span>. Visual 
+          always chooses a point in the plane parallel to the screen and passing through <span class="attribute">display.center</span>. (See <a href="#alternative">Projecting 
+            mouse information onto a given plane</a> for other options.)</p>
+<p class="attributes"> <span class="attribute">pick</span> The nearest object 
+        in the scene which falls under the cursor, or None. At present curve, label, helix, extrusion, and faces cannot be picked. The picked object is <span class="attribute">scene.mouse.pick</span>.</p>
+        <p class="attributes"> <span class="attribute">pickpos</span> The 3D point on 
+          the surface of the picked object which falls under the cursor, or None; <span class="attribute">scene.mouse.pickpos</span>.</p>
+        <p class="attributes"> <span class="attribute">camera</span> The read-only current 
+          position of the camera as positioned by the user, <span class="attribute">scene.mouse.camera</span><font color="#000000">. 
+            For example, <span class="attribute">mag(scene.mouse.camera-scene.center)</span> is the distance from the center of the scene to the current position of the 
+            camera. If you want to set the camera position and direction by program, use <span class="attribute">scene.forward</span> and <span class="attribute">scene.center</span>, 
+            described in <a class="sectref" href="display.html">Controlling Windows</a>.</font> </p>
+        <p class="attributes"> <span class="attribute">ray</span> A unit vector pointing 
+          from camera in the direction of the mouse cursor. The points under the mouse 
+          cursor are exactly {<span class="attribute"> camera + t*ray</span> for <span class="attribute">t&gt;0</span>}.</p>
+        <p class="attributes"> &nbsp;&nbsp;&nbsp;The <span class="attribute">camera</span> and <span class="attribute">ray</span> attributes together define all of the 
+          3D points under the mouse cursor.</p>
+        <p class="attributes"><span class="attribute">project()</span> Projects position 
+          onto a plane. See <a href="#alternative">Projecting mouse position onto a given 
+            plane</a>. </p>
+        <p class="attributes"><span class="attribute">alt</span> = True if the ALT key 
+          is down, otherwise False</p>
+        <p class="attributes"><span class="attribute">ctrl</span> = True if the CTRL key 
+          is down, otherwise False (for a one-button mouse, meaningful only if mouse buttons 
+          up)</p>
+        <p class="attributes"><span class="attribute">shift</span> = True if the SHIFT 
+          key is down, otherwise False (for a one-button mouse, meaningful only if mouse 
+          buttons up)</p>
+      <p class="Normal"></p>
+        <p class="Normal"><strong><font color="#0000A0">Getting events</font></strong></p>
+        <p class="Normal">There are five kinds of mouse events: press, click, drag,
+          drop, and release:</p>
+        <p class="Normal">&nbsp;&nbsp;&nbsp;A press event occurs when a mouse button 
+          is depressed.</p>
+        <p class="Normal">&nbsp;&nbsp;&nbsp;A click event occurs when all mouse buttons 
+          are released with no movement of the mouse. (This is also a release event.)<br />
+          &nbsp;&nbsp;&nbsp;Note that a click event happens when the mouse button is <i>released</i>. See <a href="mouse_click.html">Click example</a>.</p>
+      <p class="Normal">&nbsp;&nbsp;&nbsp;A drag event occurs when the mouse is moved 
+          slightly after a press event, with mouse buttons still down.<br />
+          &nbsp;&nbsp;&nbsp;This can be used to signal the beginning of dragging an 
+          object. See <a href="mouse_drag.html">Drag example</a>.</p>
+        <p class="Normal">&nbsp;&nbsp;&nbsp;A drop event occurs when the mouse buttons
+          are released after a drag event.  (This is also a release event.)</p>
+        <p class="Normal">&nbsp;&nbsp;&nbsp;A release event occurs when the mouse buttons
+          are released after a click or drag event. </p>
+        <p class="Normal">Between a drag event (start of dragging) and a drop event 
+          (end of dragging), there are no mouse events but you can examine the continuously 
+          updated position of the mouse indicated by <span class="attribute">scene.mouse.pos</span>. 
+          Here is how to tell that an event has happened, and to get information about 
+          that event:</p>
+        <p class="attributes"><span class="attribute">events</span> The number of events 
+          (press, click, drag, or drop) which have been queued; e.g. <span class="attribute"> scene.mouse.events</span>.<br />
+        <span class="attribute">scene.mouse.events = 0 </span>may be used to discard 
+          all input. No value other than zero can be assigned.</p>
+        <p class="attributes"> <span class="attribute">getevent()</span> Obtains the 
+          earliest mouse event and removes it from the input queue. If no events are 
+          waiting in the queue (that is, if <span class="attribute">scene.mouse.events</span> is zero), <span class="attribute">getevent()</span> waits until the user enters 
+          a mouse event (press, click, drag, or drop). <span class="attribute">getevent()</span> returns an object with attributes similar to a mouse object: <span class="attribute">pos</span>, <span class="attribute">button, pick</span>, <span class="attribute">pickpos</span>, <span class="attribute">camera</span>, <span class="attribute">ray</span>, <span class="attribute">project()</span>, <span class="attribute">alt</span>, <span class="attribute">ctrl,</span> and <span class="attribute">shift</span>. 
+          These attributes correspond to the state of the mouse when the event took 
+          place. For example, after executing <span class="attribute">mm = scene.mouse.getevent()</span> you can look at the various properties of this event, such as <span class="attribute">mm.pos</span>, <span class="attribute">mm.pick</span>, <span class="attribute">mm.drag</span> (see below), etc. </p>
+        <p class="Normal">If you are interested in every type of event (press, click, 
+          drag, and drop), you must use <span class="attribute">events</span> and <span class="attribute">getevent()</span>. 
+          If you are only interested in left click events (left button down and up without 
+          significant mouse movement), you can use <span class="attribute">clicked</span> and <span class="attribute">getclick()</span>:</p>
+        <p class="attributes"><span class="attribute">clicked</span> The number of left 
+          clicks which have been queued; e.g. <span class="attribute"> scene.mouse.clicked</span>.<br />
+          This does not include a count of nonclick events (press, drag, or drop).</p>
+        <p class="attributes"><span class="attribute">getclick()</span> Obtains the 
+          earliest mouse left click event (pressing the left button and releasing it 
+          in nearly the same position) and removes it from the input queue, discarding 
+          any earlier press, drag, or drop events. If no clicks are waiting in the queue 
+          (that is, if <span class="attribute">scene.mouse.clicked</span> is zero), <span class="attribute">getclick()</span> waits until the user clicks. Otherwise <span class="attribute">getclick()</span> is just like <span class="attribute">getevent()</span>. </p>
+        <p class="Normal">It is a useful debugging technique to insert <span class="attribute">scene.mouse.getclick()</span> into your program at a point where you would like to stop temporarily to examine 
+          the scene. Then just click to proceed.</p>
+        <p class="Normal"><strong><font color="#0000A0">Additional information obtained with 
+          getevent() or getclick()</font></strong></p>
+        <p class="Normal"> In addition to the information available with <span class="attribute">scene.mouse</span>, <span class="attribute">getevent()</span> and <span class="attribute">getclick()</span> furnish this additional information:</p>
+        <p class="attributes"><span class="attribute">press</span> = 'left' 
+          for a press event, or 'right' 
+          or 'middle', or None</p>
+      <p class="attributes"><span class="attribute">click</span> = 'left' for
+        a click event, or 'right' or 'middle', or None. See <a href="mouse_click.html">Click example</a>.</p>
+      <p class="attributes"><span class="attribute">drag</span> = 'left' for
+          a drag event, or 'right' or 'middle', or None;
+          in this case <span class="attribute">pos</span> <span class="attribute"></span>and other attributes correspond to the state 
+          of the mouse at the time of the original press event, so as not to lose initial 
+          position information. See <a href="mouse_drag.html">Drag example</a>.</p>
+      <p class="attributes"><span class="attribute">drop</span> = 'left' for
+          a drop event, or 'right' or 'middle', or None</p>
+      <p class="attributes"><span class="attribute">release</span> = 'left'
+          following click and drop events, indicating which button was released,
+          or 'right' or 'middle', or None</p>
+      <p class="attributes"><span class="attribute">button</span> = 'left', 'right', or 'middle'. After executing <span class="attribute">mm = scene.mouse.getevent(), </span>the expression <span class="attribute">mm.button == 'left'</span> is true if the left button is currently down.</p>
+      <p class="Normal">Normally, dragging with right or middle button represents 
+        spin or zoom, and is handled automatically by Visual, so you can check for 
+        left-button drag or drop events simply by checking whether <span class="attribute">drag</span> or <span class="attribute">drop</span> is true (in Python, a nonempty string 
+        such as 'left' is true, None is false). Unless you disable user zoom (<span class="attribute">scene.userzoom 
+          = False</span>), <span class="attribute">press, click</span>, <span class="attribute">drag, drop</span>, 
+        and <span class="attribute">release</span> with the middle button are invisible 
+        to your program. Unless you disable user spin (<span class="attribute">scene.userspin 
+          = False</span>), <span class="attribute">press, click</span>, <span class="attribute">drag, drop</span>, 
+        and <span class="attribute">release</span> with the right button are invisible 
+        to your program.</p>
+      <p class="Normal"><font color="#0000A0"><a name="alternative" id="alternative"></a><strong>Projecting 
+          mouse position onto a given plane</strong></font></p>
+        <p class="Normal"> Here is a way to get the mouse position relative to a particular 
+          plane in space:</p>
+        <p class="program"> temp = scene.mouse.project(normal=(0,1,0), point=(0,3,0))<br />
+        if temp: # temp is None if no intersection with plane<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;ball.pos = temp</p>
+        <p class="Normal"> This projects the mouse cursor onto a plane that is perpendicular 
+          to the specified normal. If <span class="attribute">point</span> is not 
+          specified, the plane passes through the origin. It returns a 3D position, 
+          or None if the projection of the mouse misses the plane.</p>
+        <p class="Normal"> In the example shown above, the user of your program will 
+          be able to use the mouse to place balls in a plane parallel to the xy plane, 
+          a height of 3 above the xy plane, no matter how the user has rotated the point 
+          of view.</p>
+        <p class="Normal">You can instead specify a perpendicular distance <span class="attribute">d</span> from the origin to the plane that is perpendicular to the specified normal. 
+          The example above is equivalent to</p>
+        <p class="program"> temp = scene.mouse.project(normal=(0,1,0), d=3)</p>
+        <p class="Normal"><font color="#0000A0"><strong><a name="pause" id="pause"></a>Pausing for mouse or keyboard input</strong></font></p>
+        <p class="Normal"> Often you want to pause for either mouse or keyboard input. Copy the following function into your program, and then insert <strong>pause()</strong> wherever you want to pause.</p>
+        <p class="program">def pause():<br />
+&nbsp;&nbsp;&nbsp;&nbsp;while True:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rate(50)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if scene.mouse.events:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;m = scene.mouse.getevent()<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if m.click == 'left': return<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;elif scene.kb.keys:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;k = scene.kb.getkey()<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return      </p>
+    <!-- InstanceEndEditable --></td>
+  </tr>
+  <tr>
+    <td height="16" colspan="4"></td>
+  </tr>
+</table>
+</body>
+<!-- InstanceEnd --></html>

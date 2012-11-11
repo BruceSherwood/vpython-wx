@@ -1,0 +1,15 @@
+import sys
+
+def tb_print_list(extracted_list, filename, normal=sys.stdout,
+        highlight=sys.stderr):
+    """An extended version of traceback.print_list which exclude
+    "in <module>" when printing traceback and highlight the entries
+    that occur on the given filename."""
+    for fname, lineno, name, line in extracted_list:
+        f = highlight if fname == filename else normal
+        if name == '<module>':
+            f.write('  File "%s", line %d\n' % (fname, lineno))
+        else:
+            f.write('  File "%s", line %d, in %s\n' % (fname, lineno, name))
+        if line:
+            f.write('    %s\n' % line.strip())

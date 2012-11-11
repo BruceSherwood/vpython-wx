@@ -1,0 +1,201 @@
+"""Class browser.
+
+XXX TO DO:
+
+- reparse when source changed (maybe just a button would be OK?)
+    (or recheck on window popup)
+- add popup menu with more options (e.g. doc strings, base classes, imports)
+- show function argument list? (have to do pattern matching on source)
+- should the classes and methods lists also be in the module's menu bar?
+- add base classes to class browser tree
+"""
+
+__all__ = ['ClassBrowser']
+
+import os
+import sys
+import pyclbr
+
+from . import PyShell
+from .WindowList import ListedToplevel
+from .TreeWidget import TreeNode, TreeItem, ScrolledCanvas
+from .configHandler import idleConf
+
+def collect_objects(d, name=None):
+    items = []
+    objects = {}
+    for key, cl in list(d.items()):
+        if name is None or cl.module == name:
+            s = key
+            if hasattr(cl, 'super') and cl.super:
+                supers = []
+                for sup in cl.super:
+                    if type(sup) is type(''):
+                        sname = sup
+                    else:
+                        sname = sup.name
+                        if sup.module != cl.module:
+                            sname = "%s.%s" % (sup.module, sname)
+                    supers.append(sname)
+                s = s + "(%s)" % ", ".join(supers)
+            items.append((cl.lineno, s))
+            objects[s] = cl
+    return objects, items
+
+class ClassBrowser:
+
+    def __init__(self, flist, name, path):
+        # XXX This API should change, if the file doesn't end in ".py"
+        # XXX the code here is bogus!
+        self.name = name
+        self.file = os.path.join(path[0], self.name + ".py")
+        self.init(flist)
+
+    def close(self, event=None):
+        self.top.destroy()
+        self.node.destroy()
+
+    def init(self, flist):
+        self.flist = flist
+        # reset pyclbr
+        pyclbr._modules.clear()
+        # create top
+        self.top = top = ListedToplevel(flist.root)
+        top.protocol("WM_DELETE_WINDOW", self.close)
+        top.bind("<Escape>", self.close)
+        self.settitle()
+        top.focus_set()
+        # create scrolled canvas
+        theme = idleConf.GetOption('main','Theme','name')
+        background = idleConf.GetHighlight(theme, 'normal')['background']
+        sc = ScrolledCanvas(top, bg=background, highlightthickness=0, takefocus=1)
+        sc.frame.pack(expand=1, fill="both")
+        item = self.rootnode()
+        self.node = node = TreeNode(sc.canvas, None, item)
+        node.update()
+        node.expand()
+
+    def settitle(self):
+        self.top.wm_title("Class Browser - " + self.name)
+        self.top.wm_iconname("Class Browser")
+
+    def rootnode(self):
+        return ModuleBrowserTreeItem(self.file)
+
+class ModuleBrowserTreeItem(TreeItem):
+
+    def __init__(self, file):
+        self.file = file
+
+    def GetText(self):
+        return os.path.basename(self.file)
+
+    def GetIconName(self):
+        return "python"
+
+    def GetSubList(self):
+        sublist = []
+        for name in self.listobjects():
+            item = ObjectBrowserTreeItem(name, self.classes, self.file)
+            sublist.append(item)
+        return sublist
+
+    def OnDoubleClick(self):
+        if os.path.normcase(self.file[-3:]) != ".py":
+            return
+        if not os.path.exists(self.file):
+            return
+        PyShell.flist.open(self.file)
+
+    def IsExpandable(self):
+        return os.path.normcase(self.file[-3:]) == ".py"
+
+    def listobjects(self):
+        dir, file = os.path.split(self.file)
+        name, ext = os.path.splitext(file)
+        if os.path.normcase(ext) != ".py":
+            return []
+        try:
+            dict = pyclbr.readmodule_ex(name, [dir] + sys.path)
+        except ImportError as msg:
+            return []
+        self.classes, items = collect_objects(dict, name)
+        items.sort()
+        return [s for item, s in items]
+
+class ObjectBrowserTreeItem(TreeItem):
+
+    def __init__(self, name, classes, file):
+        self.name = name
+        self.classes = classes
+        self.file = file
+        try:
+            self.cl = self.classes[self.name]
+        except (IndexError, KeyError):
+            self.cl = None
+        self.isfunction = isinstance(self.cl, pyclbr.Function)
+
+    def GetText(self):
+        if self.isfunction:
+            return "def " + self.name + "(...)"
+        else:
+            return "class " + self.name
+
+    def GetIconName(self):
+        if self.isfunction:
+            return "python"
+        else:
+            return "folder"
+
+    def IsExpandable(self):
+        if self.cl:
+            try:
+                return not not self.cl.objects
+            except AttributeError:
+                return False
+
+    def GetSubList(self):
+        if not self.cl:
+            return []
+        sublist = []
+        for obj in self.listobjects():
+            classes, item_name = obj
+            item = ObjectBrowserTreeItem(item_name, classes, self.file)
+            sublist.append(item)
+        return sublist
+
+    def OnDoubleClick(self):
+        if not os.path.exists(self.file):
+            return
+        edit = PyShell.flist.open(self.file)
+        if hasattr(self.cl, 'lineno'):
+            lineno = self.cl.lineno
+            edit.gotoline(lineno)
+
+    def listobjects(self):
+        if not self.cl:
+            return []
+        result = []
+        for name, ob in list(self.cl.objects.items()):
+            classes, items = collect_objects({name:ob})
+            result.append((ob.lineno, classes, items[0][1]))
+        result.sort()
+        return [item[1:] for item in result]
+
+def main():
+    try:
+        file = __file__
+    except NameError:
+        file = sys.argv[0]
+        if sys.argv[1:]:
+            file = sys.argv[1]
+        else:
+            file = sys.argv[0]
+    dir, file = os.path.split(file)
+    name = os.path.splitext(file)[0]
+    ClassBrowser(PyShell.flist, name, [dir])
+    if sys.stdin is sys.__stdin__:
+        mainloop()
+
+if __name__ == "__main__":
+    main()

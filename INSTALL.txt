@@ -1,0 +1,287 @@
+The purpose of this file is to fully document the installation
+procedure for VPython from source on Linux. Specific installers
+for Windows and Mac are available at vpython.org. See HACKING.txt
+for details on how to do development work with the source code for
+Linux.
+
+Windows and Mac builds are now special to them; 
+see VCBuild/VCBuild.txt and MAC-OSX.txt.
+
+Table of Contents:
+I:   Prerequisites
+II:  Configuration
+III: Building
+IV:  Final Installation
+V:   Troubleshooting
+
+I.  Prerequisites:
+	Most or all of these may be provided by your operating system 
+	distributor.  In every case, you must have the "developer" version
+	of the packages to ensure that the required header files are 
+	available.
+	
+	GNU g++ version 3.2.x or >= 3.3.1 (3.4.6 reccomended) (gcc.gnu.org).
+	An implementation of OpenGL.
+	The Boost C++ libraries version 1.31 and higher (1.33.1 reccomended)
+		(www.boost.org). Note that 1.31 is required if you are using Python 
+		2.3 or higher, and is recommended in any case due to getting much
+		better error messages. 1.32.0 or higher is required if you want to use
+		GNU G++ 3.4.0 or higher to build the suite.
+		You need libboost-python-dev, libboost-signals-dev, and libboost-thread-dev.
+		*** It is an unfortunate fact of life that the Boost libraries that
+		*** deal with Python have names that do not reflect what version of
+		*** Python they were built for and with. You have to be careful to
+		*** install Boost Python libraries that were built for your version of Python.
+	
+	*********************************************
+	BUG on Ubuntu 10.10: The files /usr/lib/libgdkglextmm-x11-1.2.la and /usr/lib/libgtkglextmm-x11-1.2.la
+	specify dependence on libgdk_pixbuf-2.0.la, which does not exist. A workaround is
+	to edit /usr/lib/libgdkglextmm-x11-1.2.la and /usr/lib/libgtkglextmm-x11-1.2.la,
+	replacing libgdk_pixbuf-2.0.la (missing static library) with libgdk_pixbuf-2.0.so
+	(dynamically loaded library).
+	*********************************************
+	
+	BUILDING BOOST
+	The Boost libraries are extensions to C++. Among the libraries
+	are python and thread libraries used by Visual. The python library
+	makes connections between Python and C++.
+
+	It is possible to build the Boost libraries needed by Visual from source. 
+	See VCBuild.txt for Windows details. The basics are these, after cd-ing
+	into the unzipped Boost source, with a folder "build" beside the Boost source:
+	
+	./bootstrap.sh --with-python-version=3.1 --with-libraries=python,signals,thread
+	
+	./bjam --build-dir=../build --layout=versioned
+	
+	You also need the threadpool resource: sourceforge.net/projects/threadpool.
+	If you are using the 1_35_0 Boost libraries, you can use version 0.2.4 which
+	is included in the package (in dependencies). If you use a different version
+	of the Boost libraries, you need to get an appropriate threadpool version and
+	replace the files in "dependencies/threadpool/include". Copy into the include
+	directory the contents of the boost directory in the threadpool package,
+	which includes a directory named "threadpool" and a file "threadpool.hpp".
+	
+	If you get this error in compiling cvisualmodule.cpp:
+		
+	In file included from /usr/include/boost/python/exception_translator.hpp:12,
+    from ../../vpython-core2/src/python/cvisualmodule.cpp:12:
+	/usr/include/boost/python/detail/translate_exception.hpp:34: 
+	      error: expected nested-name-specifier before "add_reference"
+
+	You need to make this change:
+	
+	In /usr/include (probably), change /boost/python/detail/translate_exception.hpp
+	===================================================================
+	--- boost/python/detail/translate_exception.hpp (revision 50228)
+	+++ boost/python/detail/translate_exception.hpp (working copy)
+	@@ -9,6 +9,7 @@
+ 
+	# include <boost/call_traits.hpp>
+ 	# include <boost/type_traits/add_const.hpp>
+	+# include <boost/type_traits/add_reference.hpp>
+ 
+	# include <boost/function/function0.hpp>
+	--------------------------------------
+	(That is, add "# include <boost/type_traits/add_reference.hpp>" after the
+	statement "# include <boost/type_traits/add_const.hpp>".)
+		
+	Need Python 2.2.x or 2.3.x or 2.4.x or 2.5.x (www.python.org), including
+		the development (dev) package.
+	Need Python modules Polygon, FontTools, and ttfquery, from pypi.python.org.
+	   For each module, unpack and in a terminal cd to the module folder.
+	   Execute "sudo python setup.py install" to build and install the module.
+	Need numpy (numpy.sourceforge.net).
+	
+	On Ubuntu 7.10, the only package for numpy was for Python 2.4, even though
+	it was Python 2.5 which is installed by default. So it was necessary to download
+	numpy (www.scipy.org/Download). And it was also necessary to install the
+	packages libboost-python-dev, libboost-signals-dev, and libboost-thread-dev
+	before executing in the numpy folder "python setup.py install".
+	
+	The autoconf, automake, libtool, and pkg-config packages.
+	
+	Generically, key libraries are these:
+		gtkmm (www.gtkmm.org), which depends on gtk2 (www.gtk.org)
+		gtkglext and gtkglextmm 1.2.x (gtkglext.sourceforge.net)
+	GTK2 (sometimes called GTK+) is a platform-independent library for creating
+	graphical user interfaces. It is designed for programs written in C. 
+	GTKMM is a "wrapper" to make GTK2 accessible to programs written in C++.
+		
+	Here is a list of all the libraries involved. In many cases a library is 
+	automatically installed by a package manager when a requested library depends on it:
+	
+	For Visual 5.3 and later, you need the Python modules FontTools, ttfquery, and Polygon.
+	Be sure to get ttfquery 1.0.4 or later.
+	
+	Note The following copyright notice applies to the Polygon module when included in
+	the VPython distribution concerning Polygon:
+
+	"This distribution contains code from the GPC Library, and/or code 
+	resulting from the use of the GPC Library. This usage has been 
+	authorized by The University of Manchester, on the understanding 
+	that the GPC-related features are used only in the context of this 
+	distribution. It is not permitted to extract the GPC code from the 
+	distribution as the basis for commercial exploitation, unless a 
+	GPC Commercial Use Licence is obtained from The University of 
+	Manchester, contact: http://www.cs.man.ac.uk/~toby/gpc/".
+	
+	For Ubuntu 8.04, installing libgtkglextmm-x11-dev brought in everything
+	except for libglademm-2.4, which also must be installed. 
+	
+	For Ubuntu 9.04-10.04:
+	1) automake gets autoconf
+	2) libgtkglextmm-x11-dev gets libatk1.0, libcairo2, libglib2.0, libgtk2.0,
+	       libgtkglext1, libgtkglextmm-x11-1.2, libpango1.0
+	3) libgtkmm-2.4-dev gets libcairomm-1.0, libglibmm-2.4, libpangomm-1.4, libsigc++-2.0
+	4) libglademm-2.4-dev gets the rest
+
+	On Ubuntu 8.04, the packages are named (not including the "dev" part of the name):
+	   libgtk-2.0, libatk-1.0, atkmm-1.6, libsigc++-2.0, 
+	   libgtkmm-2.4, gdkmm-2.4, libglib-2.0, libglibmm-2.4, 
+	   libpango-1.0, pangomm-1.4, libfreetype2,  
+	   libgtkglext1, libgtkglextmm-x11-1.2, libcairo2, libcairomm-1.0, 
+	   libglade2, libglademm-2.4
+	Ubuntu 8.04 package manager doesn't list freetype2, (lib)atkmm, 
+	(lib)gdkmm, (lib)pangomm. But there exist these directories; maybe these
+	components are now part of Ubuntu and so don't show up in the package manager.
+		/usr/include/atkmm-1.6, /usr/lib/gdkmm-2.4, /usr/include/gdkmm-2.4.
+		/usr/include/pangomm-1.4
+	
+	On Ubuntu 7.10, the packages were named like this (not including "dev"):
+	   gtk-2.0, atk-1.0, atkmm-1.6, sigc++-2.0, 
+	   gtkmm-2.4, gdkmm-2.4, glib-2.0, glibmm-2.4, 
+	   pango-1.0, pangomm-1.4, freetype2,  
+	   gtkglext-1.0, gtkglextmm-1.2, cairo, cairomm-1.0, 
+	   libglade-2.0, libglademm-2.4
+	On Ubuntu 7.10, installing libgtkmm-2.4-dev and libglademm-2.4-dev installs most
+	of these libraries, except for atkmm, gdkmm, pangomm, gtkglext, and gtkglextmm.
+	There is a gtkglext1-dev package, but no gtkglextmm.
+		
+	For Ubuntu 7.10, I was unable to install gtkglextmm from source. But at
+	packages.ubuntu.com/source/gtkglextmm, from the older "edgy" distribution get
+	libgtkglextmm1c2a (allow the default package manager to process the download), then
+	libgtkglextmm1-dev. 
+
+	To install gtkglextmm:
+	1) Download the bz2 file.
+	2) Unpack the file: tar -xjf gtkglextmm-1.2.0.tar.bz2
+	3) cd to the unpacked directory
+	4) ./configure
+	5) make
+	6) sudo make install
+
+II.   Configuration
+	It is NOT the case that simply running './configure' is likely to work,
+	because Visual has to be linked to an appropriate Python, so read below.
+	
+	There have been significant changes in where 3rd-party software is stored on 
+	Ubuntu 9.04. You probably want to use /usr/bin/python2.6. To configure, do this
+	in a folder parallel to vpython-core2 (or whatever the source folder is named:
+	
+	PYTHON=/usr/bin/python2.6 ../vpython-core2/configure --prefix=/usr/local
+	
+	You will also need to copy vpython-core2/src/gtk2/site-packages.pth to
+	/usr/lib/python2.6/dist-packages to put /usr/lib/python2.6/site-packages
+	on the Python search path.
+	
+	In src/gtk2 there is a simple non-autoconf makefile for Ubuntu 8 as of Nov. 2008.
+	It is unlikely to be kept up to date, but it gives an example of the basic
+	elements of what the rather complex autoconf machinery needs to produce.	
+
+	However, configure also provides a large number of options and is sensitive to 
+	several environment variables to properly configure VPython for unique use cases. 
+	
+	Run `configure --help` for the complete list of options and brief descriptions.
+	
+	If you have multiple versions of Python installed, and the one named 'python' that
+	is first on your PATH (identified with `which python`) is not the one you want to 
+	build Visual for, specify the correct interpreter by setting the PYTHON
+	environment variable to the desired interpreter's full path.
+	
+	If you have multiple versions of GNU G++ installed, and the default is inadequate
+	for VPython, specify the correct one by setting the CXX environment variable to
+	its fully-qualified path.
+	
+	You should generally supply the --prefix option to cause Visual to be installed to
+	the same prefix that Python is installed (default is /usr/local).
+	
+	On Linux, do this: which python
+	Make a note of the prefix preceding /bin/python, typically /usr or /usr/local.
+	
+	It is useful to place the visual folder and a folder named "build" at the same level,
+	and configure and make in the build folder by "cd build", then do this:	
+	(a) If prefix is /usr/local, execute
+     	../visual-x.x.x/configure
+	(b) If prefix is something else, and Visual can go into prefix/lib/python/site-packages, execute
+     	../visual-x.x.x/configure --prefix=prefix
+	(c) If you want to use a different version of Python than the one found with "which python",
+   		or (b) is not appropriate, specify both the particular Python and where to install Visual:
+      	PYTHON=/somewhere1/bin/python ../visual-x.x.x/configure --prefix=/somewhere2
+	If "somewhere1" and "somewhere2" are different, you must also add the "somewhere2"
+	directory to Python's module search path. For details, at www.python.org read section 4.1
+	(Modifying Python's Search Path) in the section Installing Python Modules of the Python
+	on-line documentation.
+	
+	Here is a specific example of case (c):
+	PYTHON=/usr/bin/python2.6 ../vpython-core2/configure --prefix=/usr/local
+	(This would make sense only if python has /usr/local/lib/site-packages on its 
+	search path.)
+	
+	If you are only building VPython once, you may pass the option
+	--disable-dependancy-tracking to make the build itself go a little faster.
+	
+	If your GNOME libraries are installed in a non-standard location (such as 
+	/opt/gnome in SUSE), you must set the CPPFLAGS environment variable to 
+	-I/other_prefix/include to ensure that you pick up the gtkglarea header files.
+	
+	Another interesting configuration is to install VPython into a prefix other than
+	the same prefix that Python is installed in.  This may be useful to test your
+	VPython programs with different versions of Visual on the same system
+	simultaneously.  After choosing an approprate prefix, such as /home/jonathan, run
+	configure as normally but specify the PYTHONPATH environment variable to be
+	[prefix]/lib/python2.5/site-packages, replacing python2.5 with python2.2 if that
+	is your interpreter. You must create this PYTHONPATH directory if it does not
+	already exist.
+	
+III.  Build
+	Just run 'make'.  
+	
+	Optionally, you may override the following variables by
+	specifying them in the form VARIABLE=value as arguments to make:
+	LDFLAGS, LIBS, CXXFLAGS, and CPPFLAGS affect options passed to the linker,
+	compiler, and preprocessor, respectively.
+	DESTDIR may be used to prepend DESTDIR to the 'prefix' specified when running
+	configure. This option is mostly useful to binary redistributors of VPython.
+	
+	The makefiles support the following targets:
+	all: (the default) compiles all the required software
+	clean: deletes files created by the compiler
+	distclean: deletes all files created by the configure and make programs.  This
+		option is useful if you want to start over from a clean source tree.
+	install: copies all required files in the locations specified by configure
+	install-strip: Performs the 'install' target and strips the final object files.
+		It also makes getting a backtrace impossible on most platforms. 
+
+IV.  Install
+	You must have write privileges to the installation directory to proceed.  Unless
+	you are installing into your home directory, that generally means becoming root
+	with a program like `sudo` or `su`. Just run `sudo make install`.
+	
+	Alternatively, you may run 'make install-strip' to install a somewhat smaller
+	executable.
+
+V:   Troubleshooting
+	The single most likely cause of an error in the build is that one or more
+	develoment header files could not be found.  VPython logs its configuration stage
+	in config.log, and its build stage in src/build.log.  If the build fails you
+	must read src/build.log to see what happened.  In the event that you cannot
+	solve the problem, compress config.log and src/build.log and include them with
+	your request for assistance to visualpython-users@lists.sourceforge.net.
+	
+	But before you do that, it is a good idea to read the archives of the mailing list
+	since someone else has probably worked through your problem already.
+
+	From a typescript, the following will print all VPYTHON_NOTEs:
+	env VPYTHON_DEBUG=1 python test.py
+

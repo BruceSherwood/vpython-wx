@@ -1,0 +1,376 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>introduction</title>
+<!-- InstanceEndEditable -->
+<!-- InstanceBeginEditable name="head" -->
+<link href="VisualRef.css" rel="stylesheet" type="text/css" />
+<!-- InstanceEndEditable -->
+<script type="text/javascript">
+<!--
+function MM_jumpMenu(targ,selObj,restore){ //v3.0
+  eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
+  if (restore) selObj.selectedIndex=0;
+}
+//-->
+</script>
+<link href="VisualRef.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<table width="800" border="0" cellpadding="0" cellspacing="0">
+  <!--DWLayoutDefaultTable-->
+  <tr>
+    <td width="10" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
+    <td width="10" height="272" valign="top" bgcolor="#DDDDDD"><p>&nbsp;</p>    </td>
+    <td width="173" valign="top" bgcolor="#DDDDDD"><p class="Normal"><a href="index.html">Home</a></p>
+      <p class="Normal">If you're new to Python <br />
+      and VPython: <a href="VisualIntro.html">Introduction</a></p>
+      <p class="Normal">A VPython <a href="VPython_Intro.pdf" target="_blank">tutorial</a></p>
+      <p class="Normal"><a href="primitives.html">Pictures</a> of 3D objects</p>
+      <p class="Normal">Choose an object:</p>
+        <select name="jumpMenu4" id="jumpMenu4" onchange="MM_jumpMenu('parent',this,0)">
+          <option>Choose an object</option>
+          <option value="cylinder.html">Overview</option>
+          <option value="arrow.html">arrow</option>
+          <option value="box.html">box</option>
+          <option value="cone.html">cone</option>
+          <option value="convex.html">convex</option>
+          <option value="curve.html">curve</option>
+          <option value="cylinder.html">cylinder</option>
+          <option value="ellipsoid.html">ellipsoid</option>
+          <option value="extrusion.html">extrusion</option>
+          <option value="faces.html">faces</option>
+          <option value="frame.html">frame</option>
+          <option value="helix.html">helix</option>
+          <option value="label.html">label</option>
+          <option value="lights.html">lights</option>
+          <option value="points.html">points</option>
+          <option value="pyramid.html">pyramid</option>
+          <option value="ring.html">ring</option>
+          <option value="sphere.html">sphere</option>
+          <option value="text.html">text</option>
+        </select>
+        
+      <p class="Normal">Work with objects:</p>
+        <select name="jumpMenu4" id="jumpMenu5" onchange="MM_jumpMenu('parent',this,0)">
+          <option>Choose an option</option>
+          <option value="color.html">Color/Opacity</option>
+          <option value="materials.html">Materials/Textures</option>
+          <option value="shapes.html">Shapes Library</option>
+          <option value="paths.html">Paths Library</option>
+          <option value="defaults.html">Defaults</option>
+          <option value="rate.html">Animation Speed</option>
+          <option value="rotation.html">Rotations</option>
+          <option value="options.html">Additional Options</option>
+          <option value="delete.html">Delete an Object</option>
+          <option value="float.html">3/4 = 0?</option>
+          <option value="controls.html">Buttons/Sliders</option>
+          <option value="graph.html">Graphs</option>
+          <option value="lights.html">Lighting</option>
+          <option value="files.html">Read/Write Files</option>
+          <option value="trail.html">Leaving a Trail</option>
+          <option value="vector.html">Vector Operations </option>
+          <option value="factorial.html">factorial/combin</option>
+        </select>
+        
+      <p class="Normal">Windows &amp Events:</p>
+        <select name="jumpMenu4" id="jumpMenu6" onchange="MM_jumpMenu('parent',this,0)">
+          <option>Choose a topic</option>
+          <option value="display.html">Windows</option>
+          <option value="mouse.html">Mouse Events</option>
+          <option value="mouse_click.html">&nbsp;&nbsp;&nbsp;Mouse Click</option>
+          <option value="mouse_drag.html">&nbsp;&nbsp;&nbsp;Mouse Drag</option>
+          <option value="keyboard.html">Keyboard Events</option>
+        </select>
+        
+    <p class="Normal">What's new in <a href="new_features.html">Visual 5</a></p>
+    <p class="Normal"><a href="http://vpython.org" target="_blank">VPython web site</a><br />
+      <a href="license.txt" target="_blank">Visual license</a><br />
+      <a href="http://www.python.org" target="_blank">Python web site</a> <br />
+      <a href="http://www.python.org/doc/2.5.2/lib/module-math.html" target="_blank">Math module</a> (sqrt etc.)<br />
+    <a href="http://www.scipy.org/Documentation" target="_blank">Numpy module</a> (arrays)    </p></td>
+    <td width="21" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
+    <td width="586" rowspan="2" valign="top"><!-- InstanceBeginEditable name="content" -->
+      <h1 class="Title" align="center"> <font color="#FF0000">Simple 3D Programming 
+        
+        Using VPython</font> </h1>
+      <div>
+        <h3 class="Heading-1"> <font color="#0000A0">I. VPython: the Python/ Visual / 
+          
+          IDLE environment</font></h3>
+        <p class="Normal"> The interactive development environment you will use is called &quot;IDLE.&quot;</p>
+      </div>
+      <div>
+        <h3 class="Heading2"> <font color="#0000A0">The Display window</font></h3>
+        <p class="Normal"> When using VPython the display window shows objects in 3D.</p>
+        <p class="Normal"> (0,0,0) is in the center of the display window<img src="axes.gif" alt="axes" align="right" /> . The +x axis runs to the right, the +y axis runs up, and the +z axis points out of the screen, toward you.</p>
+        <p class="Normal"> x, y, and z are measured in whatever units you choose; 
+          
+          the display is automatically scaled appropriately. (You could, for example, 
+          
+          create a sphere with a radius of 1E-15 m to represent a nucleus, or a sphere 
+          
+          with a radius of 1E6 m to represent a planet, though it wouldn't make sense 
+          
+          to put both of these objects in the same display!)</p>
+
+        <h3 class="Heading2"> <font color="#0000A0">The Output window</font></h3>
+        <p class="Normal"> The output of any -print- statements you execute in your program goes to the Output window, which is a scrolling text window. You can use this window to print values of variables, print lists, print messages, etc. Place it where you can see messages in it.</p>
+
+        <h3 class="Heading2"> <font color="#0000A0">The Code window</font></h3>
+        <p class="Normal">If you type or copy the following simple program into the code 
+          window in IDLE and run it (press F5, or use the Run menu), you will see 
+          a display like the one shown in the figure. </p>
+        <p class="program"> from visual import *<br />
+        redbox=box(pos=vector(4,2,3),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        size=(8,4,6),color=color.red)<br />
+        ball=sphere(pos=vector(4,7,3),radius=2,color=color.green)</p>
+        <p class="Normal"> <span class="Heading-1"><img src="spherebox.gif" alt="sphere" align="right" /></span>Visual is the name of the 3D graphics module used with 
+          
+          the Python programming language. VPython is the name of the combination 
+          
+          of the Python programming language, the Visual module, and the development 
+          
+          environment IDLE.</p>
+        <h3 class="Heading2"><font color="#0000A0">Viewing the scene</font></h3>
+        <p class="Normal"> In the display window, click and drag with the right mouse 
+          button (hold down the command key on a Macintosh). Drag left or right, and 
+          you rotate around the scene. To rotate around a horizontal axis, drag up 
+          or down. Click and drag up or down with the 
+          middle mouse button to move closer to the scene or farther away (on a 2-button 
+          mouse, hold down the left and right buttons; on a 1-button mouse, hold down 
+          the Option key).</p>
+
+        <h3 class="Heading-1"> <font color="#0000A0">II. Visual Entities</font></h3>
+
+        <h3 class="Heading2"> <font color="#0000A0">Objects, names, and attributes</font></h3>
+        <p class="Normal"> The graphical objects you create, such as spheres, boxes, 
+          
+          and curves, continue to exist for the duration of your program, and the 
+          
+          Visual 3D graphics module will continue to display them, wherever they are. 
+          
+          You must give each object a name (such as <span class="attribute">redbox</span> or <span class="attribute">ball</span> in the example above) if you 
+          
+          wish to refer to it again later in your program. All objects have attributes: 
+          
+          properties like <span class="attribute">ball.pos</span> (the position 
+          
+          of the sphere), <span class="attribute">ball.color</span>, and <span class="attribute">radius</span> or other size parameter. If you change an attribute of an object, such as 
+          
+          its position or color, Visual will automatically display the object in its 
+          
+          new location, or with its new color.</p>
+        <p class="Normal"> You can set the values of attributes in the &quot;constructor&quot; (the code used to create the object), and you can also modify attributes later:</p>
+        <p class="program"> ball.radius = 2.2</p>
+        <p class="Normal"> In addition to the built-in set of attributes, you may 
+          
+          create new attributes. For example, you might create a sphere named <span class="attribute">moon</span>; 
+          
+          in addition to its radius and location, you might give it attributes such 
+          
+          as mass (<span class="attribute">moon.mass</span>) and momentum (<span class="attribute">moon.momentum</span>).</p>
+        <h3 class="Heading2"><font color="#0000A0">Vectors</font> </h3>
+        <p class="heading-4">Not all objects in Visual are visible objects. For example, 
+          
+          Visual allows you to create 3D vector quantities, and to perform vector 
+          
+          operations on them. If you create a vector quantity called <em class="code">a</em>, 
+          
+          you may refer to its components as <em class="code">a.x</em>, <em class="code"> a.y</em>, and <em class="code"> a.z</em>. To add two vectors, <em class="code"> a</em> and <em class="code"> b</em>, however, you do not need to add the 
+          
+          components one by one; Visual will do the vector addition for you:</p>
+
+        <p class="program"> a = vector(1,2,3)<br />
+        b = vector(4,5,6)<br />
+        c=a+b</p>
+        <p class="Normal"> If you print <em class="code"> c</em> , you will find that 
+          
+          it is a vector with components (5, 7, 9.).</p>
+        <h3 class="Heading2"><font color="#0000A0">Scalar multiplication</font></h3>
+        <p class="program">d = 3*a # d is a vector with components (3, 6, 9)</p>
+
+          <h3 class="Heading2"><font color="#0000A0">Vector magnitude</font> </h3>
+          <p class="program">s = mag(c) # s is a scalar<br />
+          z = mag(c)**2 # you can square the magnitude of a vector</p>
+
+          <h3 class="Heading2"><font color="#0000A0">Vector products</font> </h3>
+          <p class="program">f = cross(a,b) # cross product<br />
+          g = dot(a,b)			# dot product<br />
+          h = norm(a) # normalized (unit) vector; a/mag(a) </p>
+          <p class="Normal"> The attributes of Visual objects can be vectors, such 
+            
+            as velocity or momentum.</p>
+
+        <h3 class="Heading-1"> <font color="#0000A0">III. Simple Python Programming</font></h3>
+
+        <h3 class="Heading2"><font color="#0000A0">Importing the 3D Graphics Module 
+          
+          (Visual)</font></h3>
+
+          <p class="Normal"> The first line of your program must be:</p>
+          <p class="program"> from visual import *</p>
+
+          <h3 class="Heading2"><font color="#0000A0">Comments</font></h3>
+        <p class="Normal"> A comment in a Python program starts with &quot;#&quot;</p>
+        <p class="program"> # this line is a comment</p>
+
+        <h3 class="Heading2"><font color="#0000A0">Variables</font></h3>
+
+        <p class="Normal"> Variables can be created anywhere in a Python program, simply by assigning a variable name to a value. The type of the variable is determined by the assignment statement.</p>
+        <p class="program"> a = 3 # an integer<br />
+        b = -2. # a floating-point number<br />
+        c = vector(0.4, 3e3, -1e1) # a vector<br />
+        Earth = sphere(pos=(0,0,0), radius=6.4e6) # an object<br />
+        bodies = [ship, Earth, Moon]	
+          
+          # a list of objects</p>
+        <p class="Normal"> Basic Visual objects such as sphere() and box() have
+          a set  
+          of &quot;attributes&quot; such as color, and you can define additional attributes
+          such  
+          as mass or velocity. Other objects, such as vector(), have built-in
+          attributes 
+          but you cannot create additional attributes. </p>
+
+      <h3 class="Heading2"><font color="#0000A0">Warning about division</font></h3>
+        <p class="Normal"> If you are using a version of Python prior to Python 3.0, division of integers will not come out the way you may expect, since the result is rounded down to the nearest integer. Thus:</p>
+        <p class="program"> a = 3/4 <br />
+        print(a)		# a is 0</p>
+        <p class="Normal"> To avoid this, you can place a decimal point after every number, like 
+          this:</p>
+        <p class="program"> b = 3./4. <br />
+        print(b) # b is 0.75, as expected</p>
+
+          <p class="Normal">We recommend putting the following statement as the
+            first line of your program, in which case 3/4 will be 0.75; there
+            are two underscores before the word &quot;future&quot; and two after the word &quot;future&quot;:</p>
+          <p class="program"> from __future__ import division</p>
+          <p class="Normal"> This is not necessary for Python versions starting with 3.0, which ignore this statement.</p>
+          <h3 class="Heading2"><font color="#0000A0">Exponentiation</font></h3>
+
+        <p class="program"> x**2 # Not x^2, which is a bit operation in Python</p>
+
+        <h3 class="Heading2"> <font color="#0000A0">Logical Tests</font></h3>
+        <p> If, elif (&quot;else if&quot;), else:</p>
+        <p class="program"> if a == b: # see table of logical expressions below<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;c = 3.5 # indented code executed if test is true<br />
+        elif a &lt; b:<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;c = 0 # c will be set to zero only if a &lt; b<br />
+        else:<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;c = -23.2</p>
+
+        <h3 class="Heading2"> <font color="#0000A0">Logical expressions</font></h3>
+        <table border="1">
+          <tr>
+            <td rowspan="1" colspan="1"><p class="program"> ==</p></td>
+            <td rowspan="1" colspan="1"><p class="program"> equal</p></td>
+          </tr>
+          <tr>
+            <td rowspan="1" colspan="1"><p class="program"> !=</p></td>
+            <td rowspan="1" colspan="1"><p class="program"> not equal</p></td>
+          </tr>
+          <tr>
+            <td rowspan="1" colspan="1"><p class="program"> &lt;</p></td>
+            <td rowspan="1" colspan="1"><p class="program"> less than</p></td>
+          </tr>
+          <tr>
+            <td rowspan="1" colspan="1"><p class="program"> &gt; </p></td>
+            <td rowspan="1" colspan="1"><p class="program"> greater than</p></td>
+          </tr>
+          <tr>
+            <td rowspan="1" colspan="1"><p class="program"> &lt;=</p></td>
+            <td rowspan="1" colspan="1"><p class="program"> less than or equal </p></td>
+          </tr>
+          <tr>
+            <td rowspan="1" colspan="1"><p class="program"> &gt;=</p></td>
+            <td rowspan="1" colspan="1"><p class="program"> greater or equal</p></td>
+          </tr>
+          <tr>
+            <td rowspan="1" colspan="1"><p class="program"> or</p></td>
+            <td rowspan="1" colspan="1"><p class="program"> logical or</p></td>
+          </tr>
+          <tr>
+            <td rowspan="1" colspan="1"><p class="program"> and</p></td>
+            <td rowspan="1" colspan="1"><p class="program"> logical and</p></td>
+          </tr>
+          <tr>
+            <td rowspan="1" colspan="1"><p class="program"> in</p></td>
+            <td rowspan="1" colspan="1"><p class="program"> member of a sequence</p></td>
+          </tr>
+          <tr>
+            <td rowspan="1" colspan="1"><p class="program"> not in</p></td>
+            <td rowspan="1" colspan="1"><p class="program"> not sequence member</p></td>
+          </tr>
+        </table>
+
+        <h3 class="Heading2"><font color="#0000A0">Lists</font></h3>
+        <p class="Normal"> A list is an ordered sequence of any kind of object. It is delimited by square brackets.</p>
+        <p class="program"> moons = [Io, Europa, Ganymede, Callisto]</p>
+        <p class="Normal"> The function &quot;arange&quot; (short for &quot;arrayrange&quot;)
+           creates an array of numbers:</p>
+        <p class="program"> angles = arange (0., 2*pi, pi/100) <br />
+        # from 0 to 2*pi-(pi/100) in steps of (pi/100)<br />
+        <br />
+        numbers = arange(10) # integer argument -&gt; integers<br />
+        print(numbers) # [0,1,2,3,4,5,6,7,8,9] </p>
+
+        <h3 class="Heading2"> <font color="#0000A0">Loops</font></h3>
+        <p class="Normal"> The simplest loop in Python is a &quot;while&quot; loop. The loop continues as long as the specified logical expression is true:</p>
+        <p class="program"> while x &lt; 23:<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;x = x + vx*dt</p>
+        <p class="Normal"> To write an infinite loop, just use a logical expression that will always be true:</p>
+        <p class="program"> while True:<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;ball.pos = ball.pos + (ball.momentum/ball.mass)*dt</p>
+      <p class="Normal"> Infinite loops are ok, because you can always interrupt the program by choosing &quot;Stop Program&quot; from the Run menu in IDLE.</p>
+        <p class="Normal"> It is also possible to loop over the members of a sequence:<br />
+        <p class="program"> moons = [Io, Europa, Ganymede, Callisto]<br />
+        for a in moons:<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;r = a.pos - Jupiter.pos<br />
+        &nbsp; <br />
+        for x in arange(10):<br />
+        # see &quot;lists&quot; above<br />
+        ...<br />
+        &nbsp; <br />
+        for theta in arange(0., 2.*pi, pi/100.): <br />
+        # see &quot;lists&quot; above</p>
+        You can restart a loop, or terminate the loop prematurely:</p>
+        <p class="program">if a == b: continue # go back to the start of the loop<br />
+        if a &gt; b: break # exit the loop</p>
+
+        <h3 class="Heading2"> <font color="#0000A0">Printing results</font></h3>
+        <p class="Normal"> To print a number, a vector, a list, or anything else,
+          use the &quot;print&quot; option:</p>
+        <p class="program"> print(Europa.momentum)</p>
+        <p class="Normal"> To print a text message, enclose it in quotes:</p>
+        <p class="program"> print(&quot;We   crashed on the Moon with speed&quot;, v, &quot;m/s.&quot;)</p>
+        <p class="Normal"> Python also offers a formatted print capability. Here
+          price will be printed with 3 digits before the decimal place and 2
+          digits after, and num will be printed as an integer:</p>
+        <p class="program"> print(&quot;It's $%3.2f dollars for %d copies&quot; %
+          (price,num))</p>
+        <p class="Normal"> For Python versions earlier than Python 3.0, the latter two, rather complicated, print statements will look better without the surrounding parentheses. The surrounding parentheses are required for Python versions starting with Python 3.0</p>
+        <h3 class="Heading2"><font color="#0000A0">More Information about Python</font></h3>
+        <p>We have summarized a  small but important subset of the Python programming
+          language. Extensive Python documentation is provided
+          on the Help menu in IDLE, and there is additional information at the <a href="http://www.python.org/">Python
+           
+            website</a>, but much of this information assumes that you already
+            have  
+          lots of programming experience in other languages. We recommend the
+            following  
+          book to those who want to learn more about Python, and about programming
+            in general: <em>Python Programming: An Introduction to Computer Science</em> by
+            John M. Zelle (Franklin Beedle &amp; Associates, 2003).</p>
+
+    <!-- InstanceEndEditable --></td>
+  </tr>
+  <tr>
+    <td height="16" colspan="4"></td>
+  </tr>
+</table>
+</body>
+<!-- InstanceEnd --></html>

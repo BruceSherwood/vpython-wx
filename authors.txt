@@ -1,0 +1,23 @@
+Original author of the Visual module:
+David Scherer
+
+Other members of the original design team at Carnegie Mellon:
+David Andersen
+Ruth Chabay <Ruth_Chabay@ncsu.edu>
+Ari Heitner
+Ian Peters
+Bruce Sherwood <Bruce_Sherwood@ncsu.edu>
+
+Major contributor while an undergraduate at NCSU:
+Jonathan Brandmeyer
+
+Current maintainers:
+Bruce Sherwood <Bruce_Sherwood@ncsu.edu>
+
+Other significant contributors:
+Hugh Fisher <hugh.fisher@anu.edu.au> (stereo code)
+Shaun Press <shaun.press@anu.edu.au> (the pyramid and ellipsoid objects)
+John Zelle  <john.zelle@wartburg.edu> (stereo code)
+Kadir Haldenbilen <khaldenbilen@gmail.com> (major contributions to extrusion object)
+Arthur Siegel (converted from numeric to numpy)
+Michael Temkine (Windows keyboard input; bug fixes)

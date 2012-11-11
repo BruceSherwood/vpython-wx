@@ -1,0 +1,243 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>curve</title>
+<!-- InstanceEndEditable -->
+<!-- InstanceBeginEditable name="head" -->
+<link href="VisualRef.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+<!--
+.style1 {font-size: x-large}
+.style2 {font-size: xx-large}
+-->
+</style>
+<!-- InstanceEndEditable -->
+<script type="text/javascript">
+<!--
+function MM_jumpMenu(targ,selObj,restore){ //v3.0
+  eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
+  if (restore) selObj.selectedIndex=0;
+}
+//-->
+</script>
+<link href="VisualRef.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<table width="800" border="0" cellpadding="0" cellspacing="0">
+  <!--DWLayoutDefaultTable-->
+  <tr>
+    <td width="10" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
+    <td width="10" height="272" valign="top" bgcolor="#DDDDDD"><p>&nbsp;</p>    </td>
+    <td width="173" valign="top" bgcolor="#DDDDDD"><p class="Normal"><a href="index.html">Home</a></p>
+      <p class="Normal">If you're new to Python <br />
+      and VPython: <a href="VisualIntro.html">Introduction</a></p>
+      <p class="Normal">A VPython <a href="VPython_Intro.pdf" target="_blank">tutorial</a></p>
+      <p class="Normal"><a href="primitives.html">Pictures</a> of 3D objects</p>
+      <p class="Normal">Choose an object:</p>
+        <select name="jumpMenu4" id="jumpMenu4" onchange="MM_jumpMenu('parent',this,0)">
+          <option>Choose an object</option>
+          <option value="cylinder.html">Overview</option>
+          <option value="arrow.html">arrow</option>
+          <option value="box.html">box</option>
+          <option value="cone.html">cone</option>
+          <option value="convex.html">convex</option>
+          <option value="curve.html">curve</option>
+          <option value="cylinder.html">cylinder</option>
+          <option value="ellipsoid.html">ellipsoid</option>
+          <option value="extrusion.html">extrusion</option>
+          <option value="faces.html">faces</option>
+          <option value="frame.html">frame</option>
+          <option value="helix.html">helix</option>
+          <option value="label.html">label</option>
+          <option value="lights.html">lights</option>
+          <option value="points.html">points</option>
+          <option value="pyramid.html">pyramid</option>
+          <option value="ring.html">ring</option>
+          <option value="sphere.html">sphere</option>
+          <option value="text.html">text</option>
+        </select>
+        
+      <p class="Normal">Work with objects:</p>
+        <select name="jumpMenu4" id="jumpMenu5" onchange="MM_jumpMenu('parent',this,0)">
+          <option>Choose an option</option>
+          <option value="color.html">Color/Opacity</option>
+          <option value="materials.html">Materials/Textures</option>
+          <option value="shapes.html">Shapes Library</option>
+          <option value="paths.html">Paths Library</option>
+          <option value="defaults.html">Defaults</option>
+          <option value="rate.html">Animation Speed</option>
+          <option value="rotation.html">Rotations</option>
+          <option value="options.html">Additional Options</option>
+          <option value="delete.html">Delete an Object</option>
+          <option value="float.html">3/4 = 0?</option>
+          <option value="controls.html">Buttons/Sliders</option>
+          <option value="graph.html">Graphs</option>
+          <option value="lights.html">Lighting</option>
+          <option value="files.html">Read/Write Files</option>
+          <option value="trail.html">Leaving a Trail</option>
+          <option value="vector.html">Vector Operations </option>
+          <option value="factorial.html">factorial/combin</option>
+        </select>
+        
+      <p class="Normal">Windows &amp Events:</p>
+        <select name="jumpMenu4" id="jumpMenu6" onchange="MM_jumpMenu('parent',this,0)">
+          <option>Choose a topic</option>
+          <option value="display.html">Windows</option>
+          <option value="mouse.html">Mouse Events</option>
+          <option value="mouse_click.html">&nbsp;&nbsp;&nbsp;Mouse Click</option>
+          <option value="mouse_drag.html">&nbsp;&nbsp;&nbsp;Mouse Drag</option>
+          <option value="keyboard.html">Keyboard Events</option>
+        </select>
+        
+    <p class="Normal">What's new in <a href="new_features.html">Visual 5</a></p>
+    <p class="Normal"><a href="http://vpython.org" target="_blank">VPython web site</a><br />
+      <a href="license.txt" target="_blank">Visual license</a><br />
+      <a href="http://www.python.org" target="_blank">Python web site</a> <br />
+      <a href="http://www.python.org/doc/2.5.2/lib/module-math.html" target="_blank">Math module</a> (sqrt etc.)<br />
+    <a href="http://www.scipy.org/Documentation" target="_blank">Numpy module</a> (arrays)    </p></td>
+    <td width="21" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
+    <td width="586" rowspan="2" valign="top"><!-- InstanceBeginEditable name="content" -->
+
+        <table width="100%" border="1">
+          <tr>
+            <td width="77%"><div align="center"><span class="style1 style2"><font color="#0000A0">curve</font></span></div></td>
+            <td width="23%"><div align="center"><img src="images/curve.jpg" alt="curve" width="131" height="127" /><a href="arrow.html"></a></div></td>
+          </tr>
+        </table>
+        <p class="Normal">The curve object displays straight lines between
+          points, and if the points are sufficiently close together you get the
+          appearance of a smooth curve. In addition to its basic use for
+          displaying curves, the curve object has powerful capabilities for other
+          uses, such as efficient plotting of functions.</p>
+        <p class="Normal"> Some attributes, such as <span class="attribute">pos</span> and <span class="attribute">color</span>, can be different for each
+          point in the curve. These attributes are stored as numpy arrays. The
+          numpy module for Python provides powerful array processing
+          capabilities; for example, two entire arrays can be added together.
+          Numpy arrays can be accessed using standard Python rules for
+          referring to the nth item in a sequence (that is, <span
+ class="attribute">seq[0]</span> is the first item in <span
+ class="attribute">seq</span>, <span class="attribute">seq[1]</span> is the second, <span class="attribute">seq[2]</span> is the third,
+          etc). For example, <span class="attribute">anycurve.pos[0]</span> is
+          the position of the first point in <span class="attribute">anycurve</span>.</p>
+        <p class="Normal"> You can give curve an explicit list of coordinates enclosed in
+          brackets, like all Python sequences. Here is an example of a 2D square:</p>
+        <div>
+          <p class="program">square = curve(pos=[(0,0),(0,1),(1,1),(1,0),(0,0)])</p>
+          <p class="Normal"> Essentially, (1,1) is shorthand for (1,1,0). However, you cannot mix 2D
+            and 3D points in one list.</p>
+          <p class="Normal"> Curves can have thickness, specified by the radius of a cross section
+            of the curve (the curve has a thickness or diameter that is twice this
+            radius):</p>
+
+          <p class="program">curve(pos=[(0,0,0), (1,0,0), (2,1,0)], radius=0.05)</p>
+          <p class="Normal"> The default radius is 0, which draws a thin curve. A nonzero radius
+            makes a &quot;thick&quot; curve, but a very small radius may make a curve that is
+            too thin to see.</p>
+          <p class="Normal"> In the following example, the <span
+ class="attribute">arange()</span> function (provided by the Python
+            numpy module, which is imported by the Visual module, gives a
+            sequence of values from 0 to 20 in steps of 0.1 (not including the last
+            value, 20).</p>
+
+          <p class="program">c = curve( x = arange(0,20,0.1) ) # Draw a helix<br />
+          c.y = sin( 2.0*c.x )<br />
+          c.z = cos( 2.0*c.x )</p>
+          <p class="Normal"> The <span class="attribute">x</span>, <span
+ class="attribute">y</span>, and <span class="attribute">z</span> attributes allow curves to be used to graph functions easily:</p>
+
+          <p class="program">curve( x=arange(100), y=arange(100)**0.5, <br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;color=color.red)</p>
+          <p class="Normal"> A function grapher looks like this (a complete program!), where &quot;raw_input&quot; is a Python function that accepts input typed in the Python Shell window:</p>
+
+          <p class="program"> eqn = raw_input('Equation in x: ')<br />
+          x = arange( 0, 10, 0.1 )<br />
+          curve( x=x, y=eval(eqn) )</p>
+          <p class="Normal">Parametric graphing is also easy:</p>
+
+          <p class="program">t = arange(0, 10, 0.1)<br />
+            curve( x = sin(t), y = 1.0/(1+t), &nbsp;&nbsp;&nbsp;&nbsp;z = t**0.5,<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;red = cos(t), green = 0, blue = 0.5*(1-cos(t)) )</p>
+          <div>
+            <div></div>
+          </div>
+          <p class="Normal"><strong><font color="#0000a0">Three ways to specify the list of points</font></strong></p>
+          <p class="Normal">There are three ways you can specify the <span class="attribute">pos</span> attribute for a curve, as a simple list of 3D points, as a 2D path using the <a href="paths.html"><strong>paths library</strong></a>, or as a 2D Polygon object as long as it has only one contour (that is, no holes or separated pieces). Here are examples of each of these three kinds of path to be assigned to the <span class="attribute">pos</span> attribute of a curve:</p>
+          <p class="program">p3 = [(1,0,0), (2,1,-3), (2,5,3), (-1,4,0)] # 3D points</p>
+          <p class="program">p2a = paths.rectangle(length=8) # 2D paths library</p>
+          <p class="program">p2b = shapes.rectangle(width=6) + <br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;              shapes.rectangle(pos=(0,4), width=2)</p>
+          <div>
+            <p class="Normal">Contour p2a is created in the xz plane. If you say p2a = paths.rectangle(length=8, up=(0,0,1), the contour will be in the xy plane, perpendicular to the direction (0,0,1). You can learn more details in the description of the <strong><a href="extrusion.html">extrusion</a></strong> object.</p>
+            <p class="Normal">The contour <strong>p2b</strong> is constructed from the Polygon objects created by the <a href="shapes.html"><strong>shapes library</strong></a>. Two rectangles have been added together to form a combined shape, with just one (outer) contour. This can be assigned to the <span class="attribute">pos</span> attribute of an extrusion. </p>
+            <p class="Normal"><strong>Technical note:</strong> What the paths library produces is not a Polygon object. If you want to create a path by combining Polygon objects using constructive geometry (as in  adding two rectangles together to form the contour <strong>p2b</strong>), use the shapes library, which does create Polygon objects.</p>
+          </div>
+<p class="Normal"> Here are the curve attributes:</p>
+          <p class="attributes"> <span class="attribute">pos[]</span> Array of
+            position of points in the curve: pos[0], pos[1], pos[2]....<br />
+            The current number of points is given by len(curve.pos)</p>
+          <p class="attributes"> <span class="attribute">x[ ]</span>, <span
+ class="attribute">y[ ]</span>, <span class="attribute">z[ ]</span> Components of pos; each defaults to [0,0,0,0,...]</p>
+          <p class="attributes"> <span class="attribute">color[ ]</span> Color
+            of points in the curve</p>
+          <p class="attributes"> <span class="attribute">red[ ]</span>, <span
+ class="attribute">green[ ]</span>, <span class="attribute">blue[ ]</span> Color components of points in the curve</p>
+          <p class="attributes"> <span class="attribute">radius</span> Radius of
+            cross-section of curve<br />
+            The default radius=0 makes a thin curve</p>
+          <p class="attributes"><span class="attribute">material</span> Material
+            for a thick curve; see <a href="materials.html">Materials</a> for
+            currently available options</p>
+          <p class="Normal">Currently it is not possible to specify the opacity
+          of a curve object.</p>
+          <p class="Normal"><strong><font color="#0000a0">Adding more points to a curve</font></strong></p>
+          <p class="Normal"> Curves can be created incrementally with the <span
+ class="attribute">append()</span> function. A new point by default
+            shares the characteristics of the last point. You can append pos, color, red, green, or blue, but not radius. For a single curve object, all of the curve must have the same radius.</p>
+
+          <p class="program">spiral = curve( color = color.cyan )<br />
+          for t in arange(0, 2*pi, 0.1):<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;spiral.append( pos=(t,sin(t),cos(t)) )</p>
+          <p class="Normal"> One of the many uses of curves is to leave a trail
+            behind a moving object. For example, if <span class="attribute">ball</span> is a moving sphere, this will add a point to its trail: </p>
+
+          <p class="program">trail = curve()<br />
+          ball = sphere()<br />
+            # .... Every time you update the position of the ball:<br />
+          trail.append(pos=ball.pos)</p>
+          <p class="Normal">When appending to a curve, you can optionally choose to retain only the last N points, including the one you're adding:</p>
+          <p class="program">trail.append(pos=ball.pos, retain=50) # last 50 points</p>
+          <p class="Normal"><strong><font color="#0000a0">Interpolation of colors</font></strong></p>
+          <div>
+            <p class="Normal">The curve machinery interpolates colors from one point to the next.  If you want an abrupt change in color,  add another
+              point at the same location. In the following example, adding a blue
+              point at the same location as the orange point makes the first
+              segment be purely blue. </p>
+          </div>
+          <p class="program">c= curve( pos=[(-1,0,0)], color=color.blue, ...)<br />
+            c.append( pos=(0,0,0) ) # add a blue point (optional)<br />
+            c.append( pos=(0,0,0), color=color.orange) # same point<br />
+            c.append( pos=(1,0,0) ) # add orange point </p>
+          <p class="Normal">In the image shown here, the upper thick curve, made without the optional blue point, has three pos and color points, blue, orange, orange, left to right, so the blue fades into the orange. The lower extrusion includes the optional blue point and has four pos and color points, blue, blue, orange, orange, so there is a sharp break between blue and orange.</p>
+          <table width="585" border="0">
+            <tr>
+              <td width="579"><div align="center"><span class="Normal"><img src="images/colors_abutting.jpg" width="312" height="200" alt="colors abutting" /></span></div></td>
+            </tr>
+          </table></div>
+        <p class="Normal"><strong><font color="#0000a0">Skipping points</font></strong>        </p>
+      <p class="Normal">Technical note: No matter how many points are in
+          a curve, only 1000 are displayed, selected evenly over the full set
+          of points, in order that the display of a very long curve doesn't slow
+          down unacceptably. </p>
+        <p class="Normal">See description of <a href="options.html">Additional
+          Attributes</a> available for all 3D display objects.</p>
+    <!-- InstanceEndEditable --></td>
+  </tr>
+  <tr>
+    <td height="16" colspan="4"></td>
+  </tr>
+</table>
+</body>
+<!-- InstanceEnd --></html>

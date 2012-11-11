@@ -1,0 +1,4 @@
+# Dummy file to make this a package.
+# Imports are relative (e.g. from . import PyShell), but
+# in PyShell.py there is a specific reference to idlelib (or vidle)
+# in connection with using __import__ (constructed import).

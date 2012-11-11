@@ -1,0 +1,308 @@
+HOW TO BUILD VISUAL 5 USING CARBON
+Install XcodeTools from the optional materials on the Mac installation DVD.
+Installing XcodeTools automatically installs the large number of individualvp
+components also listed on the DVD.
+
+Install Python for the Mac ("MacPython") from python.org.
+There is already a /usr/bin/python that at the moment is up to date, but
+because this isn't always the case, and because the Python community seems to
+strongly prefer it, we will base Visual on MacPython, which is /usr/local/bin/python.
+
+PYTHON INSTALLERS
+The standard Python installers at python.org for the Mac install into
+   /Library/Frameworks/Python.framework/Versions/
+
+For Python 2.x, the installer modified .profile to add the newly installed Python
+to the application search PATH. The installer also added or changed a link
+   /Library/Frameworks/Python.framework/Versions/Current
+to point to the newly installed Python. However, the Python 3.x installer does
+NOT modify .profile or Current.
+
+For the makefile to pick out the correct Python framework in building Visual, you need
+to create or modify /Library/Frameworks/Python.framework/Versions/Current. Assume
+that the new Python is in /Library/Frameworks/Python.framework/Versions/3.1:
+   cd /Library/Frameworks/Python.framework/Versions
+   (if necessary, "sudo rm Current" if there already is one)
+   sudo ln -s 3.1 Current
+
+You should also add the following to .profile (in your home directory), so that
+executing "python" in a Terminal will run the newly installed Python:
+   PATH="/Library/Frameworks/Python.framework/Versions/Current/bin:${PATH}"
+   export PATH
+
+INSTALLING MODULES NEEDED BY VISUAL
+Next you need to install numpy. You may find an installer for it. Otherwise:
+Download the source for numpy and unpack it (http://www.scipy.org/Download).
+In the numpy directory, execute "sudo python setup.py install".
+This installs the numpy module which includes needed header files.
+
+For Visual 5.3 and later, you need the Python modules FontTools, ttfquery, and Polygon.
+Be sure to get ttfquery 1.0.4 or later.
+Polygon is available at http://polygon.origo.ethz.ch/download
+Currently, use the Polygon 2.0.1 binary for Python 2.6, which works with Python 27;
+I have not succeeded in building Polygon from source. Nor did I succeed with Python 3.1
+but got a Mac binary from the Polygon maintainer Joerg Raedler <joerf@j-raedler.de>.
+	
+Note The following copyright notice applies to the Polygon module when included in
+the VPython distribution concerning Polygon:
+
+"This distribution contains code from the GPC Library, and/or code 
+resulting from the use of the GPC Library. This usage has been 
+authorized by The University of Manchester, on the understanding 
+that the GPC-related features are used only in the context of this 
+distribution. It is not permitted to extract the GPC code from the 
+distribution as the basis for commercial exploitation, unless a 
+GPC Commercial Use Licence is obtained from The University of 
+Manchester, contact: http://www.cs.man.ac.uk/~toby/gpc/".
+
+BUILD VISUAL
+You need Boost libraries for the Mac. See below for how to build the Boost libraries.
+(The following may not work, because up-to-date files are not also provided in CVS:
+In the dependencies section of CVS, unzip the zip file. You should name the resulting 
+folder in dependencies "boost_files", containing boost (the include files), 
+win_libs (for Windows), and mac_libs (for Mac).)
+
+In src/mac, execute sudo make setup.
+This creates a build directory mbuild parallel to the CVS files, and creates links
+from /Library/Frameworks/Python.framework/Versions/2.5/lib/python2.5/site-packages to
+the visual directory in the CVS files.
+
+In the mbuild directory, execute sudo make install to build and install Visual.
+This creates cvisual.so in the CVS site-packages/visual directory, which is
+linked as explained above, ready to run.
+
+In site-packages/vidle, execute "python MacBuildApp.py build" to build an app to drive VIDLE,
+an updated alternative to the IDLE shipped with Python. However, the resulting launcher seems
+to be not very robust and the resulting launcher has been modified and is found in
+src/mac/PackageMaker/VIDLE_launcher.zip. 
+For more details, see src/mac/PackageMaker/packaging.txt.
+
+Run compilevisual.py (top of CVS) to compile all Visual Python files.
+
+Another option to compile all of the .py files in a directory is this:
+	import compileall
+	compileall.compile_dir("mylib", force=1)
+
+CREATE INSTALLER
+In src/mac/PackageMaker is an Apple PackageMaker project file, a Welcome text file
+for creating a VPython installer for the Mac, and instructions in packaging.txt.
+
+Be sure to set the project status to require OSX 10.4 and above.
+
+BUILDING BOOST LIBRARIES
+The Boost libraries were built by downloading the source.
+cd to the Boost directory and execute 
+
+./bootstrap.sh --with-toolset=gcc --with-python-version=3.1 --with-python-root=/Library/Frameworks/Python.framework/Versions/3.1 --with-python=python3.1 --with-libraries=python,signals,thread
+
+to create the bjam tool and project-config.jam.
+
+In the file project-config.jam, change "using gcc ;" to "using gcc : 4.0 : g++-4.0 ;"
+
+The purpose is to build Boost libraries using the same g++-4.0 compiler used to build Visual, which
+should enable Visual to run on OSX 10.4 (for which g++-4.2 doesn't work). 
+
+Now execute ./bjam to build the Boost libraries.
+
+The files you want will be in stage/lib.
+Move the following files to dependencies/boost_files/mac_libs:
+libboost_python.a
+libboost_signals.a
+libboost_thread.a
+
+In the past the following was used, but it seems neither necessary nor sufficient with Python 2.7:
+---------------------
+./bjam --toolset=darwin -sPYTHON_ROOT=/Library/Frameworks/Python.framework/Versions/2.7/bin/python --address-model=32_64 --architecture=x86 --build-type=complete --layout=versioned --with-python --with-thread --with-signals stage
+
+The files you want will be in stage/lib.
+Move these files to dependencies/boost_files/mac_libs (file names will be similar to the following):
+libboost_python-mt-s-1_35.a
+libboost_signals-mt-s-1_35.a
+libboost_thread-mt-s-1_35.a
+----------------------
+
+----------
+I built Boost libraries on a PowerPC running OS X 10.4 and tried using them
+on a PowerPC running OS X 10.5. Example programs ran okay, but in each case
+there was the following warning. In retrospect there may have been confusion
+between two different Python 2.5's on the machine.
+
+Warning (from warnings module):
+  File "/Library/Python/2.5/site-packages/visual/__init__.py", line 149
+    import cvisual
+RuntimeWarning: Python C API version mismatch for module cvisual: 
+This Python has API version 1013, module cvisual has version 1012.
+
+After rebuilding the Boost libraries on a PowerPC running OS X 10.5 this
+warning went away.
+
+------------------------------------------------------
+Obsolete, of historical interest only: HOW TO BUILD VISUAL 4 ON Apple OSX using GTK2 (Version 10.4.x)
+
+If you find gaps in this information, please tell Bruce_Sherwood@ncsu.edu.
+
+Make sure X11 and Xcode are installed (found on the installation DVD).
+X11 is automatically installed on 10.5.
+	
+To do a clean install of fink (www.finkproject.org), I deleted /sw and started from scratch.
+Install fink from fink.sourceforge.net. Probably best to install from source?
+I use Fink Commander as a GUI to fink, but you can use the command line.
+
+Create a file in your home directory named ".profile" with these contents:
+test -r /sw/bin/init.sh && . /sw/bin/init.sh
+
+Start up a new terminal program, which will read the .profile file with the effect that
+/sw/bin will be on your application search path.
+	
+Use fink to install the components listed for Linux in INSTALL.txt (details repeated here).
+	
+	If you're not using Fink Commander (and despite its graphic user interface there are
+	hints that maybe it is buggy), on a command line you say for example "fink install python25".
+	
+	Execute fink selfupdate to get the latest packages. (You may need to invoke /sw/bin/fink.)
+	
+	Install numpy-py25, which also installs python25.
+	(2008/4/2 on OSX 10.5; accepted the choice "db44-aes-shlibs: Shared Libraries for db44-aes")
+
+	Currently (Jan. 2008) you will find 10 entries for Boost libraries; if using Fink Commander
+	you need to expand the package name field wide enough to be able to see the full names,
+	as you want the Boost libraries for Python 2.5.
+	
+	Install boost1.34.python25, boost1.34.systempython, and boost1.34.nopython.
+	(You can say fink install boost1.34.python25 boost1.34.systempython boost1.34.nopython)
+	
+	Next install gtkmm2.4-dev, which installs many other packages on which it depends, including
+	gtk+2, glib, glibmm, libsig++, atk, pango, expat1, libpng3,
+	automake, autoconf, libtool, pkgconfig 
+	
+	Next, install these libraries:
+	libglademm2.4 (also installs libglademm2.4-shlibs)
+	
+	cairomm1 (also installs cairomm1-shlibs, freetype219, freetype219-shlibs etc; takes a LONG time)
+	
+	gtkglextmm (also installs gtkglextmm-shlibs, gtkglext1, gtkglext1-shlibs)
+	
+	Need freetype2, but freetype219 and freetype219-shlibs are installed instead (by cairomm1).
+	Because this does not put freetype2.pc into the usual place (/sw/lib/pkgconfig),
+	PKG_CONFIG_PATH is set in the configure script to find it.
+
+You can test the pkgconfig machinery by executing the following:
+	   pkg-config --libs pango (or /sw/bin/pkg-config --libs pango)
+The output should be -L/sw/lib -lpango-1.0 -lm -lgobject-2.0 -lgmodule-2.0 -lglib-2.0 -lintl -liconv 
+
+Next cd into the vpython-core2 directory and execute chmod +x autogen.sh, then ./autogen.sh	   
+Here is what happens when I run autogen.sh: 
+/sw/share/aclocal/gtkglextmm-1.2.m4:225: warning: 
+          underquoted definition of AC_GTKGLEXTMM_SUPPORTS_MULTIHEAD
+  run info '(automake)Extending aclocal'
+  or see http://sources.redhat.com/automake/automake.html#Extending-aclocal
+configure.ac: installing `./missing'
+Completed successfully
+
+Apparently the warning about AC_GTKGLEXTMM_SUPPORTS_MULTIHEAD isn't fatal, as it was possible
+to build Visual.
+	
+After important help from Martin Costabel, I was able to make, install, and run successfully.
+I placed this file in a build directory at the same level as vpython-core2:
+#!/bin/sh -ex
+export CPPFLAGS="-Wno-long-double"
+export PKG_CONFIG_PATH=/sw/lib/fontconfig2/lib/pkgconfig:/sw/lib/xft2/lib/pkgconfig:/sw/lib/freetype219/lib/pkgconfig
+export PYTHON=/sw/bin/python2.5
+export CXXFLAGS="-O2 -g -finline-functions"
+export CFLAGS='-O3 -g ' 
+../vpython-core2/configure --prefix=/sw --disable-dependency-tracking
+
+If you call this file config.txt, in the build directory you need to execute
+   chmod +x config.txt
+to make the file be executable by "./config.txt".
+	
+Before making a change to src/Makefile.in, I got a message about possible mismatch of versions, 
+as though when I build against /sw/bin/python2.5 and then run /sw/bin/python2.5 the system thinks 
+these are different pythons. Martin Costabel commented:
+
+"I am getting this, too, when using the dynamic boost-python library, but not with the static 
+libboost_python-mt.a. This is certainly a bug with the libboost_python-mt.dylib, but I haven't 
+yet found a combination of build flags to build it correctly, in particular in a way that would 
+also work on OSX 10.5."
+
+Following his suggestion, I put Mac-specific code into src/Makefile.in to link to these other
+libraries. But then I got this error message in the link phase of the make:
+
+/usr/bin/ld: table of contents for archive: /sw/lib/libboost_python-mt.a is out of date; rerun ranlib(1) (can't load from it) 
+
+So I executed ranlib /sw/lib/libboost_python-mt.a, redid the make, executed make install, and it worked.
+
+When there looked to be a Boost problem, tried building Boost libraries from scratch:
+
+./configure --prefix=/sw --with-libraries=python,thread --with-python=/sw/bin/python2.5
+   (This creates user-config.jam)
+make
+   (apparently equivalent to bjam --user-config=user-config.jam --with-python --with-thread)
+sudo make install
+There's a name issue; the boost includes need to be available at /sw/include/boost, so do this:
+cd /sw/include/boost_1_34_1
+sudo cp -r boost /sw/include
+I don't understand how /sw/include/boost is found. Looking at our src/build.log, I don't see
+anything that specifies we should look generally in /sw/include. Yet when boost is buried in
+boost_1_34_1, we don't find header files, and when it is unburied into /sw/include/boost we do.
+
+After a successfull make and "make install" invoking dynamic libraries,
+copy these new boost files to /sw/lib/python2.5/site-packages:
+bin.v2/libs/python/build/darwin/release/libboost_python-1_34_1.dylib
+bin.v2/libs/python/build/darwin/release/threading-multi/libboost_python-mt-1_34_1.dylib
+bin.v2/libs/thread/build/darwin/release/threading-multi/libboost_thread-mt-1_34_1.dylib
+
+But cvisual can't find a dylib:
+
+Traceback (most recent call last):
+  File "/sw/lib/python2.5/site-packages/visual/examples/bounce2.py", line 1, in <module>
+    from visual import *
+  File "/sw/lib/python2.5/site-packages/visual/__init__.py", line 140, in <module>
+    import cvisual
+ImportError: dlopen(/sw/lib/python2.5/site-packages/cvisualmodule.so, 2): Library not loaded: bin.v2/libs/python/build/darwin/release/libboost_python-1_34_1.dylib
+  Referenced from: /sw/lib/python2.5/site-packages/cvisualmodule.so
+  Reason: image not found
+  
+I think I've seen stuff on the web about problems with locating dylibs.
+
+Tried changing src/Makefile.in to use only static boost libraries:
+
+  ifeq ($(PYTHON_PLATFORM),darwin)
+    # Special rules for OSX
+    CVISUAL_LIBS += $(filter-out $(_FILTER_OUT), $(GTK_LIBS) \
+       $(GTHREAD_LIBS) /sw/lib/libboost_python-mt.a /sw/lib/libboost_thread-mt.a)
+
+This happened on the make:
+
+/usr/bin/ld: table of contents for archive: /sw/lib/libboost_python-mt.a is out of date; rerun ranlib(1) (can't load from it)
+/usr/bin/ld: table of contents for archive: /sw/lib/libboost_thread-mt.a is out of date; rerun ranlib(1) (can't load from it)
+
+So I did this:
+
+bruce-sherwoods-computer:~/Documents/workspace/build brucesherwood$ cd /sw/lib
+bruce-sherwoods-computer:/sw/lib brucesherwood$ sudo ranlib libboost_python-mt.a
+Password:
+bruce-sherwoods-computer:/sw/lib brucesherwood$ sudo ranlib libboost_thread-mt.a
+ranlib: file: libboost_thread-mt.a(tss_hooks.o) has no symbols
+ranlib: file: libboost_thread-mt.a(tss_dll.o) has no symbols
+ranlib: file: libboost_thread-mt.a(tss_pe.o) has no symbols
+bruce-sherwoods-computer:/sw/lib brucesherwood$ 
+
+-----------------
+Unsuccessful approach
+bjam --prefix=/sw --toolset=darwin --with-python-version=2.5 --with-thread stage
+
+Copy the directory named "boost" to /sw/include.
+
+> cp stage/lib/libboost_thread-mt.a /sw/lib
+> cp bin.v2/libs/python/build/darwin/release/link-static/threading-multi/libboost_python-mt-1_34_1.a /sw/lib/libboost_python.a
+
+After a successfull make and "make install" invoking dynamic libraries,
+copied these new boost files to /sw/lib/python2.5/site-packages:
+stage/lib/libboost_thread-mt-1_34_1.dylib
+bin.v2/libs/python/build/darwin/release/libboost_python-1_34_1.dylib
+bin.v2/libs/python/build/darwin/release/threading-multi/libboost_python-mt-1_34_1.dylib
+
+This attempt didn't help. Still get "Fatal Python error: Interpreter not initialized (version mismatch?).
+Is it possible that bjam worked against an old version of Python? Maybe /user/bin/python (which is the
+one I see with "which python" and which is version 2.3.5)? No reason bjam should look for python in /sw.

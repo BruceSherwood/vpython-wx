@@ -1,0 +1,37 @@
+"""
+FileRevert is an extension that re-reads the currently open file and
+displays the possibly updated content.
+"""
+from Tkinter import *
+import tkMessageBox
+
+class FileRevert:
+
+    menudefs = [('file', [('Revert', '<<revert-file>>')])]
+
+    def __init__(self, editwin):
+        self.text = editwin.text
+        self.io = editwin.io
+
+    def revert_file_event(self, event):
+        fname = self.io.filename
+        if fname is None:
+            # No file associated.
+            return
+
+        if not self.io.get_saved():
+            msg = "Do you want to save a copy of %s before reverting?" % fname
+            res = tkMessageBox.askyesnocancel(
+                    master=self.text,
+                    title="Save a copy",
+                    message=msg)
+            if res is None:
+                # Canceled.
+                return
+            elif res:
+                self.io.save_a_copy(event)
+                # XXX Maybe it would be better to not revert the file when
+                # user cancels the dialog that saves a copy of the current
+                # file.
+
+        self.io.loadfile(fname)

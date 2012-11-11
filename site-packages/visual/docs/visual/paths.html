@@ -1,0 +1,320 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>paths</title>
+<!-- InstanceEndEditable -->
+<!-- InstanceBeginEditable name="head" -->
+<link href="VisualRef.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+<!--
+.style1 {font-size: x-large}
+.style2 {font-size: xx-large}
+-->
+</style>
+<!-- InstanceEndEditable -->
+<script type="text/javascript">
+<!--
+function MM_jumpMenu(targ,selObj,restore){ //v3.0
+  eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
+  if (restore) selObj.selectedIndex=0;
+}
+//-->
+</script>
+<link href="VisualRef.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<table width="800" border="0" cellpadding="0" cellspacing="0">
+  <!--DWLayoutDefaultTable-->
+  <tr>
+    <td width="10" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
+    <td width="10" height="272" valign="top" bgcolor="#DDDDDD"><p>&nbsp;</p>    </td>
+    <td width="173" valign="top" bgcolor="#DDDDDD"><p class="Normal"><a href="index.html">Home</a></p>
+      <p class="Normal">If you're new to Python <br />
+      and VPython: <a href="VisualIntro.html">Introduction</a></p>
+      <p class="Normal">A VPython <a href="VPython_Intro.pdf" target="_blank">tutorial</a></p>
+      <p class="Normal"><a href="primitives.html">Pictures</a> of 3D objects</p>
+      <p class="Normal">Choose an object:</p>
+        <select name="jumpMenu4" id="jumpMenu4" onchange="MM_jumpMenu('parent',this,0)">
+          <option>Choose an object</option>
+          <option value="cylinder.html">Overview</option>
+          <option value="arrow.html">arrow</option>
+          <option value="box.html">box</option>
+          <option value="cone.html">cone</option>
+          <option value="convex.html">convex</option>
+          <option value="curve.html">curve</option>
+          <option value="cylinder.html">cylinder</option>
+          <option value="ellipsoid.html">ellipsoid</option>
+          <option value="extrusion.html">extrusion</option>
+          <option value="faces.html">faces</option>
+          <option value="frame.html">frame</option>
+          <option value="helix.html">helix</option>
+          <option value="label.html">label</option>
+          <option value="lights.html">lights</option>
+          <option value="points.html">points</option>
+          <option value="pyramid.html">pyramid</option>
+          <option value="ring.html">ring</option>
+          <option value="sphere.html">sphere</option>
+          <option value="text.html">text</option>
+        </select>
+        
+      <p class="Normal">Work with objects:</p>
+        <select name="jumpMenu4" id="jumpMenu5" onchange="MM_jumpMenu('parent',this,0)">
+          <option>Choose an option</option>
+          <option value="color.html">Color/Opacity</option>
+          <option value="materials.html">Materials/Textures</option>
+          <option value="shapes.html">Shapes Library</option>
+          <option value="paths.html">Paths Library</option>
+          <option value="defaults.html">Defaults</option>
+          <option value="rate.html">Animation Speed</option>
+          <option value="rotation.html">Rotations</option>
+          <option value="options.html">Additional Options</option>
+          <option value="delete.html">Delete an Object</option>
+          <option value="float.html">3/4 = 0?</option>
+          <option value="controls.html">Buttons/Sliders</option>
+          <option value="graph.html">Graphs</option>
+          <option value="lights.html">Lighting</option>
+          <option value="files.html">Read/Write Files</option>
+          <option value="trail.html">Leaving a Trail</option>
+          <option value="vector.html">Vector Operations </option>
+          <option value="factorial.html">factorial/combin</option>
+        </select>
+        
+      <p class="Normal">Windows &amp Events:</p>
+        <select name="jumpMenu4" id="jumpMenu6" onchange="MM_jumpMenu('parent',this,0)">
+          <option>Choose a topic</option>
+          <option value="display.html">Windows</option>
+          <option value="mouse.html">Mouse Events</option>
+          <option value="mouse_click.html">&nbsp;&nbsp;&nbsp;Mouse Click</option>
+          <option value="mouse_drag.html">&nbsp;&nbsp;&nbsp;Mouse Drag</option>
+          <option value="keyboard.html">Keyboard Events</option>
+        </select>
+        
+    <p class="Normal">What's new in <a href="new_features.html">Visual 5</a></p>
+    <p class="Normal"><a href="http://vpython.org" target="_blank">VPython web site</a><br />
+      <a href="license.txt" target="_blank">Visual license</a><br />
+      <a href="http://www.python.org" target="_blank">Python web site</a> <br />
+      <a href="http://www.python.org/doc/2.5.2/lib/module-math.html" target="_blank">Math module</a> (sqrt etc.)<br />
+    <a href="http://www.scipy.org/Documentation" target="_blank">Numpy module</a> (arrays)    </p></td>
+    <td width="21" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
+    <td width="586" rowspan="2" valign="top"><!-- InstanceBeginEditable name="content" -->
+      <table width="100%" border="1">
+        <tr>
+          <td width="71%" height="159"><div align="center"><span class="style1 style2"><font color="#0000A0">The paths library</font></span></div></td>
+          <td width="29%"><div align="center"><img src="images/starpath.jpg" width="163" height="151" alt="star path" /><a href="arrow.html"></a></div></td>
+        </tr>
+      </table>
+      <div></div>
+      <div>
+        <p class="Normal">The paths library is an auxiliary library to be used together with the 3D <strong><a href="extrusion.html">extrusion</a></strong> object. It helps in creating paths along which to extrude a 2D shape. In the picture above, the extrusion path (<span class="attribute">pos</span>) is in the shape of a star, and the cross sectional shape is a triangle. </p>
+        <p class="Normal"><strong><font color="#0000a0">Orientation and direction of a path</font></strong></p>
+        <p class="Normal">In using the paths library, it is helpful to think of the path as being created in the xy plane, like the star-shaped path above. The path is then tipped back onto the xz plane, with the top of the path pointing in the -z direction. With the path going around in the xz plane, think of the shape (a triangle in the figure above) as starting on the right, in the xy plane, and being extruded along the path. </p>
+        <p class="Normal">When you create a path you have the opportunity to specify a different orientation of the path by specifying <span class="attribute">up</span>, which by default is (0,1,0). For example, if you specify <strong>up = (0,0,1)</strong>, the plane of the path will be tipped up into the xy plane, like the figure above.</p>
+        <p class="Normal">The paths library is similar to the shapes library, but with some differences owing to the different characteristics of the <span class="attribute">pos</span> and <span class="attribute">shape</span> attributes of the extrusion object. You can assign a Polygon object or a shape from the shapes library to <span class="attribute">pos</span>, but only if this represents a single unbroken contour.</p>
+        <p class="Normal">The paths in the paths library all go counterclockwise in the xz plane, as seen from above. That is, if starting from a position on the x axis, they head in the -z direction and bend toward the left. If your shape has something sticking out on the right, it will be on the outer side of the extrusion, whereas something sticking out on the left will be on the inner side of the extrusion. However, if you use constructive geometry to combine shapes to produce a contour to use as a path, be aware that there is no guarantee that the Polygon machinery will generate a  path that goes counterclockwise.  If that is the case, note that setting xscale = -1 will reverse left and right in a shape. If your shape is left/right symmetric, the path direction doesn't matter.</p>
+        <p class="Normal"><strong><font color="#0000a0">Choose one of the paths that are available in this library:</font></strong></p>
+        <blockquote>
+          <p class="Normal"><strong>Be sure to read about rectangle, which explains features common to all of these objects (rotate, scale, xscale, yscale, roundness,  thickness, and invert).</strong></p>
+          <p class="Normal"><strong><font color="#0000a0"><a href="#rectangle">rectangle</a></font></strong><br />
+            <strong><font color="#0000a0"><a href="#circle">circle</a></font></strong><br />
+            <strong><font color="#0000a0"><a href="#ellipse">ellipse</a></font></strong><br />
+            <strong><a href="#line">line</a></strong><br />
+            <a href="#arc"><strong>arc</strong></a><br />
+            <strong><font color="#0000a0"><a href="#triangle">triangle</a></font></strong><br />
+            <strong><font color="#0000a0"><a href="#pentagon">pentagon</a></font></strong><br />
+            <strong><font color="#0000a0"><a href="#hexagon">hexagon</a></font></strong><br />
+            <strong><font color="#0000a0"><a href="#ngon">ngon</a></font></strong><br />
+            <strong><font color="#0000a0"><a href="#star">star</a></font></strong><br />
+            <strong><font color="#0000a0"><a href="#trapezoid">trapezoid</a></font></strong><br />
+            <strong><a href="#cross">cross</a></strong><br />
+            <strong><font color="#0000a0"><a href="#pointlist">pointlist</a></font></strong><br />
+            <strong><font color="#0000a0"><a href="#attributes">List of parameters</a></font></strong><br />
+          </p>
+        </blockquote>
+<p class="Normal"><strong><font color="#0000a0"><a name="rectangle" id="rectangle"></a>rectangle</font></strong></p>
+        <p class="program">rt = paths.rectangle(pos=(-2,3), width=5, height=3)</p>
+        <p class="Normal">creates a rectangular path with its center at pos=(-2,3), with width=5 (default is 5) and height=3. If the height value is omitted the shape is a square with its sides equal to the given width. Nothing is displayed as this is not a VPython object but a path object. If you print <strong>rt.pos</strong> you will see this:</p>
+        <p class="program">[vector(-2.5, 0, 1.5), vector(-2.5, 0, -1.5), <br />
+&nbsp;vector(2.5, 0, -1.5), vector(2.5, 0, 1.5), <br />
+&nbsp;vector(-2.5, 0, 1.5)]</p>
+        <p class="Normal"> The output can be visualized in VPython by executing the following statement, which will display a rectangle in the xz plane (shown from above in the figure):</p>
+        <table width="663" border="0">
+          <tr>
+            <td width="467"><p class="program">curve(pos=rt.pos)</p></td>
+            <td width="186"><img src="images/rectangle.jpg" width="186" height="121" alt="rectangle" /></td>
+          </tr>
+        </table>
+        <p class="Normal"> You can also easily make an extrusion:</p>
+        <p class="program">extrusion(pos=rt.pos, shape=triangle(length=1))</p>
+<p class="Normal">A rotated rectangular path can be obtained like this:</p>
+        <p class="program">          rt = paths.rectangle(width=5, height=3, rotate=pi/6)</p>
+        <p class="Normal"></p>
+        <table width="663" border="0">
+          <tr>
+            <td width="467"><p class="Normal">This produces a rectangle rotated counterclockwise pi/6 radians (30 degrees) around the specified or default pos. A negative angle rotates the figure clockwise.</p></td>
+            <td width="186"><img src="images/rectangle_rotated.jpg" width="203" height="175" alt="rotated rectangle" /></td>
+          </tr>
+        </table>
+        <p class="Normal">A rounded rectangle (a rectangle whose corners are rounded) can be obtained by using the roundness parameter:</p>
+        <p class="program">rt = paths.rectangle(width=5, height=3, roundness=0.1)</p>
+        <table width="665" border="0">
+          <tr>
+            <td width="468"><p class="Normal">creates a rectangle with its corners replaced by a circular arc of radius 0.3. The radius of this arc is calculated by multiplying the roundness parameter by the shortest side of the rectangle, the height in this case. A roundness of 0.1 is often a good choice.</p></td>
+            <td width="187"><img src="images/rectangle_rounded.jpg" width="187" height="121" alt="rounded rectangle" /></td>
+          </tr>
+        </table>
+        <p class="Normal">An inverted rounding, or a circular chamfer can be obtained by setting the invert parameter as True, together with the roundness parameter.</p>
+        <table width="663" border="0">
+          <tr>
+            <td width="469"><p class="program">rt = paths.rectangle(width=5, <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;              height=3, roundness=0.1, <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  invert=True)</p></td>
+            <td width="184"><img src="images/rectangle_chamfered.jpg" width="184" height="121" alt="chamfered rectangle" /></td>
+          </tr>
+        </table>
+        <p class="Normal">The rectangle or its sides can be scaled by using the scale paramaters:</p>
+        <p class="program">rt = paths.rectangle(width=5, height=3, scale=2)</p>
+        <p class="Normal">effectively creates a rectangle of size 10 x 6. Width and height of a rectangle can be scaled independently by using xscale, yscale parameters:</p>
+        <p class="program">rt = paths.rectangle(width=5, height=3, xscale=3, yscale=2)</p>
+        <p class="Normal">creates a rectangle of size 15 x 6.</p>
+        <p class="Normal"><strong><font color="#0000a0"><a name="circle" id="circle"></a>circle</font></strong></p>
+        <p class="Normal"></p>
+        <table width="663" border="0">
+          <tr>
+            <td width="525"><p class="program">cr = paths.circle(radius=2, np=64)</p></td>
+            <td width="128"><img src="images/circle.jpg" width="128" height="122" alt="circle" /></td>
+          </tr>
+        </table>
+<p class="Normal">          creates a circular path at pos=(0,0), with radius=2 (default 3). There are 64 points used to approximate the circular contour; the default value for the number of points (np) is 32. The circle contour cannot be rotated or rounded, which would have no effect.</p>
+        <p class="Normal">A circle can be scaled to obtain a different size circle or an elipse.<br />
+        </p>
+        <p class="Normal"><strong><font color="#0000a0"><a name="ellipse" id="ellipse"></a>ellipse</font></strong></p>
+        <p class="Normal"></p>
+        <table width="663" border="0">
+          <tr>
+            <td width="525"><p class="program"><span class="Normal">el = paths.ellipse(width=5, height=3)</span></p></td>
+            <td width="128"><img src="images/ellipse.jpg" width="230" height="121" alt="ellipse" /></td>
+          </tr>
+        </table>
+        <p class="Normal">creates an elliptical path at pos=(0,0), with width=5 (default 6) and height=3. If height is omitted it is set to be equal to width which causes the output to be a circle. The ellipse can be rotated and scaled but not rounded. </p>
+        <p class="Normal"><strong><font color="#0000a0"><a name="line" id="circle3"></a>line</font></strong></p>
+        <p class="program">L = paths.line(start=(1,0,0), end=(3,2,0), np=21)</p>
+        <p class="Normal"> creates a straight line going from (1,0,0) to (3,2,0), divided into 20 equal lengths (21 points), so that you can color each section differently, or apply interesting twist or scale values. Unlike the other paths, the only attributes for paths.line() are start (default=(0,0,0)), end (default=(0,0,-1), and np (default=2, where 2 points define a single segment). Given the default values, setting pos=paths.line() is a simple way to make an extrusion of 1 unit into the screen (in the -z direction). </p>
+<p class="Normal"><strong><font color="#0000a0"><a name="arc" id="circle2"></a>arc</font></strong></p>
+<p class="Normal"></p>
+<table width="663" border="0">
+  <tr>
+    <td width="525"><p class="program">ar = paths.arc(radius=2, angle1=0, angle2=pi/2)</p></td>
+    <td width="128"><img src="images/arc.jpg" width="134" height="121" alt="arc" /></td>
+  </tr>
+</table>
+<p class="Normal"> creates a quarter-circle arc centered at pos=(0,0), with radius=2. The arc can be rotated and scaled, but not rounded. </p>
+        <p class="Normal"><strong><font color="#0000a0"><a name="triangle" id="triangle"></a>triangle</font></strong></p>
+        <p class="Normal"></p>
+        <table width="663" border="0">
+          <tr>
+            <td width="525"><p class="program"><span class="Normal">tr = paths.triangle(length=5)</span></p></td>
+            <td width="128"><img src="images/triangle_path.jpg" width="145" height="121" alt="triangle path" /></td>
+          </tr>
+        </table>
+        <p class="Normal">creates a triangle path at pos=(0,0), with all sides equal to 5 (the default). The triangle can be rotated and rounded as well as scaled. <br />
+      </p>
+        <p class="Normal"><strong><font color="#0000a0"><a name="pentagon" id="pentagon"></a>pentagon</font></strong></p>
+        <p class="Normal"></p>
+        <table width="663" border="0">
+          <tr>
+            <td width="525"><p class="program"><span class="Normal">pt = paths.pentagon(length=5)</span></p></td>
+            <td width="128"><img src="images/pentagon.jpg" width="132" height="122" alt="pentagon" /></td>
+          </tr>
+        </table>
+        <p class="Normal">creates a pentagonal path at pos=(0,0), with all sides equal to 5 (the default). The pentagon can be rotated and rounded as well as scaled.</p>
+<p class="Normal"><strong><font color="#0000a0"><a name="hexagon" id="hexagon"></a>hexagon</font></strong></p>
+<p class="Normal"></p>
+<table width="663" border="0">
+  <tr>
+    <td width="525"><p class="program"><span class="Normal">hx = paths.hexagon(length=5)</span></p></td>
+    <td width="128"><img src="images/hexagon.jpg" width="138" height="122" alt="hexagon" /></td>
+  </tr>
+</table>
+<p class="Normal">creates a hexagonal path at pos=(0,0), with all sides equal to 5 (the default). The hexagon can be rotated and rounded as well as scaled. </p>
+<p class="Normal"><strong><font color="#0000a0"><a name="ngon" id="ngon"></a>ngon</font></strong></p>
+<p class="Normal"></p>
+<table width="663" border="0">
+  <tr>
+    <td width="525"><p class="program"><span class="Normal">poly = paths.ngon(np=7, length=5)</span></p></td>
+    <td width="128"><img src="images/heptagon.jpg" width="127" height="122" alt="heptagon" /></td>
+  </tr>
+</table>
+<p class="Normal">creates a heptagonal path at pos=(0,0), with all seven sides equal to 5 (the default). The heptagon can be rotated and rounded as well as scaled. One can also create an ngon object to fit into a circle with a given radius. In this case the length is calculated automatically:</p>
+<p class="program">poly = paths.ngon(np=7, radius=4)</p>
+<p class="Normal"><strong><font color="#0000a0"><a name="star" id="star"></a>star</font></strong></p>
+<p class="Normal"></p>
+<table width="663" border="0">
+  <tr>
+    <td width="525"><p class="program"><span class="Normal">st = paths.star(n=5)</span></p></td>
+    <td width="128"><img src="images/star.jpg" width="127" height="122" alt="star" /></td>
+  </tr>
+</table>
+<p class="Normal">creates a star object at pos=(0,0), with 5 beams (the default), fitting into a circle of radius=3 (the default). As you change the radius value, the beam length changes accordingly, with concave vertices remaining on their original positions.</p>
+<p class="program"><span class="Normal">st = paths.star(n=6, radius=3, iradius=1)</span></p>
+<p class="Normal">creates a 6-pointed star with outer radius=3, where the tips of the beams are located, and  inner radius=1, where the concave vertices reside. The star can be rotated and rounded as well as scaled.</p>
+<p class="Normal"><strong><font color="#0000a0"><a name="trapezoid" id="any_shape2"></a>trapezoid</font></strong></p>
+<p class="Normal"></p>
+<table width="663" border="0">
+  <tr>
+    <td width="525"><p class="program">tr=paths.trapezoid(pos=(-2,3), <br />
+&nbsp;&nbsp;&nbsp;&nbsp;width=6, height=1, top=3)<br />
+    </p></td>
+    <td width="128"><img src="images/trapezoid.jpg" width="278" height="121" alt="trapezoid" /></td>
+  </tr>
+</table>
+<p class="Normal">creates  an isosceles trapezoid object with its center at pos=(-2,3) with respect to the extrusion curve points, with width=6 (the default width of the base), height=1 (the default is 3), and top=3. If top is omitted, it is set to be equal to  half of the width. The trapezoid can be rotated and rounded as well as scaled.</p>
+<p class="Normal"><strong><font color="#0000a0"><a name="cross" id="star2"></a>cross</font></strong></p>
+<p class="Normal"></p>
+<table width="663" border="0">
+  <tr>
+    <td width="525"><p class="program"><span class="Normal">st = paths.cross(width=10, thickness=2)</span></p></td>
+    <td width="128"><img src="images/cross.jpg" width="132" height="122" alt="cross" /></td>
+  </tr>
+</table>
+<p class="Normal">creates a object in the shape of a cross, with arms that are 10 across by 2 wide. The very different use of &quot;cross&quot; in the cross product of vectors is not a problem as long as you refer to paths.cross as different from cross.</p>
+<p class="Normal"></p>
+<table width="663" border="0">
+  <tr>
+    <td width="525"><p class="Normal">Here is a cross-shaped path extruding an elliptical shape:</p></td>
+    <td width="128"><img src="images/cross_ellipse.jpg" width="260" height="238" alt="cross-ellipse" /></td>
+  </tr>
+</table>
+<p class="Normal"><strong><font color="#0000a0"><a name="pointlist" id="pointlist"></a>pointlist</font></strong></p>
+<p class="program"><span class="Normal">pl = paths.pointlist(points=[(1,0),(1,1),(-2,3),(1,0)], <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  rotate=pi/4)</span></p>
+<p class="Normal">creates a polygon of the shape defined by the list of (x,y) points provided. The list of points can be prepared manually or by programs using any algorithm. The polygon can be rotated and rounded as well as scaled.</p>
+<p class="Normal"><strong><font color="#0000a0"><a name="attributes" id="attributes"></a>List of parameters</font></strong></p>
+        <p class="Normal">          This list  defines the parameters  used in defining the 2D paths.</p>
+        <p class="Normal">          <span class="attribute">pos</span> Position: the 2D center of the path; default = (0,0). For the pointlist object, a list of (x,y) positions.</p>
+        <p class="Normal">          <span class="attribute">radius</span> The radius of the circle, default = 3.          It is used as the radius of the circle path, as well as the default radius value for the star path's outer radius, and for the ngon path, if the length parameter is not provided.</p>
+        <p class="Normal">          <span class="attribute">length</span> Length of  2D path like pentagon, hexagon, ngon, default = 5</p>
+        <p class="Normal">          <span class="attribute">width</span> Width of  2D paths like rectangle, ellipse, default = 5</p>
+        <p class="Normal">          <span class="attribute">height</span> Height of  2D paths like rectangle, ellipse, default = None (Equal to width)</p>
+        <p class="Normal">          <span class="attribute">rotate</span> Rotation angle in radians about the center of the 2D path, default = 0.0. A positive value gives a counterclockwise rotation; a negative value rotates clockwise.</p>
+        <p class="Normal">          <span class="attribute">np</span> Number of sides of a polygon to approximate objects like circle and ellipse (default = 32); for ngon, np is the number of sides (default = 3). Also the number of points on a star (default = 5).</p>
+        <p class="Normal"><span class="attribute">n</span> The number of outward-going beams on a star (default = 5).</p>
+<p class="Normal">          <span class="attribute">iradius</span> Inner radius for the star object, default = 0.5*radius.</p>
+        <p class="Normal">          <span class="attribute">roundness</span> Radius of curvature for the sharp corners of  2D paths to be rounded. It is used to obtain 2D paths like rectangle, triangle, star with rounded corners, default = 0.0. When specifed as larger than zero, the radius is calculated by multiplying the roundness by the shortest  length. For example, if roundness=0.2, this means the radius will be 20% of the smallest length  of a polygon. Suggested value = 0.1.        </p>
+        <p class="Normal"><span class="attribute">invert</span> When used together with the roundness parameter, a circular chamfer is created as opposed to a rounded corner, default = False.<br />
+      </p>
+        <p class="Normal"><span class="attribute">scale</span> Scaling multiplier to resize the shape objectin both x and y directions, default = 1.0</p>
+        <p class="Normal"><span class="attribute">xscale</span> Scaling multiplier in x direction only, default = 1.0</p>
+        <p class="Normal"><span class="attribute">yscale</span> Scaling multiplier in y direction only, default = 1.0      </p>
+      </div>
+      <div> </div>
+    <!-- InstanceEndEditable --></td>
+  </tr>
+  <tr>
+    <td height="16" colspan="4"></td>
+  </tr>
+</table>
+</body>
+<!-- InstanceEnd --></html>

@@ -1,0 +1,432 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>extrusion</title>
+<!-- InstanceEndEditable -->
+<!-- InstanceBeginEditable name="head" -->
+<link href="VisualRef.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+<!--
+.style1 {font-size: x-large}
+.style2 {font-size: xx-large}
+-->
+</style>
+<!-- InstanceEndEditable -->
+<script type="text/javascript">
+<!--
+function MM_jumpMenu(targ,selObj,restore){ //v3.0
+  eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
+  if (restore) selObj.selectedIndex=0;
+}
+//-->
+</script>
+<link href="VisualRef.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<table width="800" border="0" cellpadding="0" cellspacing="0">
+  <!--DWLayoutDefaultTable-->
+  <tr>
+    <td width="10" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
+    <td width="10" height="272" valign="top" bgcolor="#DDDDDD"><p>&nbsp;</p>    </td>
+    <td width="173" valign="top" bgcolor="#DDDDDD"><p class="Normal"><a href="index.html">Home</a></p>
+      <p class="Normal">If you're new to Python <br />
+      and VPython: <a href="VisualIntro.html">Introduction</a></p>
+      <p class="Normal">A VPython <a href="VPython_Intro.pdf" target="_blank">tutorial</a></p>
+      <p class="Normal"><a href="primitives.html">Pictures</a> of 3D objects</p>
+      <p class="Normal">Choose an object:</p>
+        <select name="jumpMenu4" id="jumpMenu4" onchange="MM_jumpMenu('parent',this,0)">
+          <option>Choose an object</option>
+          <option value="cylinder.html">Overview</option>
+          <option value="arrow.html">arrow</option>
+          <option value="box.html">box</option>
+          <option value="cone.html">cone</option>
+          <option value="convex.html">convex</option>
+          <option value="curve.html">curve</option>
+          <option value="cylinder.html">cylinder</option>
+          <option value="ellipsoid.html">ellipsoid</option>
+          <option value="extrusion.html">extrusion</option>
+          <option value="faces.html">faces</option>
+          <option value="frame.html">frame</option>
+          <option value="helix.html">helix</option>
+          <option value="label.html">label</option>
+          <option value="lights.html">lights</option>
+          <option value="points.html">points</option>
+          <option value="pyramid.html">pyramid</option>
+          <option value="ring.html">ring</option>
+          <option value="sphere.html">sphere</option>
+          <option value="text.html">text</option>
+        </select>
+        
+      <p class="Normal">Work with objects:</p>
+        <select name="jumpMenu4" id="jumpMenu5" onchange="MM_jumpMenu('parent',this,0)">
+          <option>Choose an option</option>
+          <option value="color.html">Color/Opacity</option>
+          <option value="materials.html">Materials/Textures</option>
+          <option value="shapes.html">Shapes Library</option>
+          <option value="paths.html">Paths Library</option>
+          <option value="defaults.html">Defaults</option>
+          <option value="rate.html">Animation Speed</option>
+          <option value="rotation.html">Rotations</option>
+          <option value="options.html">Additional Options</option>
+          <option value="delete.html">Delete an Object</option>
+          <option value="float.html">3/4 = 0?</option>
+          <option value="controls.html">Buttons/Sliders</option>
+          <option value="graph.html">Graphs</option>
+          <option value="lights.html">Lighting</option>
+          <option value="files.html">Read/Write Files</option>
+          <option value="trail.html">Leaving a Trail</option>
+          <option value="vector.html">Vector Operations </option>
+          <option value="factorial.html">factorial/combin</option>
+        </select>
+        
+      <p class="Normal">Windows &amp Events:</p>
+        <select name="jumpMenu4" id="jumpMenu6" onchange="MM_jumpMenu('parent',this,0)">
+          <option>Choose a topic</option>
+          <option value="display.html">Windows</option>
+          <option value="mouse.html">Mouse Events</option>
+          <option value="mouse_click.html">&nbsp;&nbsp;&nbsp;Mouse Click</option>
+          <option value="mouse_drag.html">&nbsp;&nbsp;&nbsp;Mouse Drag</option>
+          <option value="keyboard.html">Keyboard Events</option>
+        </select>
+        
+    <p class="Normal">What's new in <a href="new_features.html">Visual 5</a></p>
+    <p class="Normal"><a href="http://vpython.org" target="_blank">VPython web site</a><br />
+      <a href="license.txt" target="_blank">Visual license</a><br />
+      <a href="http://www.python.org" target="_blank">Python web site</a> <br />
+      <a href="http://www.python.org/doc/2.5.2/lib/module-math.html" target="_blank">Math module</a> (sqrt etc.)<br />
+    <a href="http://www.scipy.org/Documentation" target="_blank">Numpy module</a> (arrays)    </p></td>
+    <td width="21" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
+    <td width="586" rowspan="2" valign="top"><!-- InstanceBeginEditable name="content" -->
+
+        <table width="100%" border="1">
+          <tr>
+            <td width="73%"><div align="center"><span class="style1 style2"><font color="#0000A0">extrusion</font></span></div></td>
+            <td width="27%"><div align="center"><img src="images/extrusion.jpg" width="211" height="174" alt="extrusion" /><a href="arrow.html"></a></div></td>
+          </tr>
+        </table>
+        <p class="Normal">The extrusion object extrudes a 2D shape along a path. Here is the minimal syntax:</p>
+      <p align="center" class="program">ex = extrusion(pos=..., shape=...)</p>
+<p class="Normal"> The <span class="attribute">pos</span> attribute is a list of points like the <span class="attribute">pos</span> attribute of a curve object. Various <a href="#path_library"><strong>tools</strong></a> simplify the creation of complicated paths. The <span class="attribute">shape</span> attribute is a Polygon object with contours describing a 2D shape that can contain holes. Various <a href="#shape_library"><strong>tools</strong></a> simplify the creation of complicated 2D shapes. There are options to vary the size (<span class="attribute">scale</span>, <span class="attribute">xscale</span>, <span class="attribute">yscale</span>) and <span class="attribute">twist</span> of the 2D shape along the extrusion path.</p>
+<blockquote>
+        <p class="Normal"><strong>        Before studying the following  details, please run the example program</strong> <strong>extrusion_overview.py, which is  included in the VPython example programs. </strong>Later, see the example program extrusion_samples.py, which gives more complex examples.<br />
+          </p>
+        </blockquote>
+<p class="Normal">          The program extrusion_overview.py offers an interactive tutorial on the main features of the extrusion object. Here is a <a href="extrusion_overview.py" target="_blank"><strong>copy</strong></a> of that program.</p>
+<p class="Normal"><strong><font color="#0000a0">Choose an  extrusion topic:</font></strong></p>
+<blockquote>
+  <p class="Normal"><strong><font color="#0000a0"><a href="#basics">The three steps to make an extrusion</a></font></strong></p>
+  <p class="Normal"><strong><font color="#0000a0"><a href="#shapes">Creating a 2D shape to extrude</a></font></strong></p>
+  <p class="Normal"><strong><font color="#0000a0"><a href="#shape_library">A library of 2D shapes</a></font></strong></p>
+  <p class="Normal"><strong><font color="#0000a0"><a href="#path_library">A library of paths</a></font></strong></p>
+  <p class="Normal"><strong><font color="#0000a0"><a href="#scaling">Scaling the 2D shape</a></font></strong></p>
+  <p class="Normal"><strong><font color="#0000a0"><a href="#twist">Twist</a></font></strong></p>
+  <p class="Normal"><strong><font color="#0000a0"><a href="#dynamic">Dynamic change of attributes</a></font></strong></p>
+  <p class="Normal"><strong><font color="#0000a0"><a href="#works">How the extrusion machinery works</a></font></strong></p>
+  <p class="Normal"><strong><font color="#0000a0"><a href="#attributes">List of all the extrusion attributes</a></font></strong></p>
+  <p class="Normal"><strong><font color="#0000a0"><a href="#numpy">Using numpy to manipulate array attributes</a></font></strong></p>
+  <p class="Normal"><strong><font color="#0000a0"><a href="#append">Adding more points to an extrusion path</a></font></strong></p>
+  <p class="Normal"><strong><font color="#0000a0"><a href="#colors">Interpolation of colors</a></font></strong></p>
+  <p class="Normal"><strong><a href="#faces">Extracting extrusion data</a></strong></p>
+  <p class="Normal"><strong><font color="#0000a0"><a href="#skipping">Skipping points</a></font></strong></p>
+</blockquote>
+<p class="Normal"><strong><font color="#0000a0"><a name="basics" id="basics"></a>The three steps to make an extrusion</font></strong></p>
+<p class="Normal"><strong>1)</strong> Create a 2D shape, either by giving a list of points to the Polygon function or by choosing a shape from a supplied library of common shapes. Here are two examples. The first creates a triangle by providing 3 points to the Polygon function. The second chooses a circular shape from the shapes library to be discussed later and positions it near the center of the triangle.</p>
+<p class="program">tri = Polygon( [(-2,0), (0,4), (2,0)] )</p>
+<p class="program">circ = shapes.circle(pos=(0,1.5), radius=0.8)</p>
+<p class="Normal"><strong>2)</strong> Create a path along which to extrude your shape (just like the <span class="attribute">pos</span> attribute of a curve object), either by giving a list of points or by choosing a path from a supplied library of common shapes. Here are two example. The first is a 2-point line, headed into the screen (-z direction). The second chooses a semicircular arc from the paths library to be discussed later (pi radians is 180 degrees).</p>
+<p class="program"></p>
+<p class="program">straight = [(0,0,0),(0,0,-4)]</p>
+<p class="program">semicircle = paths.arc(radius=3, angle2=pi)<br />
+</p>
+<p class="Normal"><strong>3)</strong> Create an extrusion object to extrude your shape along your path. Here we've assigned the &quot;straight&quot; path to the <span class="attribute">pos</span> attribute, and the &quot;tri&quot; shape to the <span class="attribute">shape</span> attribute.</p>
+<p class="program"></p>
+<table width="686" height="84" border="0">
+  <tr>
+    <td width="557"><p class="program">extrusion(pos=straight, shape=tri, <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; color=color.yellow) </p>
+      <p class="Normal">&nbsp;</p>
+      <p class="Normal">The result is that the triangular shape is extruded in the -z direction.</p></td>
+    <td width="119"><img src="images/triangle.jpg" width="119" height="130" alt="extruded triangle" /></td>
+  </tr>
+</table>
+<p class="Normal">An important feature is that you can combine simple shapes to make complex ones. For example, if we subtract the circular shape (&quot;circ&quot;) from the triangle shape (&quot;tri&quot;), and assign this to the extrusion <span class="attribute">shape</span> attribute, we get the following:</p>
+<p class="program"></p>
+<table width="684" height="84" border="0">
+  <tr>
+    <td width="563"><p class="program">extrusion(pos=straight, shape=tri-circ, <br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; color=color.yellow) </p></td>
+    <td width="111"><img src="images/triangle_with_hole2.jpg" width="111" height="122" alt="triangle with hole" /></td>
+  </tr>
+</table>
+<p class="Normal"></p>
+<p class="Normal">If we assign the semicircle path to the extrusion <span class="attribute">pos</span> attribute, we get the following:</p>
+<p class="program"></p>
+<table width="687" height="84" border="0">
+  <tr>
+    <td width="465"><p class="program">extrusion(pos=semicircle, <br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      shape=tri-circ, <br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; color=color.yellow) </p></td>
+    <td width="111"><img src="images/arc_and_triangle_with_hole.jpg" width="277" height="123" alt="semicircular arc" /></td>
+  </tr>
+</table>
+<p class="Normal">The rest of this documentation provides more details on creating paths and shapes, and on how to manipulate the extrusion by specifying varying scale factors, twists, and colors along the path.</p>
+<p class="Normal"><strong><font color="#0000a0"><a name="shapes" id="shapes"></a>Creating a 2D shape to extrude</font></strong></p>
+        <p class="Normal">The 2D shape is generated with the aid of the Polygon contour function that is part of the Polygon module imported by VPython (from visual import * executes &quot;from Polygon import Polygon&quot;). The following statement will create a 2D triangle with a base of 4 and height of 4:</p>
+      <p class="program">tri = Polygon( [(-2,0), (0,4), (2,0)] )</p>
+      <table width="685" height="84" border="0">
+        <tr>
+    <td width="533"><p class="Normal">The Polygon function takes a Python &quot;list&quot; of points; note the format:<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ (x0,y0), (x1,y1), (x2,y2) ]<br />
+      The Polygon function produces a special object, a closed &quot;contour&quot;, which we have assigned to tri. Having constructed this triangular closed contour, we  assign it to the <span class="attribute">shape</span> of an extrusion to produce an extruded yellow triangle, extruded inward from position (0,0,0) toward position (0,0,-4):</p>
+      <p class="program">extrusion(pos=[(0,0,0),(0,0,-4)], <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        shape=tri, <br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;color=color.yellow) </p></td>
+    <td width="142"><img src="images/triangle.jpg" width="142" height="156" alt="extruded triangle" /></td>
+  </tr>
+</table>
+      <p class="Normal">The Polygon module offers powerful ways to combine contours to make complex 2D shapes; this capability is called &quot;constructive geometry&quot;. For example, let's create a rectangular  contour which we can use to make a hole in our triangle:</p>
+      <p class="program">hole  = Polygon( [(-.5,.5),(-.5,2.5),(.5,2.5),(.5,.5)] )</p>
+      <table width="685" height="84" border="0">
+        <tr>
+          <td width="532"><p class="Normal">We can create a hole in the 2D shape simply by subtracting the hole contour from the triangle contour, shape = tri - hole:</p>
+            <p class="program">extrusion(pos=[(0,0,0),(0,0,-4)], <br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        shape=tri-hole, <br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;color=color.yellow) </p></td>
+          <td width="143"><span class="Normal"><img src="images/triangle_with_hole.jpg" width="142" height="160" alt="triangle with hole" /></span></td>
+        </tr>
+      </table>
+      <p class="Normal">Contours made with the Polygon function can be added (+), in which case a new contour includes both pieces or subtracted (-) to make holes. They can be intersected (&amp;) to form a surface that includes only those pieces common to both contours, or &quot;exclusive or-ed&quot; (^) to form a surface that is the sum of the pieces but with regions common to both pieces removed. Here are the effects of using these operations to combine a rectangle and a circle:</p>
+      <table width="690" height="206" border="0">
+        <tr>
+          <td width="684" height="202"><div align="center"><img src="images/constructive_geometry.jpg" width="222" height="193" alt="constructive geometry" /></div></td>
+        </tr>
+      </table>
+      <table width="686" height="84" border="0">
+        <tr>
+          <td width="513"><p class="Normal">Instead of giving Polygon closed contours of shapes, alternatively you can specify the 2D shape as a simple list of 2D points that need not constitute a closed contour, as in the upper object shown at the right. Here is the program:</p>
+            <p class="program"> s = [(-3,5), (0,0), (-3,-5)]<br />
+              p = [(-7,0,5), (5,0,-5)]<br />
+              extrusion(pos=p, shape=s,<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            color=color.orange, <br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;material=materials.wood)</p>
+            <p class="Normal">If your <span class="attribute">pos</span> path is a circle, and your <span class="attribute">shape</span> is a non-closed contour, you'll get a thin-walled object with no end faces. In the lower image the shape used above, <span class="program">[(-3,5), (0,0), (-3,-5)],</span> has been extruded around a circular path. The object doesn't have a top or bottom.</p>
+            <p class="Normal">If the last point in the list of points is equal to the first point, the contour is a closed contour, and end faces will be shown (unless you set <span class="attribute">show_initial_face</span> and/or <span class="attribute">show_final_face</span> to False).  Another way to make the lower object is to extrude a circular shape from bottom to top, with change of scale along the path, and specify that the top and bottom faces not be shown.</p></td>
+          <td width="163"><p align="center"><img src="images/skin.jpg" width="96" height="209" alt="skin" /></p>
+            <p align="center"><img src="images/lathe.jpg" width="130" height="99" alt="lathe" /></p></td>
+        </tr>
+      </table>
+      <p align="center" class="Normal"><strong><font color="#0000a0"><a name="shape_library" id="shape_library"></a>A library of 2D shapes</font></strong> </p>
+<p class="Normal">It can be tedious to create the contours by listing lots of points, so there is a <strong><a href="shapes.html">shapes library</a></strong> for creating common contours such as rectangles and circles. Let's make an equilateral triangle with a circular hole using these tools:</p>
+      <table width="689" height="84" border="0">
+        <tr>
+          <td width="524"><p class="program">tri=shapes.triangle(pos=(0,2), length=4)<br />
+            hole=shapes.circle(pos=(0,2), radius=1)<br />
+            extrusion(pos=[(0,0,0),(0,0,-4)], <br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        shape=tri-hole, <br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;color=color.yellow) </p></td>
+          <td width="153"><span class="Normal"><img src="images/triangle_circular_hole.jpg" width="152" height="158" alt="triangle with circular hole" /></span></td>
+        </tr>
+      </table>
+      <p class="Normal">For contours such as shapes.triangle() and shapes.circle() there are various options such as width, height, or radius, depending on the kind of shape. All of the shapes let you position the shapes by specifing pos, which is the center of these shapes, and all of the shapes let you rotate the shapes (a positive angle in radians gives a counterclockwise rotation, negative is clockwise).       See the <strong><a href="shapes.html">shapes library</a></strong> for details.</p>
+      <p class="Normal">There are four ways you can specify the <span class="attribute">shape</span> attribute for an extrusion:<br />
+&nbsp;&nbsp;&nbsp;1) a simple list of 2D points <br />
+&nbsp;&nbsp;&nbsp;2) a 2D shape using the shapes library  or the Polygon function, with constructive geometry<br />
+      &nbsp;&nbsp;&nbsp;3) a character string such as &quot;Extrude this!&quot;; also see the shapes.text() function in the shapes library<br />
+&nbsp;&nbsp;&nbsp;4) a suitable path from the paths library (see next section) </p>
+      <p class="program">p1 = [(1,0,0), (2,1,-3), (2,5,3), (-1,4,0)] # 3D points      </p>
+      <p class="program">p2 = shapes.rectangle(width=6) + <br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;              shapes.rectangle(pos=(0,4), width=2)</p>
+      <p class="program">p3 = paths.rectangle(length=8) # paths library</p>
+      <p class="program">p4 = &quot;Extrude this!&quot; # This will extrude the text</p>
+      <div>
+        <p class="Normal">For contour <strong>p2</strong>, two rectangles have been added together to form a combined shape, with just one (outer) contour. The contour <strong>p3</strong> is taken from the paths library (see next section); usually one would use a corresponding version in the shapes library, but using something from the paths library will work.</p>
+        <p class="Normal">The text contained in <strong>p4</strong> yields the extrusion shown below when extruded along a semicircular path. The shapes.text() function in the shapes library offers more control of  extruded text. </p>
+        <table width="699" border="0">
+          <tr>
+            <td width="693"><div align="center"><span class="Normal"><img src="images/text_extrusion.jpg" width="600" height="192" alt="text extrusion" /></span></div></td>
+          </tr>
+        </table>
+      </div>
+<p class="Normal"><strong><font color="#0000a0"><a name="path_library" id="path_library"></a>A library of paths</font></strong>      </p>
+      <p class="Normal">The documentation on the <a href="curve.html" target="_blank"><strong>curve object</strong></a> offers information on constructing the <span class="attribute">pos</span> array of points. In addition, there is a <a href="paths.html"><strong>library of paths</strong></a> that can be assigned to <span class="attribute">pos</span>. The following creates a list of points along a circle of radius 10 in the y=4 plane, parallel to the xz plane, and centered at (5,4,2):</p>
+        <p class="program">p = paths.circle( pos=(5,4,2), radius=10 )</p>
+        <div>
+          <p class="Normal"> We can use this path to make a circular ring with triangular cross section:</p>
+          <table width="692" height="196" border="0">
+            <tr>
+              <td height="51"><p class="program">tri=shapes.triangle(pos=(0,2), length=4<br />
+extrusion(pos=p, shape=tri,&nbsp;color=color.yellow)</p></td>
+            </tr>
+            <tr>
+              <td width="686"><div align="center"><img src="images/triangular_ring.jpg" alt="" width="231" height="137" /></div></td>
+            </tr>
+          </table>
+          <div>
+            <p class="Normal"><strong><font color="#0000a0">Path orientation</font></strong>            </p>
+            <p class="Normal">The extrusion's path is parallel to the xz plane. If you want to change the orientation of the object, specify <span class="attribute">up</span> for the path, which rotates the plane of the object to be perpendicular to <span class="attribute">up</span>. Using the following path will cause  the extrusion to be displayed in the xy plane, perpendicular to (0,0,1):</p>
+            <p class="program">p = paths.circle( pos=(5,4,2), radius=10, up=(0,0,1) )</p>
+            <div>
+              <p class="Normal">There are three ways you can specify the <span class="attribute">pos</span> attribute for an extrusion:<br />
+&nbsp;&nbsp;&nbsp;1) a simple list of 3D points <br />
+&nbsp;&nbsp;&nbsp;2) a path using the paths library <br />
+&nbsp;&nbsp;&nbsp;3) a 2D Polygon object as long as it has only one contour (no holes or separated pieces)<br />
+              </p>
+              <p class="program">p1 = [(1,0,0), (2,1,-3), (2,5,3), (-1,4,0)] # 3D points</p>
+              <p class="program">p2 = paths.rectangle(length=8) # 2D paths library</p>
+              <p class="program">p3 = shapes.rectangle(width=6) + <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;              shapes.rectangle(pos=(0,4), width=2)              </p>
+              <div>
+                <p class="Normal"> The contour <strong>p3</strong> is constructed from the Polygon objects created by the shapes library. Two rectangles have been added together to form a combined shape, with just one (outer) contour. This can be assigned to the <span class="attribute">pos</span> attribute of an extrusion. </p>
+                <div>
+                  <div></div>
+                </div>
+                <p class="Normal"><strong><font color="#0000a0">Path direction</font></strong></p>
+<p class="Normal">The paths in the paths library all go counterclockwise in the xz plane, as seen from above. That is, if starting from a position on the x axis, they head in the -z direction and bend toward the left. If your shape has something sticking out on the right, it will be on the outer side of the extrusion, whereas something sticking out on the left will be on the inner side of the extrusion. </p>
+                <p class="Normal"><strong>Technical note:</strong> What the paths library produces is not a Polygon object. If you want to create a path by combining Polygon objects using constructive geometry (as in  adding two rectangles together to form the contour <strong>p2b</strong>), you can use the shapes library, which does create Polygon objects. If you specify a Polygon object (including one from the shapes library), VPython adjusts it to go counter-clockwise in the xz plane as seen from above.</p>
+              </div>
+            </div>
+<p class="Normal"><strong><font color="#0000a0"><a name="scaling" id="scaling"></a>Scaling the 2D shape</font></strong></p>
+            <p class="Normal">At each point along the <span class="attribute">pos</span> path, you can specify scaling of the shape, in both x and y. Scale factors can be negative; for example, xscale= -1 will reverse left and right in a shape. Here are sample forms for scaling:</p>
+            <p class="program">scale = (1.5,0.6) # scale all x by 1.5, all y by 0.6<br />
+              scale = [(1.5,0.6), (2,1.0)] # 
+              scales for points 0 and 1<br />
+              xscale = 1.5 # scale all x by 1.5<br />
+              xscale = [1.5, 2] # xscale for points 0 and 1
+              <br />
+              yscale = 0.6 # scale all y by 0.6<br />
+yscale = [0.6, 1.0) # yscale for points 0 and 1</p>
+            <p class="Normal"></p>
+            <table width="690" border="0">
+              <tr>
+                <td width="407" height="150"><p class="Normal">Here is an example of scaling a triangular cross section differently at different points along the <span class="attribute">pos</span> path.</p></td>
+                <td width="273"><img src="images/extrustion_scaling.jpg" width="273" height="147" alt="scaling" /></td>
+              </tr>
+            </table>
+            <table width="688" height="89" border="0">
+              <tr>
+                <td width="478"><p class="Normal">A common use of scaling is to make a truncated pyramid:</p></td>
+                <td width="200"><img src="images/frustum.jpg" width="200" height="228" alt="frustum" /></td>
+              </tr>
+            </table>
+            <p class="Normal"><strong><font color="#0000a0"><a name="twist" id="twist"></a>Twist</font></strong></p>
+            <p class="Normal">At  each point along the <span class="attribute">pos</span> path, you can specify a <span class="attribute">twist</span> relative to the previous point. The twist is given in radians and is positive for counterclockwise twist, negative for clockwise twist. For example, twist=0.01 will twist each point by 0.01 radians (about 0.6 degrees) relative to the preceding point. The initial face is not twisted (it can be twisted  by setting the <span class="attribute">initial_twist</span> or <span class="attribute">up</span> attributes). Here is an extrusion with a square cross section, twisted clockwise by -pi/8 radians from one point to the next as seen starting from the initial left (cyan) end and heading toward the final right end (the twist looks counterclockwise seen from the right or final end):</p>
+            <table width="699" border="0">
+              <tr>
+                <td width="693"><div align="center"><span class="Normal"><img src="images/extrusion_twist.jpg" width="301" height="130" alt="twist" /></span></div></td>
+              </tr>
+            </table>
+            <p class="Normal">Like <span class="attribute">xscale</span>, the <span class="attribute">twist</span> attribute is actually an array, one entry per point, so that setting the twist array to twist = [ 0, .01, .02, .03 ] will twist point 1 by .01 radians, point 2 by .02, and point 3 by .03. The 0th twist element is always ignored and has no effect on the initial face, but you can set <span class="attribute">initial_twist</span>. or <span class="attribute">up</span> to twist the initial face.</p>
+<p class="Normal"><strong><font color="#0000a0"><a name="dynamic" id="dynamic"></a>Dynamic change of attributes</font></strong></p>
+            <p class="Normal">You can dynamically change all of the attributes, even the shape. The extrusion object is rendered quite rapidly, so unusual effects are possible, as is demonstrated in the example program <a href="extrusion_overview.py">extrusion_overview.py</a> mentioned earlier.</p>
+            <p class="Normal"><strong><font color="#0000a0"><a name="works" id="works"></a>How the extrusion machinery works</font></strong></p>
+            <p class="Normal">At every point along the <span class="attribute">pos</span> path this point plus the preceding and following points define a plane, and a circle is fitted to these three points (unless the three points are in a line). A 2D plane is established perpendicular to the tangent to the circle at this point. The 2D shape is drawn in this 2D plane, subject to scaling and twist. A shape should be positioned so that its center is approximately at the location of the <span class="attribute">pos</span> locations. If you offset the shape far from the path, you may get odd results, because there is enhanced danger of two adjacent drawing planes  intersecting each other. Also, making sharp turns of wide extrusions may lead to one segment overlapping another. </p>
+            <p class="Normal">If the bending angle from one point to the next is large, the fitted circle is abandoned, and the orientation of the 2D plane is determined from the direction from the previous point to the current point and the direction from the current point to the next point, giving a mitered joint. The bending angle is considered to be large if its cosine if greater than 0.95 (an angle of about 18 degrees), the default value of <span class="attribute">smooth</span> (which can be changed; see below). For  bending angles whose cosine is smaller than <span class="attribute">smooth</span>, adjacent segments are smoothed to eliminate creases.          </p>
+          </div>
+          <div></div>
+          <p class="Normal"><strong><font color="#0000a0"><a name="attributes" id="attributes"></a>List of all the extrusion attributes</font></strong></p>
+          <p class="Normal">Major attributes</p>
+        </div>
+        <div>
+          <p class="attributes"> <span class="attribute">pos[]</span> Array of
+            position of points in the extrusion path: pos[0], pos[1], pos[2]....pos[-2], pos[-1]<br />
+            The current number of points is given by len(E.pos)</p>
+          <p class="attributes"> <span class="attribute">x[ ]</span>, <span
+ class="attribute">y[ ]</span>, <span class="attribute">z[ ]</span> Components of pos; each defaults to [0,0,0,0,...]</p>
+          <p class="attributes"> <span class="attribute">color[ ]</span> Color
+            of points along the extrusion</p>
+          <p class="attributes"> <span class="attribute">red[ ]</span>, <span
+ class="attribute">green[ ]</span>, <span class="attribute">blue[ ]</span> Color components of points along the extrusion</p>
+          <p class="attributes"> <span class="attribute">up </span><span class="attribute"></span> controls the orientation of the initial cross section; default is (0,1,0); see the box object for a discussion of this attribute</p>
+          <p class="attributes"> <span class="attribute">visible</span><span class="attribute"></span> Default is True; if False, object is not visible</p>
+<p class="attributes"><span class="attribute">material</span> Material
+            for an extrusion; see <a href="materials.html">Materials</a> for
+            currently available options</p>
+<p class="attributes"><span class="attribute">shape</span> A set of  contours describing the shape of the extrusion cross section</p>
+<p class="attributes"><span class="attribute">scale</span> Array of xy scale factors affecting the cross section, default is [(1,1,), (1,1), ...]</p>
+<p class="attributes"><span class="attribute">xscale</span> Array of just the x scale factor affecting the cross section, default is [1, 1, ...]</p>
+<p class="attributes"><span class="attribute">yscale</span> Array of just the y scale factor affecting the cross section, default is [1, 1, ...]</p>
+<p class="attributes"><span class="attribute">twist</span> Array of twists (in radians) relative to the previous point, default is [0, 0, 0, ...]<br />
+  The first entry <span class="attribute">twist[0]</span> is ignored, because there is no previous point.<br />
+  A positive twist value twists counterclockwise; negative twists clockwise.</p>
+<p class="Normal"></p>
+<p class="Normal">Minor attributes</p>
+<p class="attributes"></p>
+<p class="attributes"><span class="attribute">initial_twist</span> Specify a twist for the initial point, the initial face of the extrusion. Alternatively, you can  specify this by setting <span class="attribute">up</span>.</p>
+<p class="attributes"><span class="attribute">start</span> The starting point for displaying the extrusion, from start = 0 (the default) to start = (the last point, which can also be given as -1). Earlier segments are not displayed but are not deleted.</p>
+<p class="attributes"><span class="attribute">end</span> The ending point for displaying the extrusion, from end = 0 (the first point) to end = (the last point, which is the default, and which can also be given as -1). Later segments are not displayed but are not deleted.</p>
+<p class="attributes"><span class="attribute">show_start_face</span> and <span class="attribute">show_end_face</span> By default, these attributes are True and the start and end faces are displayed. If you set one of these to False, that face is left open.</p>
+<p class="attributes"><span class="attribute">first_normal</span> and <span class="attribute">last_normal</span> These read-only attributes give you the outward-going normals to the first (start=0) and last faces (end=-1), whether or not these faces are actually shown. These may be useful if you are joining an extrusion to another object.</p>
+<p class="attributes"><span class="attribute">twosided</span><span class="Normal"> An extrusion is a complex object that can take longer to render onto the screen than other objects, due to the many calculations required to generate the triangles and normals required for the display. Like all other objects (except for faces), an extrusion object by default is two-sided (so that you see interior &quot;walls&quot; if you zoom inside the object). One  way to get a significant speed-up is to make the object not be two-sided, by setting </span><span class="attribute">twosided = False</span><span class="Normal">.</span></p>
+<p class="attributes"><span class="attribute">smooth</span> By default, adjacent normals for which the cosine of the angle between them is greater than 0.95 (corresponding to an angle of 18 degrees) are averaged so as to smooth the adjacent surfaces. You can set <span class="attribute">smooth</span> to a looser criterion for more smoothing. For example, setting smooth=0.9 will smooth adjoining surfaces  whose orientation differs by 53 degrees, a much looser criterion.</p>
+<p class="attributes"><span class="attribute">append(pos=(x,y,z))</span> Append another point to the path. Colors and other properties are those of the current last point.</p>
+<p class="attributes"><span class="attribute">append(pos=(x,y,z), retain=5)</span> Append another point to the path and retain the 5 last points, including the new point. Colors and other properties are those of the current last point.</p>
+<p class="attributes"><span class="attribute">append(pos=(x,y,z), color=(red,green,blue))</span> Append another point to the path with a given color, such as (1,1,0) or color.yellow. You can also specify <span class="attribute">retain</span>.</p>
+<p class="attributes"><span class="attribute">append(pos=(x,y,z), red=r, green=g, blue=b)</span> Append another point to the path with a  specified color. If you specify only red and blue, the amount of green is given by that of the previous point. You can also specify <span class="attribute">retain</span>.</p>
+<p class="Normal">Like other array objects (curve, points, faces, and convex), one cannot rotate an extrusion directly. To rotate an extrusion, place the extrusion in a frame and rotate the frame.</p>
+<p class="Normal">Currently it is not possible to specify the opacity
+  of an extrusion object.</p>
+<p class="Normal"><strong><font color="#0000a0"><a name="numpy" id="numpy"></a>Using numpy to manipulate array attributes</font></strong></p>
+<p class="Normal"><span class="attribute">color</span>, <span class="attribute">scale</span>, <span class="attribute">xscale</span>, <span class="attribute">yscale</span>, and <span class="attribute">twist</span> can be different for each
+  point along the path, and these attributes, like <span class="attribute">pos</span>, are stored as numpy arrays. The
+  numpy module for Python provides powerful array processing
+  capabilities; for example, two entire arrays can be added together in one operation.
+  Numpy arrays can be accessed using standard Python rules for
+  referring to the nth item in a sequence (that is, <span
+ class="attribute">seq[0]</span> is the first item in <span
+ class="attribute">seq</span>, <span class="attribute">seq[1]</span> is the second, <span class="attribute">seq[2]</span> is the third, <span class="attribute">seq[-1]</span> is the last item,
+  etc). For example, <span class="attribute">anyextrusion.pos[0]</span> is the first point along the path of <span class="attribute">anyextrusion</span>. Some examples of manipulating numpy arrays are found in the <a href="curve.html"><strong>curve</strong></a> documentation.</p>
+<p class="Normal"><strong><font color="#0000a0"><a name="append" id="append"></a>Adding more points to an extrusion path</font></strong></p>
+          <p class="Normal"> Points can be added incrementally to <span class="attribute">pos</span> using the <span
+ class="attribute">append()</span> function. A new point by default
+            shares the characteristics of the last point. You can append pos, color, red, green, or blue. Suppose you have an extrusion named <strong>E</strong>; you can do the following:</p>
+
+          <p class="program">E.append(pos=(x,y,z)</p>
+          <p class="program">E.append(pos=(x,y,z), color=color.cyan)</p>
+          <p class="program">E.append(pos=(x,y,z), red=1.0, green=0.5, blue=0.7)</p>
+          <p class="Normal">When appending to the path of an extrusion, you can optionally choose to retain only the last N points, including the one you're adding:</p>
+          <p class="program">E.append(pos=(x,y,z), retain=5) # retain last 5 points</p>
+          <p class="Normal"><strong><font color="#0000a0"><a name="colors" id="colors"></a>Interpolation of colors</font></strong></p>
+          <p class="Normal"> Like curve, the extrusion machinery interpolates colors from one point to the next.  If you want an abrupt change in color,  add another
+            point at the same location. In the following example, adding a blue
+            point at the same location as the orange point makes the first
+          segment be purely blue.          </p>
+      </div>
+        <p class="program">E=extrusion(pos=[(-1,0,0)], color=color.blue, ...)<br />
+            E.append( pos=(0,0,0) ) # add a blue point (optional)<br />
+          E.append( pos=(0,0,0), color=color.orange) # same point<br />
+          E.append( pos=(1,0,0) ) # add orange point        </p>
+          <p class="Normal">In the image shown here, the upper extrusion, made without the optional blue point, has three pos and color points, blue, orange, orange, left to right, so the blue fades into the orange. The lower extrusion includes the optional blue point and has four pos and color points, blue, blue, orange, orange, so there is a sharp break between blue and orange.</p>
+<table width="691" border="0">
+            <tr>
+              <td width="685"><div align="center"><span class="Normal"><img src="images/colors_abutting.jpg" width="312" height="200" alt="colors abutting" /></span></div></td>
+            </tr>
+          </table>
+<p class="Normal"><strong><font color="#0000a0"><a name="faces" id="numpy2"></a>Extracting extrusion data</font></strong></p>
+<p class="Normal">The following statement provides the <span class="attribute">pos</span>, <span class="attribute">normal</span>, and <span class="attribute">color</span> information needed for creating a single-sided faces object:</p>
+<p class="program">(pos, normal, color) = E.get_faces()</p>
+<p class="Normal">You can convert an extrusion object directly to a faces object, though this has the disadvantage that you lose the ability to change the extrusion attributes dynamically:</p>
+  <p class="program">E = extrusion(.....)<br />
+    F = E.create_faces() #  produces an equivalent faces object</p>
+  <p class="Normal">The conversion routine makes the extrusion object invisible and by default destroys its contents. If you wish to keep the extrusion object for later modification, say <span class="code"><strong>E.create(keep=True)</strong></span>. </p>
+  <p class="Normal">The faces object uses much more memory than the equivalent extrusion object, and it may actually take as long or longer to render. The effect on the speed depends on the details of the extrusion object and the platform you're using. If <strong>scene.show_rendertime = True</strong> you can see the &quot;cycle&quot; time in milliseconds between renderings, both before and after conversion.  Approximately half of the cycle time is devoted to rendering the scene, and about half to your own computations. Longer cycle times reflect longer render times; the minimum cycle time is about 30 milliseconds (about 30 renderings per second). If the scene is not very complicated, very little time is needed to render the scene, and almost all the time is given to your computations.</p>
+  <p class="Normal">The <strong>create_faces()</strong> function uses the <strong>get_faces()</strong> function but also copies into the faces object the <span class="attribute">frame</span>, <span class="attribute">material</span>, and <span class="attribute">up</span> attributes of the extrusion object, makes the extrusion object invisible, and destroys its contents (unless you specify that <span class="attribute">keep=True</span>).<br />
+</p>
+  <p class="program"></p>
+  <p class="Normal"><strong><font color="#0000a0"><a name="skipping" id="skipping"></a>Skipping points</font></strong></p>
+  <p class="Normal">Technical note: No matter how many points are in
+          an extrusion, only 1000 are displayed, selected evenly over the full set
+          of points, in order that the display of a very long extrusion doesn't slow
+          down unacceptably. </p>
+        <p class="Normal">See description of <a href="options.html">Additional
+          Attributes</a> available for all 3D display objects.</p>
+    <!-- InstanceEndEditable --></td>
+  </tr>
+  <tr>
+    <td height="16" colspan="4"></td>
+  </tr>
+</table>
+</body>
+<!-- InstanceEnd --></html>
