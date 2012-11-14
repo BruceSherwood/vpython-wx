@@ -3,17 +3,17 @@ Building vpython with from Visual Studio C++
 	You may find Eclipse a useful development and CVS environment (eclipse.org)		
 	
 	VPython CVS
-	    Check-out the vpython-core2 module from
-		:pserver:anonymous@visualpython.cvs.sourceforge.net:/cvsroot/visualpython
+	    Check-out the vpython-wx module from
+		github.com/BruceSherwood/vpython-wx
 
 	PythonX.N
 		Install Python X.N via the Windows Installer at http://www.python.org/download/.
-		Make sure it is installed on the same drive as vpython-core2, in \PythonXN.
+		Make sure it is installed on the main drive, in \PythonXN.
 		
 	Install these Python modules: numpy, FontTools, ttfquery.
 	
-	Copy into C:\PythonXN\Lib\site-packages the folders site-packages\vis and site-packages\visual
-	and docs found in \YourCVS\vpython-core2
+	Copy into C:\PythonXN\Lib\site-packages the folders site-packages\vis, site-packages\visual,
+	site-packages\visual_common, and docs.
                 
     Install Visual C++ 2008 Express Edition, which includes the platform SDK (System Development Kit)
         from http://www.microsoft.com/Express/Download/#webInstall
@@ -36,22 +36,13 @@ Building vpython with from Visual Studio C++
         build the Boost libraries from source. See below. This was the case in 
         Aug. 2010 when the standard release of Python was 2.7, but the boostpro 
         libraries had been built for Python 2.6.)
-        
-	On Vista, in Command Prompt, link from Python site-packages to the CVS files
-	(YourCVS is the directory where you have put the CVS files)
-        cd C:\Python2N\Lib\site-packages
-		mklink /D visual \YourCVS\vpython-core2\site-packages\visual
-	
-	If you are using XP, you will need to copy/update these files 
-		from CVS to C:\Python25\Lib\site-packages:
-			visual, examples, docs
 
 	Build cvisual.pyd
         Open the cvisual.sln project file in Visual Studio Express, make Release the active 
         configuration, then press F7.
 
-        The .pyd file is placed in vpython-core2\site-packages\vis
-        Copy this file to C:\PythonXN\Lib\site-packages\vis
+        The .pyd file is placed in vpython-wx\site-packages\visual_common
+        Copy this file to C:\PythonXN\Lib\site-packages\visual_common
 
         This is the only step that needs to be repeated as you make changes to the C++ source code.
         

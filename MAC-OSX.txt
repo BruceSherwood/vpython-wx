@@ -1,4 +1,4 @@
-HOW TO BUILD VISUAL 5 USING CARBON
+HOW TO BUILD VISUAL 6 USING wxPython
 Install XcodeTools from the optional materials on the Mac installation DVD.
 Installing XcodeTools automatically installs the large number of individualvp
 components also listed on the DVD.
@@ -7,6 +7,8 @@ Install Python for the Mac ("MacPython") from python.org.
 There is already a /usr/bin/python that at the moment is up to date, but
 because this isn't always the case, and because the Python community seems to
 strongly prefer it, we will base Visual on MacPython, which is /usr/local/bin/python.
+
+Install wxPython, preferably the Cocoa version.
 
 PYTHON INSTALLERS
 The standard Python installers at python.org for the Mac install into
