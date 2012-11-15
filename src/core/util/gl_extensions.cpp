@@ -19,9 +19,6 @@ gl_extensions::gl_extensions() {
 void gl_extensions::init( display_kernel& d ) {
 	#define F( name ) getPFN( name, d, #name )
 
-	//printf("t: %p\n", &glBegin);
-    //printf("%p\n", d.getProcAddress("glBegin"));
-
 	if ( ARB_shader_objects = d.hasExtension( "GL_ARB_shader_objects" ) ) {
 		F( glCreateProgramObjectARB );
 		F( glLinkProgramARB );

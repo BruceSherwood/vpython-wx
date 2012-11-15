@@ -360,7 +360,9 @@ public: // Public Data.
 	bool hasExtension( const std::string& ext );
 
 	typedef void (APIENTRYP EXTENSION_FUNCTION)();
-	virtual EXTENSION_FUNCTION getProcAddress( const char* );
+	//virtual EXTENSION_FUNCTION getProcAddress( const char* );
+
+	EXTENSION_FUNCTION getProcAddress( const char* );
 
 	virtual void activate( bool active ) = 0;
 };

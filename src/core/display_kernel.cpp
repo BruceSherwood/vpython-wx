@@ -21,6 +21,11 @@
 
 #include <boost/lexical_cast.hpp>
 
+#ifdef __APPLE__
+#include <AGL/agl.h>
+#include <dlfcn.h>
+#endif
+
 namespace cvisual {
 
 shared_ptr<display_kernel> display_kernel::selected;
@@ -1633,10 +1638,29 @@ display_kernel::hasExtension( const std::string& ext ) {
 	return extensions->find( ext ) != extensions->end();
 }
 
+#ifdef _WIN32
+display_kernel::EXTENSION_FUNCTION
+display_kernel::getProcAddress(const char* name) {
+	return (EXTENSION_FUNCTION)::wglGetProcAddress( name );
+}
+#elif __APPLE__
+display_kernel::EXTENSION_FUNCTION
+display_kernel::getProcAddress(const char* name) {
+	void *lib = dlopen( (const char *)0L, RTLD_LAZY | RTLD_GLOBAL );
+	void *sym = dlsym( lib, name );
+	dlclose( lib );
+	return (EXTENSION_FUNCTION)sym;
+	//return (EXTENSION_FUNCTION)::wglGetProcAddress( name ); // Windows
+	//return (EXTENSION_FUNCTION)Gdk::GL::get_proc_address( name ); // GTK2
+}
+#endif
+
+/*
 display_kernel::EXTENSION_FUNCTION
 display_kernel::getProcAddress( const char* x ) {
 	if ( !strcmp(x, "display_kernel::getProcAddress" ) ) return notImplemented;
 	return NULL;
 }
+*/
 
 } // !namespace cvisual
