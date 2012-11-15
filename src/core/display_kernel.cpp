@@ -1633,6 +1633,14 @@ display_kernel::hasExtension( const std::string& ext ) {
 	return extensions->find( ext ) != extensions->end();
 }
 
+/*
+void
+display_kernel::pushkey( int k)
+{
+	keys.push(k);
+}
+*/
+
 // The small platform-specific getProcAddress functions are in the platform-specific font_renderer files.
 /*
 display_kernel::EXTENSION_FUNCTION
