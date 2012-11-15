@@ -5,8 +5,15 @@
 #include <gtkmm/style.h>
 #include <gtkmm/settings.h>
 #include <gtk/gtkstyle.h>
+#include "display_kernel.hpp"
 
 namespace cvisual {
+
+display_kernel::EXTENSION_FUNCTION
+display_kernel::getProcAddress(const char* name) {
+	return (EXTENSION_FUNCTION)glXGetProcAddress((const GLubyte *)name);
+	//return (EXTENSION_FUNCTION)Gdk::GL::get_proc_address( name );  // older version; fails on recent Linuxes
+}
 
 static PangoFT2FontMap* fontmap = 0;
 

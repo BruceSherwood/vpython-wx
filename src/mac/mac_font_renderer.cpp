@@ -2,8 +2,20 @@
 #include "util/errors.hpp"
 #include "vpython-config.h"
 #include <ApplicationServices/ApplicationServices.h>
+#include "display_kernel.hpp"
+
+#include <AGL/agl.h>
+#include <dlfcn.h>
 
 namespace cvisual {
+
+display_kernel::EXTENSION_FUNCTION
+display_kernel::getProcAddress(const char* name) {
+	void *lib = dlopen( (const char *)0L, RTLD_LAZY | RTLD_GLOBAL );
+	void *sym = dlsym( lib, name );
+	dlclose( lib );
+	return (EXTENSION_FUNCTION)sym;
+}
 
 bool ucs4_to_utf16( const std::wstring& in, std::vector<unsigned short>& out ) {
 	out.clear();

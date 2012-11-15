@@ -1,9 +1,15 @@
 #include "font_renderer.hpp"
 #include "util/errors.hpp"
+#include "display_kernel.hpp"
 
 namespace cvisual {
 
 using std::wstring;
+
+display_kernel::EXTENSION_FUNCTION
+display_kernel::getProcAddress(const char* name) {
+	return (EXTENSION_FUNCTION)::wglGetProcAddress( name );
+}
 
 class win32_exception : std::exception {
  public:
