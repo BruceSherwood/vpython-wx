@@ -1,11 +1,13 @@
 #include "font_renderer.hpp"
 #include "util/errors.hpp"
 #include "vpython-config.h"
-#include <ApplicationServices/ApplicationServices.h>
 #include "display_kernel.hpp"
 
 #include <AGL/agl.h>
 #include <dlfcn.h>
+// The following include must be placed here;
+// otherwise Boost gives an error.
+#include <ApplicationServices/ApplicationServices.h>
 
 namespace cvisual {
 
