@@ -62,8 +62,6 @@ class py_display_kernel : public py_base_display_kernel
 
 	// Delegates key display_kernel virtual methods to Python
 	virtual void activate( bool active ) { boost::python::call_method<void>( self, "_activate", active ); }
-	//virtual EXTENSION_FUNCTION getProcAddress( const char* name ) { return (EXTENSION_FUNCTION)boost::python::call_method<intptr_t>( self, "_getProcAddress", name ); }
-	//intptr_t base_getProcAddress( const char* name ) { return (intptr_t)display_kernel::getProcAddress(name); }
 
 	// Utility methods for Python subclasses
 	bool report_mouse_state(py::object is_button_down,
@@ -193,9 +191,6 @@ wrap_display_kernel(void)
 		.def( "get_selected", &display_kernel::get_selected)
 		.staticmethod( "get_selected")
 
-		//.def( "_OSXgetProcAddress", &display_kernel::OSXgetProcAddress)
-		//.staticmethod( "OSXgetProcAddress")
-
 		.def( "_set_ambient", &display_kernel::set_ambient_f)
 		.def( "_set_ambient", &display_kernel::set_ambient)
 		.def( "_get_ambient", &display_kernel::get_ambient)
@@ -212,7 +207,6 @@ wrap_display_kernel(void)
 	class_<py_base_display_kernel, py_display_kernel, bases<display_kernel>, noncopyable>
 			( "display_kernel")
 		// Default implementations of key override methods
-		//.def( "_getProcAddress", &py_display_kernel::base_getProcAddress )
 		// Functions for extending this type in Python.
 		.def( "render_scene", &display_kernel::render_scene )
 		.def( "report_window_resize", &display_kernel::report_window_resize )
@@ -221,6 +215,7 @@ wrap_display_kernel(void)
 		.def( "report_closed", &display_kernel::report_closed )
 		.def( "pick", &display_kernel::pick, pick_overloads(
 			py::args( "x", "y", "pixels")))
+		.def( "pushkey", &display_kernel::pushkey )
 		;
 
 	typedef atomic_queue<std::string> kb_object;

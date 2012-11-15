@@ -1609,6 +1609,12 @@ display_kernel::get_mouse()
 	return &mouse.get_mouse();
 }
 
+void
+display_kernel::pushkey( std::string k)
+{
+	keys.push(k);
+}
+
 atomic_queue<std::string>*
 display_kernel::get_kb()
 {
@@ -1632,14 +1638,6 @@ bool
 display_kernel::hasExtension( const std::string& ext ) {
 	return extensions->find( ext ) != extensions->end();
 }
-
-/*
-void
-display_kernel::pushkey( int k)
-{
-	keys.push(k);
-}
-*/
 
 // The small platform-specific getProcAddress functions are in the platform-specific font_renderer files.
 /*

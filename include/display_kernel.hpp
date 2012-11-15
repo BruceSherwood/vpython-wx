@@ -359,7 +359,7 @@ public: // Public Data.
 
 	bool hasExtension( const std::string& ext );
 
-	//void pushkey( int k);
+	void pushkey(std::string k);
 
 	typedef void (APIENTRYP EXTENSION_FUNCTION)();
 	//virtual EXTENSION_FUNCTION getProcAddress( const char* );
