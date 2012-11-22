@@ -94,18 +94,15 @@ BUILDING BOOST LIBRARIES
 The Boost libraries were built by downloading the source.
 cd to the Boost directory and execute 
 
-./bootstrap.sh --with-toolset=gcc --with-python-version=3.1 --with-python-root=/Library/Frameworks/Python.framework/Versions/3.1 --with-python=python3.1 --with-libraries=python,signals,thread
+./bootstrap.sh --with-toolset=gcc --with-python-version=2.7 --with-python-root=/Library/Frameworks/Python.framework/Versions/2.7 --with-python=python2.7 --with-libraries=python,signals
 
 to create the bjam tool and project-config.jam.
 
-In the file project-config.jam, change "using gcc ;" to "using gcc : 4.0 : g++-4.0 ;"
-
-The purpose is to build Boost libraries using the same g++-4.0 compiler used to build Visual, which
-should enable Visual to run on OSX 10.4 (for which g++-4.2 doesn't work). 
+In the file project-config.jam, change "using gcc ;" to "using gcc : 4.2 : g++-4.2 ;" 
 
 Now execute ./bjam to build the Boost libraries.
 
-Copy the boost folder (the Boost include files) to to dependencies/boost_files/boost.
+Copy the boost folder (the Boost include files) to dependencies/boost_files/boost.
 
 The library files you want will be in stage/lib.
 Copy the following files to dependencies/boost_files/mac_libs:
