@@ -13,12 +13,38 @@ Building vpython with from Visual Studio C++
 	Install these Python modules: numpy, FontTools, ttfquery.
 	
 	Copy into C:\PythonXN\Lib\site-packages the folders site-packages\vis, site-packages\visual,
-	site-packages\visual_common, and docs.
+	and site-packages\visual_common.
                 
-    Install Visual C++ 2008 Express Edition, which includes the platform SDK (System Development Kit)
-        from http://www.microsoft.com/Express/Download/#webInstall
+    Install Visual Studio C++ 2008 Express Edition, from
+        http://www.microsoft.com/en-us/download/details.aspx?id=3092
+    Download the ISO disk image and write it to a DVD.
+    Run from the DVD to install the C++ version.
+    
+    Install Windows SDK for Windows 7 and .NET Framework 3.5 SP1 (ISO), from
+        http://www.microsoft.com/en-us/download/details.aspx?id=18950
+    Download the ISO disk image and write it to a DVD.
+    Run from the DVD to install.
+    
+    Next study the following detailed instructions on how to get Visual Studio 2008 to do 64-bit compiles:    
+        http://jenshuebel.wordpress.com/2009/02/12/visual-c-2008-express-edition-and-64-bit-targets/
+    I found it useful to run the program provided by Xia to update the registry.
+    Be sure to inspect the output in the shell window, and do any operations by hand that fail there.
+    
+    At Tools->Options->Projects and Solutions->VC++ Directories you can see what resources
+    are invoked for Platform x64. You should see $(VCInstallDir)bin\x86_amd64, where $(VCInstallDir)
+    represents C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC.
+    In this VC folder there is a major error in the file vcvarsall.bat that affects
+    building Boost from source. The following lines
+        :x86_amd64
+        if not exist "%~dp0bin\x86_amd64\vcvarsx86_amd64.bat" goto missing
+        call "%~dp0bin\x86_amd64\vcvarsx86_amd64.bat"
+    need to be changed to this:
+        :x86_amd64
+        if not exist "%~dp0bin\vcvarsx86_amd64.bat" goto missing
+        call "%~dp0bin\vcvarsx86_amd64.bat"
         
     It is important to use the older 2008 version of Visual C++, because that's what built Python 2.7.
+    The Python shell shows the compiler version number v.1500, which is Visual Studio 2008.
     However, see the following for how to try to use Visual C++ 2010 with Python 2.7:
     	http://nukeit.org/compile-python-2-7-packages-with-visual-studio-2010-express
 	Also, make sure that in the Visual Studio 2010 project properties, Linker > Input,
@@ -27,8 +53,7 @@ Building vpython with from Visual Studio C++
 	you need to go to Visual Studio project properties, Linker > Advanced, and clear Delay Sign.
 
     Unzip Boost
-        Extract the files in vpython-core2/dependencies/win_boost.zip so that 
-        there is a folder vpython-core2/dependencies/boost_files containing 
+        The folder vpython-wx/dependencies/boost_files should contain 
         boost (include files) and win_libs folders.
         
         These files were obtained from http://www.boostpro.com/download
@@ -90,37 +115,42 @@ cd to the Boost directory and execute
 
 to create the bjam tool and project-config.jam.
 
-In the file project-config.jam, add the Python version (such as 3.1) for which the Boost
+In the file project-config.jam, add the Python version (such as 2.7) for which the Boost
 libaries are to be built:
 
-using python : 3.1 ;
+using python : 2.7 : "C:/Python27" ;
 
-To build the Boost libraries, execute this for Python 2.x
+To build the Boost libraries, execute this for Python 2.x, using Visual Studio 2008 set up for 64-bit compiles:
 
-.\bjam --build-type=complete --with-python --with-thread --with-signals stage
+.\bjam --toolset=msvc-9.0 address-model=64 --build-type=complete --with-signals --with-python stage
+    (Save this line, right-click in the Windows command prompt to paste.
+     Right-click the title bar for additional options.)
 
 or this for Python 3.x
 
-.\bjam --build-type=complete --with-python --with-thread --with-signals --with-random stage
+.\bjam --build-type=complete --with-python --with-signals --with-random stage
 
 "complete" means "make various variants of the libraries".
 
+It is possible that we can eliminate the need for the signals library. It is used only
+by gl_free.cpp, whose routines are called by display_kernel, displaylist (needed any more?),
+texture, and shader_program. Note that OpenGL contexts are no longer shared between
+different canvases.
+
 The files you want will be in stage/lib.
-Move the following multithreaded static libraries to dependencies/boost_files/win_libs.
+Move the following static libraries to dependencies/boost_files/win_libs.
 
 For Python 2.x:
 libboost_python-vc90-mt-s-1_43.lib
 libboost_signals-vc90-mt-s-1_43.lib
-libboost_thread-vc90-mt-s-1_43.lib
 
 For Python 3.x:
 libboost_python3-vc90-mt-s-1_43.lib (and then change the name in win_libs to libboost_python-vc90-mt-s-1_43.lib)
 libboost_signals-vc90-mt-s-1_43.lib
-libboost_thread-vc90-mt-s-1_43.lib
 
 Also, you need to copy the directory named boost from the Boost files into dependencies\boost_file.
 
-For Boost 1_42_0, in line 21 of boost\python\exception_translator.hpp you maay need
+For Boost 1_42_0, in line 21 of boost\python\exception_translator.hpp you may need
 to change bind to boost::bind. 
 
 Problem bulding with Boost 1.37; found this on the web (this problem disappeared for Boost 1.42):

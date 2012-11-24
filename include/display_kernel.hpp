@@ -19,7 +19,6 @@
 #include <set>
 #include <string>
 
-#include <boost/signals.hpp>
 #include <boost/iterator/indirect_iterator.hpp>
 #include <boost/tuple/tuple.hpp>
 
