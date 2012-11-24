@@ -209,6 +209,7 @@ wrap_primitive()
 		.def( init<const pyramid&>())
 		;
 
+	/*
 	class_< label, bases<renderable> >( "label")
 		.def( init<const label&>())
 		.add_property( "color", &label::get_color, &label::set_color)
@@ -235,6 +236,7 @@ wrap_primitive()
 		.add_property( "space", &label::get_space, &label::set_space)
 		// .def( self_ns::str(self))
 		;
+	*/
 
 	class_<frame, bases<renderable> >( "frame")
 		.def( init<const frame&>())

@@ -154,11 +154,6 @@ BOOST_PYTHON_MODULE( cvisual)
 	register_exception_translator<std::runtime_error>(
 		&translate_std_runtime_error);
 
-	/*
-	def( "rate", py_rate, "rate(arg) -> Limits the execution rate of a loop to arg"
-		" iterations per second.");
-	*/
-
 	def("set_wait", set_wait);
 
 	double_from_int();

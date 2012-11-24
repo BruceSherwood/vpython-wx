@@ -13,11 +13,12 @@ SRC = $(TOP)/src/
 BOOST = $(TOP)/dependencies/boost_files/mac_libs/
 VPATH = $(SRC)mac $(SRC)core/util $(SRC)core $(SRC)python $(SRC)
 
-# Use 4.0 compiler rather than 4.2 so as to build in a way compatible with OSX 10.5
-CXX = /usr/bin/g++-4.0
+# Used to use 4.0 compiler rather than 4.2 so as to build in a way compatible with OSX 10.5
+# Was -arch i386
+CXX = /usr/bin/g++-4.2
 CXXFLAGS = -fPIC -MMD -DNDEBUG \
 	-mmacosx-version-min=10.4 \
-	-arch i386 \
+	-arch x86_64 \
 	-DPIC -O2 -g -finline-functions \
 	-I$(TOP)include/mac -I$(TOP)include \
 	-I$(TOP)dependencies/boost_files \
@@ -30,16 +31,18 @@ CXXFLAGS = -fPIC -MMD -DNDEBUG \
 #	-F/System/Library/Frameworks/Carbon.framework \
 
 OBJS = arrayprim.o arrow.o axial.o box.o cone.o cylinder.o display_kernel.o ellipsoid.o \
-	frame.o label.o material.o mouse_manager.o mouseobject.o primitive.o pyramid.o \
-	rectangular.o renderable.o ring.o sphere.o text.o \
+	frame.o material.o mouse_manager.o mouseobject.o primitive.o pyramid.o \
+	rectangular.o renderable.o ring.o sphere.o \
 	atomic_queue.o displaylist.o errors.o extent.o \
 	gl_extensions.o gl_free.o icososphere.o light.o quadric.o \
-	mac_font_renderer.o \
+	get_proc_address.o \
 	rgba.o shader_program.o texture.o tmatrix.o vector.o\
 	convex.o curve.o cvisualmodule.o extrusion.o faces.o \
 	num_util.o numeric_texture.o points.o slice.o \
 	wrap_arrayobjects.o wrap_display_kernel.o wrap_primitive.o \
 	wrap_rgba.o wrap_vector.o
+	
+# mac_font_renderer.o,  text.o, label.o 
 
 cvisual.so : $(OBJS)
 	$(CXX) -mmacosx-version-min=10.4 \

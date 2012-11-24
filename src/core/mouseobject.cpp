@@ -214,7 +214,7 @@ void set_wait(object obj) {
 }
 
 void call_wait() {
-	wait();
+	wait(0.03);
 }
 
 shared_ptr<event>

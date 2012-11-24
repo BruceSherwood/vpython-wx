@@ -1,23 +1,14 @@
 #include "font_renderer.hpp"
 #include "util/errors.hpp"
 #include "vpython-config.h"
-#include "display_kernel.hpp"
-
-#include <AGL/agl.h>
-#include <dlfcn.h>
-// The following include must be placed here;
-// otherwise Boost gives an error.
 #include <ApplicationServices/ApplicationServices.h>
 
-namespace cvisual {
+/*
+ATSUI is deprecated in Mac OS X v10.6 and later. Instead, use Core Text, described in Core Text Programming Guide:
+https://developer.apple.com/library/mac/#documentation/StringsTextFonts/Conceptual/CoreText_Programming/Introduction/Introduction.html
+*/
 
-display_kernel::EXTENSION_FUNCTION
-display_kernel::getProcAddress(const char* name) {
-	void *lib = dlopen( (const char *)0L, RTLD_LAZY | RTLD_GLOBAL );
-	void *sym = dlsym( lib, name );
-	dlclose( lib );
-	return (EXTENSION_FUNCTION)sym;
-}
+namespace cvisual {
 
 bool ucs4_to_utf16( const std::wstring& in, std::vector<unsigned short>& out ) {
 	out.clear();

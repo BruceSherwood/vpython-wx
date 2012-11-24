@@ -8,7 +8,7 @@ namespace cvisual {
 
 using namespace boost::python;
 
-typedef void (wait_t)(void);
+typedef void (wait_t)(double);
 
 void set_wait(object obj);
 
