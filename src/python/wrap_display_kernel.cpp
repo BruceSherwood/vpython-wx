@@ -64,7 +64,7 @@ class py_display_kernel : public py_base_display_kernel
 	virtual void activate( bool active ) { boost::python::call_method<void>( self, "_activate", active ); }
 
 	// Utility methods for Python subclasses
-	bool report_mouse_state(py::object is_button_down,
+	void report_mouse_state(py::object is_button_down,
 							int cursor_client_x, int cursor_client_y,
 							py::object shift_state,
 							bool can_lock_mouse )
