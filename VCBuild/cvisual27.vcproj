@@ -414,6 +414,10 @@
 					RelativePath="..\src\win32\font_renderer.cpp"
 					>
 				</File>
+				<File
+					RelativePath="..\src\win32\get_proc_address.cpp"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="core"
