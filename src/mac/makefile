@@ -50,7 +50,7 @@ cvisual.so : $(OBJS)
 	$(OBJS) \
 	$(BOOST)libboost_python.a \
 	$(BOOST)libboost_signals.a \
-	-framework AGL -framework Cocoa -framework OpenGL -framework Python
+	-framework Cocoa -framework OpenGL -framework Python
 
 # This was in cvisual.so rule:
 #	-framework AGL -framework Carbon -framework OpenGL -framework Python \

@@ -19,7 +19,6 @@ mouse_manager::mouse_manager( class display_kernel& display )
 }
 
 // trivial properties
-bool mouse_manager::is_mouse_locked() { return locked; }
 mouse_t& mouse_manager::get_mouse() { return mouse; }
 
 static void fill( int out_size, bool out[], int in_size, bool in[], bool def = false ) {
@@ -47,6 +46,7 @@ void mouse_manager::report_mouse_state( int physical_button_count, bool is_butto
 										int cursor_client_x, int cursor_client_y,
 										int shift_state_count, bool shift_state[],
 										bool can_lock_mouse )
+	// can_lock_mouse is 1 if initiating spin or zoom; else 0
 {
 	// In is_button_down array, position 0=left, 1=right, 2=middle
 
@@ -81,6 +81,11 @@ void mouse_manager::update( bool new_buttons[], int new_px, int new_py, bool new
 	mouse.set_ctrl( new_shift[1] );
 	mouse.set_alt( new_shift[2] );
 	mouse.set_command( new_shift[3] );
+
+	if (can_lock_mouse) { // we are at start of spin or zoom
+		px = new_px;
+		py = new_py;
+	}
 
 	bool was_locked = locked;
 	locked = (can_lock_mouse && display.zoom_is_allowed() && new_buttons[0] && new_buttons[1]) ||
