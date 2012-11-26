@@ -24,7 +24,6 @@ CXXFLAGS = -fPIC -MMD -DNDEBUG \
 	-I$(TOP)dependencies/boost_files \
 	-I$(PYTHON_FRAMEWORK)include/python$(PYTHON_VERSION) \
 	-I$(SITE_PACKAGES)numpy/core/include \
-	-F/System/Library/Frameworks/AGL.framework \
 	-F/System/Library/Frameworks/OpenGL.framework
 	
 # This was in CXXFLAGS:
