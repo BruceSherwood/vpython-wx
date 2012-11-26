@@ -22,11 +22,13 @@ class mouse_manager {
 							int shift_state_count, bool shift_state[],
 							bool driver_can_lock_mouse );
 
-	bool is_mouse_locked();  //< If this is true, the display driver should hide the mouse cursor and prevent it from moving
-
 	// Get the current position of the mouse cursor relative to the window client area
 	int get_x();
 	int get_y();
+
+	// On down button that initiates spin or zoom, save the location:
+	int xlock;
+	int ylock;
 
 	mouse_t& get_mouse();
 

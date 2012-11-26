@@ -83,8 +83,6 @@ class py_display_kernel : public py_base_display_kernel
 								  cursor_client_x, cursor_client_y,
 								  shift_len, &shift[0],
 								  can_lock_mouse );
-
-		return mouse.is_mouse_locked();
 	}
 };
 
