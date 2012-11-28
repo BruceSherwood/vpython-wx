@@ -259,7 +259,7 @@ primitive::set_make_trail( bool t)
 	if (t && !obj_initialized)
 		throw std::runtime_error( "Can't set make_trail=True unless object was created with make_trail specified");
 	if (startup) {
-		trail_update = import("vis_base.primitives").attr("trail_update");
+		trail_update = import("visual_common.primitives").attr("trail_update");
 		startup = false;
 	}
 	make_trail = t;
