@@ -119,6 +119,7 @@ struct textures_from_list
 	}
 };
 
+
 void
 wrap_primitive()
 {
@@ -209,8 +210,7 @@ wrap_primitive()
 		.def( init<const pyramid&>())
 		;
 
-	/*
-	class_< label, bases<renderable> >( "label")
+	class_<label, bases<renderable> >( "label")
 		.def( init<const label&>())
 		.add_property( "color", &label::get_color, &label::set_color)
 		.add_property( "red", &label::get_red, &label::set_red)
@@ -232,11 +232,11 @@ wrap_primitive()
 		.add_property( "linecolor", &label::get_linecolor, &label::set_linecolor)
 		.add_property( "background", &label::get_background, &label::set_background)
 		.add_property( "font", &label::get_font_family, &label::set_font_family)
-		.add_property( "text", &label::get_text, &label::set_text)
 		.add_property( "space", &label::get_space, &label::set_space)
-		// .def( self_ns::str(self))
+		.def( "get_text", &label::get_text)
+		.def( "set_text", &label::set_text)
+		.def( "set_bitmap", &label::set_bitmap)
 		;
-	*/
 
 	class_<frame, bases<renderable> >( "frame")
 		.def( init<const frame&>())
@@ -258,11 +258,6 @@ wrap_primitive()
 		.def( "remove_renderable", &frame::remove_renderable)
 		.def( "frame_to_world", &frame::frame_to_world)
 		.def( "world_to_frame", &frame::world_to_frame)
-		/* frame.scale disabled for Visual 4.0
-         .add_property( "scale",
-            make_function(&frame::get_scale, return_internal_reference<>()),
-            &frame::set_scale)
-        */
 		;
 
 	using python::numeric_texture;

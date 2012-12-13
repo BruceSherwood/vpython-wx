@@ -7,11 +7,16 @@
 // See the file authors.txt for a complete list of contributors.
 
 #include "renderable.hpp"
-#include "text.hpp"
+#include "util/gl_enable.hpp"
+#include "wrap_gl.hpp"
 
-#include <vector>
+//#include <string>
+#include "util/gl_free.hpp"
+
+#include <boost/python.hpp>
 
 namespace cvisual {
+using namespace boost::python::numeric;
 
 class label : public renderable
 {
@@ -80,7 +85,14 @@ class label : public renderable
 	void set_background( const rgb& color);
 	rgb get_background();
 
+	void set_bitmap(array& bm, int width, int height);
+
  protected:
+	GLuint handle;
+	static void gl_free( GLuint handle );
+
+	bool text_changed;
+
 	// In world space:
 	shared_vector pos;
 	double space;
@@ -106,12 +118,20 @@ class label : public renderable
 
 	std::wstring text;
 
-	bool text_changed;
-	boost::shared_ptr<layout> text_layout;
-
 	virtual void gl_render(view&);
 	virtual vector get_center() const;
 	virtual void grow_extent( extent& );
+
+	void set_handle( const view&, unsigned int handle );
+
+	void gl_initialize(const view&);
+	void gl_render_to_quad(const view& v, const vector& text_pos,
+			const double width, const double height);
+	void draw_quad(const double width, const double height);
+
+	array* bitmap;
+	int bitmap_width;
+	int bitmap_height;
 };
 
 } // !namespace cvisual

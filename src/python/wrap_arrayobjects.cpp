@@ -120,7 +120,6 @@ wrap_arrayobjects()
 				( arg("pos"), arg("red")=-1, arg("green")=-1, arg("blue")=-1, arg("retain")=-1 ) )
 		;
 	}
-
 	{
 	using python::extrusion;
 
@@ -175,7 +174,6 @@ wrap_arrayobjects()
 				( arg("pos"), arg("red")=-1, arg("green")=-1, arg("blue")=-1, arg("retain")=-1 ) )
 		;
 	}
-
 	{
 	using python::points;
 
@@ -212,7 +210,6 @@ wrap_arrayobjects()
 			(arg("pos"), arg("red")=-1, arg("green")=-1, arg("blue")=-1, arg("retain")=-1))
 		;
 	}
-
 	{
 	using python::faces;
 
@@ -251,7 +248,6 @@ wrap_arrayobjects()
 		.def( "append", append_all_vectors, (arg("pos"), arg("normal"), arg("color")))
 		;
 	}
-
 	{
 	using python::convex;
 

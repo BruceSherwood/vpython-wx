@@ -50,7 +50,9 @@ struct container_to_tuple
 	}
 };
 
-class py_base_display_kernel : public display_kernel {}; // not clear why we need py_base_display_kernel
+class py_base_display_kernel : public display_kernel {};
+// Not clear why we need py_base_display_kernel?
+// See http://wiki.python.org/moin/boost.python/OverridableVirtualFunctions
 
 // A display implemented in python (e.g. to use PyOpenGL or PyObjC)
 class py_display_kernel : public py_base_display_kernel

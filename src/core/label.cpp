@@ -5,7 +5,6 @@
 
 #include "label.hpp"
 #include "util/errors.hpp"
-#include "util/gl_enable.hpp"
 
 #include <sstream>
 #include <iostream>
@@ -14,6 +13,7 @@
 using boost::scoped_array;
 
 namespace cvisual {
+using namespace boost::python::numeric;
 
 label::label()
 	: pos(0, 0, 0),
@@ -23,14 +23,16 @@ label::label()
 	border(5),
 	font_description(), // equivalent to label.font="sans"
 	font_size(-1), // equivalent to label.height=13 (see text.cpp)
+	text_changed(false),
 	box_enabled(true),
 	line_enabled(true),
 	linecolor( color),
-	opacity(0.66f),
-	text_changed(true)
+	opacity(0.66f)
 {
 	background = rgb(0., 0., 0.);
 }
+
+// bitmap(numeric::array(1,2,3))
 
 label::label( const label& other)
 	: renderable( other),
@@ -41,12 +43,11 @@ label::label( const label& other)
 	border( other.border),
 	font_description( other.font_description),
 	font_size( other.font_size),
+	text_changed(false),
 	box_enabled( other.box_enabled),
 	line_enabled( other.line_enabled),
 	linecolor( other.linecolor),
-	opacity( other.opacity),
-	text( other.text),
-	text_changed( true)
+	opacity( other.opacity)
 {
 	background = rgb(0., 0., 0.);
 }
@@ -167,7 +168,7 @@ void
 label::set_text( const std::wstring& t )
 {
 	text = t;
-	text_changed = true;
+	//text_changed = true;
 }
 
 
@@ -229,7 +230,7 @@ void
 label::set_font_family( const std::wstring& name)
 {
 	font_description = name;
-	text_changed = true;
+	//text_changed = true;
 }
 
 std::wstring
@@ -242,7 +243,7 @@ void
 label::set_font_size( double n_size)
 {
 	font_size = n_size;
-	text_changed = true;
+	//text_changed = true;
 }
 
 double
@@ -299,31 +300,128 @@ label::get_background()
 	return background;
 }
 
+vector
+label::get_center() const
+{
+	return pos;
+}
+
 void label::grow_extent( extent& e)
 {
 	e.add_point( pos );
 }
 
+
+// \src\core\label.cpp(338) : error C2065: 'gl_free' : undeclared identifier
+
+void
+label::set_handle( const view&, unsigned h ) {
+	if (handle) on_gl_free.free( boost::bind( &gl_free, handle ) );
+
+	handle = h;
+	on_gl_free.connect( boost::bind(&texture::gl_free, handle) );
+}
+
+void
+label::gl_free(GLuint handle)
+{
+	glDeleteTextures(1, &handle);
+}
+
+void
+label::gl_initialize( const view& v ) {
+	int type = GL_UNSIGNED_BYTE;
+
+	gl_enable tex( type );
+
+	glGenTextures(1, &handle);
+	set_handle( v, handle );
+	glBindTexture(type, handle);
+
+	// No filtering - we want the exact pixels from the texture
+	glTexParameteri( type, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri( type, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+	// Calls this->set_image()
+	//text_font->renderer->gl_render_to_texture( v, text, *this );
+}
+
+void label::gl_render_to_quad( const view& v, const vector& text_pos,
+		const double width, const double height ) {
+	//gl_enable enTex( tx.enable_type() );
+	//tx.gl_activate(v);
+	glBindTexture( GL_TEXTURE_2D, handle );
+
+	glTranslated( text_pos.x, text_pos.y, text_pos.z );
+
+	// For color antialiasing, we want to render "spectral alpha", i.e.
+	//   framebuffer = framebuffer * (1-texture) + color * texture
+	// OpenGL doesn't support spectral alpha, so we do it in two passes:
+	//   framebuffer = framebuffer * (1-texture)
+	//   framebuffer = framebuffer + color * texture
+
+	glBlendFunc( GL_ZERO, GL_ONE_MINUS_SRC_COLOR );
+	glTexEnvi( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE );
+	draw_quad(width, height);
+
+	glBlendFunc( GL_ONE, GL_ONE );
+	glTexEnvi( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+	draw_quad(width, height);
+
+	glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
+
+	check_gl_error();
+}
+
+void
+label::draw_quad(const double width, const double height) {
+	glBegin(GL_QUADS);
+	glTexCoord2d(0.0, 0.0);
+	glTexCoord2d(0.0, height);
+	glTexCoord2d(width, height);
+	glTexCoord2d(width, 0.0);
+	// The following might be wrong if not power of two:
+	vector v;
+	v = vector(0.0, 0.0);
+	v.gl_render();
+	v = vector(0.0, -height);
+	v.gl_render();
+	v = vector(width, -height);
+	v.gl_render();
+	v = vector(width, 0.0);
+	v.gl_render();
+	glEnd();
+}
+
+void
+label::set_bitmap(array& bm, int width, int height) { // called from primitives.py
+	// Not sure how to use numpy getshape() to get width and height, so pass them in.
+	bitmap = &bm;
+	bitmap_width = width;
+	bitmap_height = height;
+	text_changed = true;
+	std::cout << "width/height = " << width << ", " << height << std::endl;
+
+	/*
+	// This code for getting width and height doesn't compile:
+	object shape = bitmap->getshape();
+	int rows = extract<int>(shape[0]);
+	int cols = extract<int>(shape[1]);
+	std::cout << "rows/cols = " << rows << ", " << cols << std::endl;
+	*/
+}
+
 void
 label::gl_render(view& scene)
 {
-	if (text_changed) {
-		boost::shared_ptr<font> texmap_font =
-			font::find_font( font_description, int(font_size));
-		if (text.empty())
-			text_layout = texmap_font->lay_out( L" " );
-		else
-			text_layout = texmap_font->lay_out( text);
-		text_changed = false;
-	}
+	if (text_changed) gl_initialize(scene);
 	// Compute the width of the text box.
-	vector extents = text_layout->extent( scene );
-	double box_width = extents.x + 2.0*border;
+	double box_width = bitmap_width + 2*border;
 
 	// Compute the positions of the text in the text box, and the height of the
 	// text box.  The text positions are relative to the lower left corner of
 	// the text box.
-	double box_height = extents.y + 2.0*border;
+	double box_height = bitmap_height + 2*border;
 
 	vector text_pos( border, box_height - border);
 
@@ -430,17 +528,12 @@ label::gl_render(view& scene)
 
 		// Render the text itself.
 		color.gl_set(1.0f);
-		text_layout->gl_render(scene, text_pos);
+		gl_render_to_quad(scene, text_pos, 2.0*halfwidth, 2.0*halfheight);
+		//text_layout->gl_render(scene, text_pos);
 	} glMatrixMode( GL_MODELVIEW); } // Pops the matrices back off the stack
 	list.gl_compile_end();
 	check_gl_error();
 	scene.screen_objects.insert( std::make_pair(pos, list));
-}
-
-vector
-label::get_center() const
-{
-	return pos;
 }
 
 } // !namespace cvisual
