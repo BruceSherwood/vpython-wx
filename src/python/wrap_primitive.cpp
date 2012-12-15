@@ -22,7 +22,9 @@
 
 #include "python/wrap_vector.hpp"
 
+#include <boost/python/module.hpp>
 #include <boost/python/class.hpp>
+#include <boost/utility.hpp>
 #include <boost/python/tuple.hpp>
 #include <boost/python/dict.hpp>
 #include <boost/python/extract.hpp>
@@ -119,10 +121,15 @@ struct textures_from_list
 	}
 };
 
-
 void
 wrap_primitive()
 {
+	/*
+	class_<py_base_label, py_label, bases<label>, noncopyable>
+		( "label" )
+		;
+	*/
+
 	class_<renderable, boost::noncopyable>( "renderable", no_init)
 		.add_property( "material", &renderable::get_material, &renderable::set_material)
 		;
@@ -233,8 +240,8 @@ wrap_primitive()
 		.add_property( "background", &label::get_background, &label::set_background)
 		.add_property( "font", &label::get_font_family, &label::set_font_family)
 		.add_property( "space", &label::get_space, &label::set_space)
-		.def( "get_text", &label::get_text)
-		.def( "set_text", &label::set_text)
+		.add_property( "text", &label::get_text, &label::set_text)
+		.add_property( "primitive_object", &label::get_primitive_object, &label::set_primitive_object)
 		.def( "set_bitmap", &label::set_bitmap)
 		;
 

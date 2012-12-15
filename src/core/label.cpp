@@ -15,6 +15,12 @@ using boost::scoped_array;
 namespace cvisual {
 using namespace boost::python::numeric;
 
+using boost::python::import;
+using boost::python::object;
+
+bool setup_py_get_bitmap = true;
+boost::python::object py_get_bitmap;
+
 label::label()
 	: pos(0, 0, 0),
 	space(0),
@@ -168,7 +174,7 @@ void
 label::set_text( const std::wstring& t )
 {
 	text = t;
-	//text_changed = true;
+	text_changed = true;
 }
 
 
@@ -230,7 +236,7 @@ void
 label::set_font_family( const std::wstring& name)
 {
 	font_description = name;
-	//text_changed = true;
+	text_changed = true;
 }
 
 std::wstring
@@ -243,7 +249,7 @@ void
 label::set_font_size( double n_size)
 {
 	font_size = n_size;
-	//text_changed = true;
+	text_changed = true;
 }
 
 double
@@ -334,13 +340,19 @@ label::gl_initialize( const view& v ) {
 
 	gl_enable tex( type );
 
-	glGenTextures(1, &handle);
-	set_handle( v, handle );
+	handle = get_handle();
+	if (!handle) {
+		glGenTextures(1, &handle);
+		set_handle( v, handle );
+	}
 	glBindTexture(type, handle);
 
 	// No filtering - we want the exact pixels from the texture
 	glTexParameteri( type, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri( type, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+	glTexParameteri( type, GL_TEXTURE_WRAP_S, GL_CLAMP );
+	glTexParameteri( type, GL_TEXTURE_WRAP_T, GL_CLAMP );
 
 	// Calls this->set_image()
 	//text_font->renderer->gl_render_to_texture( v, text, *this );
@@ -360,6 +372,10 @@ void label::gl_render_to_quad( const view& v, const vector& text_pos,
 	//   framebuffer = framebuffer * (1-texture)
 	//   framebuffer = framebuffer + color * texture
 
+	//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB,
+	//			width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, bitmap);
+	glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height,
+					GL_RGB, GL_UNSIGNED_BYTE, &bitmap);
 	glBlendFunc( GL_ZERO, GL_ONE_MINUS_SRC_COLOR );
 	glTexEnvi( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE );
 	draw_quad(width, height);
@@ -400,7 +416,6 @@ label::set_bitmap(array& bm, int width, int height) { // called from primitives.
 	bitmap_width = width;
 	bitmap_height = height;
 	text_changed = true;
-	std::cout << "width/height = " << width << ", " << height << std::endl;
 
 	/*
 	// This code for getting width and height doesn't compile:
@@ -412,9 +427,36 @@ label::set_bitmap(array& bm, int width, int height) { // called from primitives.
 }
 
 void
+label::set_primitive_object( boost::python::object obj)
+{
+	primitive_object = obj;
+}
+
+boost::python::object
+label::get_primitive_object()
+{
+	return primitive_object;
+}
+
+void
+label::get_bitmap()
+{
+	if (setup_py_get_bitmap) {
+		py_get_bitmap = import("visual_common.primitives").attr("get_bitmap");
+		setup_py_get_bitmap = false;
+	}
+	py_get_bitmap(primitive_object);
+}
+
+void
 label::gl_render(view& scene)
 {
-	if (text_changed) gl_initialize(scene);
+	if (text_changed) {
+		// drive get_bitmap in primitives.py
+		gl_initialize(scene);
+		get_bitmap();
+		text_changed = false;
+	}
 	// Compute the width of the text box.
 	double box_width = bitmap_width + 2*border;
 

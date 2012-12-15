@@ -719,7 +719,7 @@ display_kernel::draw(view& scene_geometry, int whicheye)
 	screen_iterator k( scene_geometry.screen_objects.begin());
 	screen_iterator k_end( scene_geometry.screen_objects.end());
 	while ( k != k_end) {
-		std::cout << "display_kernel.cpp draw calls gl_render" << std::endl;
+		//std::cout << "display_kernel.cpp draw calls gl_render" << std::endl;
 		k->second.gl_render();
 		++k;
 	}

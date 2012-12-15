@@ -85,11 +85,18 @@ class label : public renderable
 	void set_background( const rgb& color);
 	rgb get_background();
 
+	void set_primitive_object( boost::python::object x);
+	boost::python::object get_primitive_object();
+
 	void set_bitmap(array& bm, int width, int height);
 
  protected:
 	GLuint handle;
 	static void gl_free( GLuint handle );
+
+	// Sets handle and registers it to be freed at shutdown
+	void set_handle( const view&, unsigned int handle );
+	unsigned get_handle() { return handle; }
 
 	bool text_changed;
 
@@ -122,12 +129,14 @@ class label : public renderable
 	virtual vector get_center() const;
 	virtual void grow_extent( extent& );
 
-	void set_handle( const view&, unsigned int handle );
-
 	void gl_initialize(const view&);
 	void gl_render_to_quad(const view& v, const vector& text_pos,
 			const double width, const double height);
 	void draw_quad(const double width, const double height);
+
+	boost::python::object primitive_object;
+
+	void get_bitmap();
 
 	array* bitmap;
 	int bitmap_width;
