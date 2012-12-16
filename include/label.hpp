@@ -88,7 +88,7 @@ class label : public renderable
 	void set_primitive_object( boost::python::object x);
 	boost::python::object get_primitive_object();
 
-	void set_bitmap(array& bm, int width, int height);
+	void set_bitmap(char* data, int width, int height);
 
  protected:
 	GLuint handle;
@@ -99,6 +99,9 @@ class label : public renderable
 	unsigned get_handle() { return handle; }
 
 	bool text_changed;
+
+ 	vector coord[4];
+ 	vector tcoord[4];
 
 	// In world space:
 	shared_vector pos;
@@ -130,15 +133,14 @@ class label : public renderable
 	virtual void grow_extent( extent& );
 
 	void gl_initialize(const view&);
-	void gl_render_to_quad(const view& v, const vector& text_pos,
-			const double width, const double height);
-	void draw_quad(const double width, const double height);
+	void gl_render_to_quad(const view& v, const vector& text_pos);
+	void draw_quad();
 
 	boost::python::object primitive_object;
 
 	void get_bitmap();
 
-	array* bitmap;
+	unsigned char* bitmap;
 	int bitmap_width;
 	int bitmap_height;
 };

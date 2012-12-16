@@ -325,7 +325,7 @@ label::set_handle( const view&, unsigned h ) {
 	if (handle) on_gl_free.free( boost::bind( &gl_free, handle ) );
 
 	handle = h;
-	on_gl_free.connect( boost::bind(&texture::gl_free, handle) );
+	on_gl_free.connect( boost::bind(&label::gl_free, handle) );
 }
 
 void
@@ -335,94 +335,27 @@ label::gl_free(GLuint handle)
 }
 
 void
-label::gl_initialize( const view& v ) {
-	int type = GL_UNSIGNED_BYTE;
-
-	gl_enable tex( type );
-
-	handle = get_handle();
-	if (!handle) {
-		glGenTextures(1, &handle);
-		set_handle( v, handle );
-	}
-	glBindTexture(type, handle);
-
-	// No filtering - we want the exact pixels from the texture
-	glTexParameteri( type, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	glTexParameteri( type, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-
-	glTexParameteri( type, GL_TEXTURE_WRAP_S, GL_CLAMP );
-	glTexParameteri( type, GL_TEXTURE_WRAP_T, GL_CLAMP );
-
-	// Calls this->set_image()
-	//text_font->renderer->gl_render_to_texture( v, text, *this );
-}
-
-void label::gl_render_to_quad( const view& v, const vector& text_pos,
-		const double width, const double height ) {
-	//gl_enable enTex( tx.enable_type() );
-	//tx.gl_activate(v);
-	glBindTexture( GL_TEXTURE_2D, handle );
-
-	glTranslated( text_pos.x, text_pos.y, text_pos.z );
-
-	// For color antialiasing, we want to render "spectral alpha", i.e.
-	//   framebuffer = framebuffer * (1-texture) + color * texture
-	// OpenGL doesn't support spectral alpha, so we do it in two passes:
-	//   framebuffer = framebuffer * (1-texture)
-	//   framebuffer = framebuffer + color * texture
-
-	//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB,
-	//			width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, bitmap);
-	glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height,
-					GL_RGB, GL_UNSIGNED_BYTE, &bitmap);
-	glBlendFunc( GL_ZERO, GL_ONE_MINUS_SRC_COLOR );
-	glTexEnvi( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE );
-	draw_quad(width, height);
-
-	glBlendFunc( GL_ONE, GL_ONE );
-	glTexEnvi( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-	draw_quad(width, height);
-
-	glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
-
-	check_gl_error();
-}
-
-void
-label::draw_quad(const double width, const double height) {
-	glBegin(GL_QUADS);
-	glTexCoord2d(0.0, 0.0);
-	glTexCoord2d(0.0, height);
-	glTexCoord2d(width, height);
-	glTexCoord2d(width, 0.0);
-	// The following might be wrong if not power of two:
-	vector v;
-	v = vector(0.0, 0.0);
-	v.gl_render();
-	v = vector(0.0, -height);
-	v.gl_render();
-	v = vector(width, -height);
-	v.gl_render();
-	v = vector(width, 0.0);
-	v.gl_render();
-	glEnd();
-}
-
-void
-label::set_bitmap(array& bm, int width, int height) { // called from primitives.py
-	// Not sure how to use numpy getshape() to get width and height, so pass them in.
-	bitmap = &bm;
+label::set_bitmap(char* image, int width, int height) { // called from primitives.py
+	bitmap = (unsigned char*)image; // an array of bytes, height by width by 3
 	bitmap_width = width;
 	bitmap_height = height;
 	text_changed = true;
 
 	/*
-	// This code for getting width and height doesn't compile:
-	object shape = bitmap->getshape();
-	int rows = extract<int>(shape[0]);
-	int cols = extract<int>(shape[1]);
-	std::cout << "rows/cols = " << rows << ", " << cols << std::endl;
+	// The following output demonstrates that bitmap is in fact
+	// an array of the correct bytes to make the correct image.
+	std::cout << "-------------------------------------" << std::endl;
+	std::cout << bitmap_width << ", " << bitmap_height << std:: endl;
+	for (int j=0; j<bitmap_height; j++) {
+	    std::cout << std::endl;
+	    for (int i=0; i<bitmap_width; i++) {
+	        std::cout << "(";
+	        for (int n=0; n<3; n++) {
+	            std::cout << (int)bitmap[3*bitmap_width*j + 3*i + n] << ", ";
+	        }
+	        std::cout << "), ";
+	    }
+	}
 	*/
 }
 
@@ -449,14 +382,102 @@ label::get_bitmap()
 }
 
 void
+label::gl_initialize( const view& v ) {
+	int type = GL_TEXTURE_2D;
+
+	gl_enable tex( type );
+
+	glGenTextures(1, &handle);
+	set_handle( v, handle );
+	glBindTexture(type, handle);
+
+	// No filtering - we want the exact pixels from the texture
+	glTexParameteri( type, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri( type, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+	//glTexParameteri( type, GL_TEXTURE_WRAP_S, GL_CLAMP );
+	//glTexParameteri( type, GL_TEXTURE_WRAP_T, GL_CLAMP );
+
+	int bottom_up = bitmap_height < 0;
+	if (bitmap_height < 0) bitmap_height = -bitmap_height;
+
+	int tx_width, tx_height;
+	double tc_x, tc_y;
+
+	// next_power_of_two is in texture.cpp
+	tx_width = next_power_of_two( bitmap_width );
+	tx_height = next_power_of_two( bitmap_height );
+	tc_x = ((double)bitmap_width) / tx_width;
+	tc_y = ((double)bitmap_height) / tx_height;
+
+	glPixelStorei( GL_UNPACK_ALIGNMENT, 1 );
+	glPixelStorei( GL_UNPACK_ROW_LENGTH, bitmap_width );
+
+	check_gl_error();
+
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, tx_width, tx_height, 0,
+					GL_RGB, GL_UNSIGNED_BYTE, NULL);
+	check_gl_error();
+	glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, bitmap_width, bitmap_height,
+					GL_RGB, GL_UNSIGNED_BYTE, bitmap);
+	check_gl_error();
+
+	glPixelStorei( GL_UNPACK_ALIGNMENT, 4 );
+	glPixelStorei( GL_UNPACK_ROW_LENGTH, 0 );
+
+	coord[0] = vector();
+	coord[1] = vector(0, -bitmap_height);
+	coord[2] = vector(bitmap_width, -bitmap_height);
+	coord[3] = vector(bitmap_width, 0);
+
+	tcoord[0^bottom_up] = vector();
+	tcoord[1^bottom_up] = vector(0, tc_y);
+	tcoord[2^bottom_up] = vector(tc_x, tc_y);
+	tcoord[3^bottom_up] = vector(tc_x, 0);
+}
+
+void label::gl_render_to_quad( const view& v, const vector& text_pos ) {
+
+	glTranslated( text_pos.x, text_pos.y, text_pos.z );
+
+	// For color antialiasing, we want to render "spectral alpha", i.e.
+	//   framebuffer = framebuffer * (1-texture) + color * texture
+	// OpenGL doesn't support spectral alpha, so we do it in two passes:
+	//   framebuffer = framebuffer * (1-texture)
+	//   framebuffer = framebuffer + color * texture
+
+	glBlendFunc( GL_ZERO, GL_ONE_MINUS_SRC_COLOR );
+	glTexEnvi( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE );
+	draw_quad();
+
+	glBlendFunc( GL_ONE, GL_ONE );
+	glTexEnvi( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+	draw_quad();
+
+	glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
+
+	check_gl_error();
+}
+
+void
+label::draw_quad() {
+	glBegin(GL_QUADS);
+	for(int i=0; i<4; i++) {
+		glTexCoord2d( tcoord[i].x, tcoord[i].y );
+		coord[i].gl_render();
+	}
+	glEnd();
+}
+
+void
 label::gl_render(view& scene)
 {
 	if (text_changed) {
-		// drive get_bitmap in primitives.py
-		gl_initialize(scene);
-		get_bitmap();
+		get_bitmap(); // drive get_bitmap in primitives.py, which calls set_bitmap here
 		text_changed = false;
 	}
+	gl_initialize(scene);
+
 	// Compute the width of the text box.
 	double box_width = bitmap_width + 2*border;
 
@@ -570,8 +591,8 @@ label::gl_render(view& scene)
 
 		// Render the text itself.
 		color.gl_set(1.0f);
-		gl_render_to_quad(scene, text_pos, 2.0*halfwidth, 2.0*halfheight);
-		//text_layout->gl_render(scene, text_pos);
+		gl_render_to_quad(scene, text_pos);
+
 	} glMatrixMode( GL_MODELVIEW); } // Pops the matrices back off the stack
 	list.gl_compile_end();
 	check_gl_error();
