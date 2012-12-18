@@ -5,6 +5,7 @@
 
 #include "label.hpp"
 #include "util/errors.hpp"
+#include <numpy/arrayobject.h> // Required to reference PyArrayObject
 
 #include <sstream>
 #include <iostream>
@@ -33,7 +34,8 @@ label::label()
 	box_enabled(true),
 	line_enabled(true),
 	linecolor( color),
-	opacity(0.66f)
+	opacity(0.66f),
+	handle(0)
 {
 	background = rgb(0., 0., 0.);
 }
@@ -53,7 +55,8 @@ label::label( const label& other)
 	box_enabled( other.box_enabled),
 	line_enabled( other.line_enabled),
 	linecolor( other.linecolor),
-	opacity( other.opacity)
+	opacity( other.opacity),
+	handle(0)
 {
 	background = rgb(0., 0., 0.);
 }
@@ -114,6 +117,7 @@ void
 label::set_color( const rgb& n_color)
 {
 	color = n_color;
+	text_changed = true;
 }
 
 rgb
@@ -126,6 +130,7 @@ void
 label::set_red( float r)
 {
 	color.red = r;
+	text_changed = true;
 }
 
 double
@@ -138,6 +143,7 @@ void
 label::set_green( float g)
 {
 	color.green = g;
+	text_changed = true;
 }
 
 double
@@ -150,6 +156,7 @@ void
 label::set_blue( float b)
 {
 	color.blue = b;
+	text_changed = true;
 }
 
 double
@@ -317,9 +324,6 @@ void label::grow_extent( extent& e)
 	e.add_point( pos );
 }
 
-
-// \src\core\label.cpp(338) : error C2065: 'gl_free' : undeclared identifier
-
 void
 label::set_handle( const view&, unsigned h ) {
 	if (handle) on_gl_free.free( boost::bind( &gl_free, handle ) );
@@ -335,8 +339,34 @@ label::gl_free(GLuint handle)
 }
 
 void
-label::set_bitmap(char* image, int width, int height) { // called from primitives.py
-	bitmap = (unsigned char*)image; // an array of bytes, height by width by 3
+label::set_primitive_object( boost::python::object obj)
+{
+	primitive_object = obj;
+}
+
+boost::python::object
+label::get_primitive_object()
+{
+	return primitive_object;
+}
+
+void
+label::get_bitmap()
+// Call get_bitmap function in visual_common/primitives.py, which
+// in turn calls set_bitmap in this file to set up bitmap bytes
+// and bitmap_width and bitmap_height.
+{
+	if (setup_py_get_bitmap) {
+		py_get_bitmap = import("visual_common.primitives").attr("get_bitmap");
+		setup_py_get_bitmap = false;
+	}
+	py_get_bitmap(primitive_object);
+}
+
+// http://mail.python.org/pipermail/cplusplus-sig/2003-March/003202.html
+void
+label::set_bitmap(array bm, int width, int height) { // called from primitives.py/get_bitmap
+	bitmap = (unsigned char*)((PyArrayObject*) bm.ptr())->data;
 	bitmap_width = width;
 	bitmap_height = height;
 	text_changed = true;
@@ -359,31 +389,28 @@ label::set_bitmap(char* image, int width, int height) { // called from primitive
 	*/
 }
 
-void
-label::set_primitive_object( boost::python::object obj)
-{
-	primitive_object = obj;
-}
+// Using alpha-channel bitmap:
+// http://stackoverflow.com/questions/5762622/opengl-textures-replacing-black-white-with-color
 
-boost::python::object
-label::get_primitive_object()
-{
-	return primitive_object;
-}
-
-void
-label::get_bitmap()
-{
-	if (setup_py_get_bitmap) {
-		py_get_bitmap = import("visual_common.primitives").attr("get_bitmap");
-		setup_py_get_bitmap = false;
-	}
-	py_get_bitmap(primitive_object);
-}
+// Texture details:
+// http://www.glprogramming.com/red/chapter09.html
 
 void
 label::gl_initialize( const view& v ) {
-	int type = GL_TEXTURE_2D;
+
+	int bottom_up = bitmap_height < 0;
+	if (bitmap_height < 0) bitmap_height = -bitmap_height;
+
+	int tx_width, tx_height;
+	double tc_x, tc_y;
+
+	// next_power_of_two is in texture.cpp
+	tx_width = next_power_of_two( bitmap_width );
+	tx_height = next_power_of_two( bitmap_height );
+	tc_x = ((double)bitmap_width) / tx_width;
+	tc_y = ((double)bitmap_height) / tx_height;
+
+	const int type = GL_TEXTURE_2D;
 
 	gl_enable tex( type );
 
@@ -397,18 +424,6 @@ label::gl_initialize( const view& v ) {
 
 	//glTexParameteri( type, GL_TEXTURE_WRAP_S, GL_CLAMP );
 	//glTexParameteri( type, GL_TEXTURE_WRAP_T, GL_CLAMP );
-
-	int bottom_up = bitmap_height < 0;
-	if (bitmap_height < 0) bitmap_height = -bitmap_height;
-
-	int tx_width, tx_height;
-	double tc_x, tc_y;
-
-	// next_power_of_two is in texture.cpp
-	tx_width = next_power_of_two( bitmap_width );
-	tx_height = next_power_of_two( bitmap_height );
-	tc_x = ((double)bitmap_width) / tx_width;
-	tc_y = ((double)bitmap_height) / tx_height;
 
 	glPixelStorei( GL_UNPACK_ALIGNMENT, 1 );
 	glPixelStorei( GL_UNPACK_ROW_LENGTH, bitmap_width );
@@ -437,6 +452,10 @@ label::gl_initialize( const view& v ) {
 }
 
 void label::gl_render_to_quad( const view& v, const vector& text_pos ) {
+	gl_initialize(v);
+
+	gl_enable tex( GL_TEXTURE_2D );
+	glBindTexture(GL_TEXTURE_2D, handle);
 
 	glTranslated( text_pos.x, text_pos.y, text_pos.z );
 
@@ -445,6 +464,7 @@ void label::gl_render_to_quad( const view& v, const vector& text_pos ) {
 	// OpenGL doesn't support spectral alpha, so we do it in two passes:
 	//   framebuffer = framebuffer * (1-texture)
 	//   framebuffer = framebuffer + color * texture
+
 
 	glBlendFunc( GL_ZERO, GL_ONE_MINUS_SRC_COLOR );
 	glTexEnvi( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE );
@@ -455,8 +475,10 @@ void label::gl_render_to_quad( const view& v, const vector& text_pos ) {
 	draw_quad();
 
 	glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
+	gl_disable text(GL_TEXTURE_2D);
 
 	check_gl_error();
+
 }
 
 void
@@ -476,7 +498,6 @@ label::gl_render(view& scene)
 		get_bitmap(); // drive get_bitmap in primitives.py, which calls set_bitmap here
 		text_changed = false;
 	}
-	gl_initialize(scene);
 
 	// Compute the width of the text box.
 	double box_width = bitmap_width + 2*border;
@@ -590,7 +611,7 @@ label::gl_render(view& scene)
 		}
 
 		// Render the text itself.
-		color.gl_set(1.0f);
+		//color.gl_set(1.0f);
 		gl_render_to_quad(scene, text_pos);
 
 	} glMatrixMode( GL_MODELVIEW); } // Pops the matrices back off the stack

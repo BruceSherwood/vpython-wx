@@ -88,7 +88,8 @@ class label : public renderable
 	void set_primitive_object( boost::python::object x);
 	boost::python::object get_primitive_object();
 
-	void set_bitmap(char* data, int width, int height);
+	//void set_bitmap(char* data, int width, int height);
+	void set_bitmap(array bm, int width, int height);
 
  protected:
 	GLuint handle;
@@ -140,6 +141,7 @@ class label : public renderable
 
 	void get_bitmap();
 
+	//unsigned char* bitmap;
 	unsigned char* bitmap;
 	int bitmap_width;
 	int bitmap_height;
