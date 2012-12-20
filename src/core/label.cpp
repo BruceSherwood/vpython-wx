@@ -351,7 +351,7 @@ label::get_primitive_object()
 void
 label::get_bitmap()
 // Call get_bitmap function in visual_common/primitives.py, which
-// in turn calls set_bitmap in this file to set up bitmap bytes
+// in turn calls set_bitmap below to set up bitmap RGBA unsigned bytes
 // and bitmap_width and bitmap_height.
 {
 	if (setup_py_get_bitmap) {
@@ -363,7 +363,9 @@ label::get_bitmap()
 
 // http://mail.python.org/pipermail/cplusplus-sig/2003-March/003202.html
 void
-label::set_bitmap(array bm, int width, int height) { // called from primitives.py/get_bitmap
+label::set_bitmap(array bm, int width, int height) {
+	// set_bitmap is called from primitives.py/get_bitmap
+	// array is RGBA unsigned bytes
 	bitmap = (unsigned char*)((PyArrayObject*) bm.ptr())->data;
 	bitmap_width = width;
 	bitmap_height = height;
@@ -452,36 +454,15 @@ label::gl_initialize( const view& v ) {
 void label::gl_render_to_quad( const view& v, const vector& text_pos ) {
 	gl_initialize(v);
 
-	gl_enable tex( GL_TEXTURE_2D );
+	gl_enable tex1( GL_TEXTURE_2D );
 	glBindTexture(GL_TEXTURE_2D, handle);
 
 	glTranslated( text_pos.x, text_pos.y, text_pos.z );
-
-	// For color antialiasing, we want to render "spectral alpha", i.e.
-	//   framebuffer = framebuffer * (1-texture) + color * texture
-	// OpenGL doesn't support spectral alpha, so we do it in two passes:
-	//   framebuffer = framebuffer * (1-texture)
-	//   framebuffer = framebuffer + color * texture
-
-
-	//glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
-	//glTexEnvi( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-	//glBlendFunc( GL_ZERO, GL_ONE_MINUS_SRC_COLOR );
 	glTexEnvi( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE );
 	draw_quad();
 
-	/*
-	glBlendFunc( GL_ONE, GL_ONE );
-	glTexEnvi( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-	draw_quad();
-
-	glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
-	*/
-
-	gl_disable text(GL_TEXTURE_2D);
-
+	gl_disable tex2(GL_TEXTURE_2D);
 	check_gl_error();
-
 }
 
 void
@@ -614,7 +595,6 @@ label::gl_render(view& scene)
 		}
 
 		// Render the text itself.
-		//color.gl_set(1.0f);
 		gl_render_to_quad(scene, text_pos);
 
 	} glMatrixMode( GL_MODELVIEW); } // Pops the matrices back off the stack

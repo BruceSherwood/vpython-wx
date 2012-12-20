@@ -124,12 +124,6 @@ struct textures_from_list
 void
 wrap_primitive()
 {
-	/*
-	class_<py_base_label, py_label, bases<label>, noncopyable>
-		( "label" )
-		;
-	*/
-
 	class_<renderable, boost::noncopyable>( "renderable", no_init)
 		.add_property( "material", &renderable::get_material, &renderable::set_material)
 		;
