@@ -1,7 +1,6 @@
 #include "display_kernel.hpp"
 // Mac version of getProcAddress()
 
-//#include <AGL/agl.h>
 #include <dlfcn.h>
 
 namespace cvisual {
