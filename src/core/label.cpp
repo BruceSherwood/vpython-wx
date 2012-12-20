@@ -28,8 +28,8 @@ label::label()
 	xoffset(0),
 	yoffset(0),
 	border(5),
-	font_description(), // equivalent to label.font="sans"
-	font_size(-1), // equivalent to label.height=13 (see text.cpp)
+	font_description(),
+	font_size(13),
 	text_changed(false),
 	box_enabled(true),
 	line_enabled(true),
@@ -361,15 +361,37 @@ label::get_bitmap()
 	py_get_bitmap(primitive_object);
 }
 
-// http://mail.python.org/pipermail/cplusplus-sig/2003-March/003202.html
 void
-label::set_bitmap(array bm, int width, int height) {
+label::set_bitmap(array bm, int width, int height, int back0, int back1, int back2) {
 	// set_bitmap is called from primitives.py/get_bitmap
-	// array is RGBA unsigned bytes
-	bitmap = (unsigned char*)((PyArrayObject*) bm.ptr())->data;
+	// bm.data is RGB unsigned bytes
+	// http://mail.python.org/pipermail/cplusplus-sig/2003-March/003202.html :
+	unsigned char* data = (unsigned char*)((PyArrayObject*) bm.ptr())->data;
 	bitmap_width = width;
 	bitmap_height = height;
 	text_changed = true;
+	bitmap = new unsigned char[4*width*height];
+
+	unsigned char b;
+	for(int j=0; j<height; j++) {
+		for(int i=0; i<width; i++) {
+			bool is_background = true;
+
+			b = data[3*width*j + 3*i];
+			bitmap[4*width*j + 4*i] = b;
+			if (b != back0) is_background = false;
+
+			b = data[3*width*j + 3*i + 1];
+			bitmap[4*width*j + 4*i + 1] = b;
+			if (b != back1) is_background = false;
+
+			b = data[3*width*j + 3*i + 2];
+			bitmap[4*width*j + 4*i + 2] = b;
+			if (b != back2) is_background = false;
+
+			bitmap[4*width*j + 4*i + 3] =  (is_background) ? 0 : 255;
+		}
+	}
 
 	/*
 	// The following output demonstrates that bitmap is in fact
@@ -414,16 +436,15 @@ label::gl_initialize( const view& v ) {
 
 	gl_enable tex( type );
 
-	glGenTextures(1, &handle);
-	set_handle( v, handle );
+	if (!handle) {
+		glGenTextures(1, &handle);
+		set_handle( v, handle );
+	}
 	glBindTexture(type, handle);
 
 	// No filtering - we want the exact pixels from the texture
 	glTexParameteri( type, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri( type, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-
-	//glTexParameteri( type, GL_TEXTURE_WRAP_S, GL_CLAMP );
-	//glTexParameteri( type, GL_TEXTURE_WRAP_T, GL_CLAMP );
 
 	glPixelStorei( GL_UNPACK_ALIGNMENT, 1 );
 	glPixelStorei( GL_UNPACK_ROW_LENGTH, bitmap_width );
@@ -479,7 +500,9 @@ void
 label::gl_render(view& scene)
 {
 	if (text_changed) {
-		get_bitmap(); // drive get_bitmap in primitives.py, which calls set_bitmap here
+		// Call get_bitmap in primitives.py, which calls set_bitmap in this file
+		// to set bitmap, bitmap_width, and bitmap_height
+		get_bitmap();
 		text_changed = false;
 	}
 

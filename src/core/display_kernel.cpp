@@ -9,7 +9,6 @@
 #include "util/gl_enable.hpp"
 #include "material.hpp"
 #include "frame.hpp"
-#include "text.hpp"
 #include "wrap_gl.hpp"
 
 #include <cassert>

@@ -411,10 +411,6 @@
 				Name="win32"
 				>
 				<File
-					RelativePath="..\src\win32\font_renderer.cpp"
-					>
-				</File>
-				<File
 					RelativePath="..\src\win32\get_proc_address.cpp"
 					>
 				</File>
@@ -496,10 +492,6 @@
 				</File>
 				<File
 					RelativePath="..\src\core\sphere.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\src\core\text.cpp"
 					>
 				</File>
 				<Filter
@@ -719,10 +711,6 @@
 			</File>
 			<File
 				RelativePath="..\include\sphere.hpp"
-				>
-			</File>
-			<File
-				RelativePath="..\include\text.hpp"
 				>
 			</File>
 			<File
