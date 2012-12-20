@@ -40,8 +40,6 @@ label::label()
 	background = rgb(0., 0., 0.);
 }
 
-// bitmap(numeric::array(1,2,3))
-
 label::label( const label& other)
 	: renderable( other),
 	pos( other.pos.x, other.pos.y, other.pos.z),
@@ -380,8 +378,8 @@ label::set_bitmap(array bm, int width, int height) { // called from primitives.p
 	    std::cout << std::endl;
 	    for (int i=0; i<bitmap_width; i++) {
 	        std::cout << "(";
-	        for (int n=0; n<3; n++) {
-	            std::cout << (int)bitmap[3*bitmap_width*j + 3*i + n] << ", ";
+	        for (int n=0; n<4; n++) {
+	            std::cout << (int)bitmap[4*bitmap_width*j + 4*i + n] << ", ";
 	        }
 	        std::cout << "), ";
 	    }
@@ -430,11 +428,11 @@ label::gl_initialize( const view& v ) {
 
 	check_gl_error();
 
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, tx_width, tx_height, 0,
-					GL_RGB, GL_UNSIGNED_BYTE, NULL);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, tx_width, tx_height, 0,
+					GL_RGBA, GL_UNSIGNED_BYTE, NULL);
 	check_gl_error();
 	glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, bitmap_width, bitmap_height,
-					GL_RGB, GL_UNSIGNED_BYTE, bitmap);
+					GL_RGBA, GL_UNSIGNED_BYTE, bitmap);
 	check_gl_error();
 
 	glPixelStorei( GL_UNPACK_ALIGNMENT, 4 );
@@ -466,15 +464,20 @@ void label::gl_render_to_quad( const view& v, const vector& text_pos ) {
 	//   framebuffer = framebuffer + color * texture
 
 
-	glBlendFunc( GL_ZERO, GL_ONE_MINUS_SRC_COLOR );
+	//glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
+	//glTexEnvi( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+	//glBlendFunc( GL_ZERO, GL_ONE_MINUS_SRC_COLOR );
 	glTexEnvi( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE );
 	draw_quad();
 
+	/*
 	glBlendFunc( GL_ONE, GL_ONE );
 	glTexEnvi( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 	draw_quad();
 
 	glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
+	*/
+
 	gl_disable text(GL_TEXTURE_2D);
 
 	check_gl_error();
