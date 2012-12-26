@@ -1,3 +1,4 @@
+from visual import *
 from visual.graph import *
 from visual.controls import *
 from visual.filedialog import *

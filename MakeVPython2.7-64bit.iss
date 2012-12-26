@@ -1,7 +1,7 @@
 ; Create installer for VPython using Inno Setup Compiler (www.innosetup.com)
-; Assumes Python and numpy already installed.
+; Assumes Python is already installed.
 
-; Make sure version numbers are correct for VPython and numpy.
+; Make sure version numbers are correct for VPython, numpy, and wxPython.
 ; Also, make sure that vidle\config-main.def has the correct Python version number for documentation
 
 [Setup]
@@ -58,20 +58,23 @@ Source: "Lib\site-packages\numpy\*"; DestDir: "{app}\Lib\site-packages\numpy\"; 
 Source: "Lib\site-packages\Polygon*egg-info"; DestDir: "{app}\Lib\site-packages\"; Components: Polygon
 Source: "Lib\site-packages\Polygon\*"; DestDir: "{app}\Lib\site-packages\Polygon\"; Components: Polygon; Flags: recursesubdirs
 
-Source: "Lib\site-packages\TTFQuery*egg-info"; DestDir: "{app}\Lib\site-packages\"; Components: ttfquery
+; Don't know why the next statement fails with egg-info not found:
+;Source: "Lib\site-packages\TTFQuery*egg-info\*"; DestDir: "{app}\Lib\site-packages\"; Components: ttfquery
 Source: "Lib\site-packages\ttfquery\*"; DestDir: "{app}\Lib\site-packages\ttfquery\"; Components: ttfquery; Flags: recursesubdirs
 
 Source: "Lib\site-packages\vidle\*.py"; DestDir: "{app}\Lib\site-packages\vidle\"; Components: VIDLE; Flags: recursesubdirs
 Source: "Lib\site-packages\vidle\*.pyc"; DestDir: "{app}\Lib\site-packages\vidle\"; Components: VIDLE; Flags: recursesubdirs
-Source: "Lib\site-packages\vidle\*.pyw"; DestDir: "{app}\Lib\site-packages\vidle\"; Components: VIDLE; Flags: recursesubdirs
+;Source: "Lib\site-packages\vidle\*.pyw"; DestDir: "{app}\Lib\site-packages\vidle\"; Components: VIDLE; Flags: recursesubdirs
 Source: "Lib\site-packages\vidle\*.txt"; DestDir: "{app}\Lib\site-packages\vidle\"; Components: VIDLE; Flags: recursesubdirs
 Source: "Lib\site-packages\vidle\*.py"; DestDir: "{app}\Lib\site-packages\vidle\"; Components: VIDLE; Flags: recursesubdirs
 Source: "Lib\site-packages\vidle\*.bat"; DestDir: "{app}\Lib\site-packages\vidle\"; Components: VIDLE; Flags: recursesubdirs
 Source: "Lib\site-packages\vidle\*.def"; DestDir: "{app}\Lib\site-packages\vidle\"; Components: VIDLE; Flags: recursesubdirs
-Source: "Lib\site-packages\vidle\*.gif"; DestDir: "{app}\Lib\site-packages\vidle\"; Components: VIDLE; Flags: recursesubdirs
+;Source: "Lib\site-packages\vidle\*.gif"; DestDir: "{app}\Lib\site-packages\vidle\"; Components: VIDLE; Flags: recursesubdirs
 Source: "Lib\site-packages\vidle\*.icns"; DestDir: "{app}\Lib\site-packages\vidle\"; Components: VIDLE; Flags: recursesubdirs
 
 Source: "Lib\site-packages\wx-2.9.4-msw\*"; DestDir: "{app}\Lib\site-packages\wx-2.9.4-msw\"; Components: wx; Flags: recursesubdirs
+Source: "Lib\site-packages\wx.pth"; DestDir: "{app}\Lib\site-packages\"; Components: wx; Flags: recursesubdirs 
+Source: "Lib\site-packages\wxversion.py"; DestDir: "{app}\Lib\site-packages\"; Components: wx; Flags: recursesubdirs
 
 [Components]
 Name: Visual; Description: "The Visual extension module for Python"; Types: full compact custom; Flags: fixed
@@ -93,8 +96,8 @@ Name: wx; Description: "wxPython 2.9.4 {code:WxPythonStatus|C:\Python27}"; Types
 Name: desktopicon; Description: "Create a desktop icon to start VIDLE"
 
 [Icons]
-Name: "{commondesktop}\VIDLE for VPython"; Filename: "{app}\pythonw.exe"; Parameters: "{app}\Lib\site-packages\vidle\idle.pyw"; WorkingDir: "{app}\Lib\site-packages\visual\examples"; IconFilename: "{app}\DLLs\py.ico"; Tasks: desktopicon
-Name: "{commonstartmenu}\VIDLE for VPython"; Filename: "{app}\pythonw.exe"; Parameters: "{app}\Lib\site-packages\vidle\idle.pyw"; WorkingDir: "{app}\Lib\site-packages\visual\examples"; IconFilename: "{app}\DLLs\py.ico"
+Name: "{commondesktop}\VIDLE for VPython"; Filename: "{app}\pythonw.exe"; Parameters: "{app}\Lib\site-packages\vidle\idle.py"; WorkingDir: "{app}\Lib\site-packages\visual\examples"; IconFilename: "{app}\DLLs\py.ico"; Tasks: desktopicon
+Name: "{commonstartmenu}\VIDLE for VPython"; Filename: "{app}\pythonw.exe"; Parameters: "{app}\Lib\site-packages\vidle\idle.py"; WorkingDir: "{app}\Lib\site-packages\visual\examples"; IconFilename: "{app}\DLLs\py.ico"
 ; commonstartmenu puts a choice on the "All Programs" list.
 ; commonstartup puts a choice inside "All Programs/Startup"
 ; commonfavorites puts a choice in Internet Explorer!
