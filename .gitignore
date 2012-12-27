@@ -22,3 +22,7 @@
 ehthumbs.db
 Thumbs.db
 /dependencies/
+/build/
+/dist/
+*~
+/VPython.egg-info/
