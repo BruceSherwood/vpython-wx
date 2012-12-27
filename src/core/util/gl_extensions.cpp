@@ -40,13 +40,6 @@ void gl_extensions::init( display_kernel& d ) {
 	if ( EXT_texture3D = d.hasExtension( "GL_EXT_texture3D" ) ) {
 		F( glTexImage3D );
 		F( glTexSubImage3D );
-	} else {
-		#ifdef __APPLE__
-			// Supported natively but NOT as an extension
-			EXT_texture3D = true;
-			glTexImage3D = ::glTexImage3D;
-			glTexSubImage3D = ::glTexSubImage3D;
-		#endif
 	}
 
 	if ( ARB_multitexture = d.hasExtension( "GL_ARB_multitexture" ) ) {
