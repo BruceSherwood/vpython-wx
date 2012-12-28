@@ -100,7 +100,9 @@ to create the bjam tool and project-config.jam.
 
 In the file project-config.jam, change "using gcc ;" to "using gcc : 4.2 : g++-4.2 ;" 
 
-Now execute ./bjam to build the Boost libraries.
+Now execute this, to build Boost libraries for both 32-bit and 64-bit architectures:
+
+./b2 link=static threading=multi toolset=darwin cxxflags="-arch i386 -arch x86_64" 
 
 Copy the boost folder (the Boost include files) to dependencies/boost_files/boost.
 
