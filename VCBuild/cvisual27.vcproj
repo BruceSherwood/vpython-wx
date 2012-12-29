@@ -722,26 +722,6 @@
 				>
 			</File>
 			<Filter
-				Name="win32"
-				>
-				<File
-					RelativePath="..\include\win32\display.hpp"
-					>
-				</File>
-				<File
-					RelativePath="..\include\win32\font_renderer.hpp"
-					>
-				</File>
-				<File
-					RelativePath="..\include\win32\GL\glext.h"
-					>
-				</File>
-				<File
-					RelativePath="..\include\win32\text.hpp"
-					>
-				</File>
-			</Filter>
-			<Filter
 				Name="python"
 				>
 				<File
@@ -798,10 +778,6 @@
 				>
 				<File
 					RelativePath="..\include\util\atomic_queue.hpp"
-					>
-				</File>
-				<File
-					RelativePath="..\include\util\bsp_tree.hpp"
 					>
 				</File>
 				<File
