@@ -1,4 +1,6 @@
 #include "display_kernel.hpp"
+#include <GL/glx.h>
+
 // Linux version of getProcAddress()
 
 namespace cvisual {
