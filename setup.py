@@ -146,5 +146,5 @@ setup(
     package_data={'': ['*.txt', '*.def', '*.bat', '*.tga', 
                        '*.tif', '*.png', '*.icns']}, 
     ext_modules=[CVISUAL],
-    install_requires=['Polygon >= 2.0, <3.0', 'FontTools >= 2.0', 'TTFQuery >= 1.0'],
+    install_requires=['Polygon >= 2.0, <3.0', 'FontTools >= 2.0', 'TTFQuery >= 1.0',], # 'wxPython >= 2.9'], <- there is no wxPython 2.9 on PyPy
     zip_safe=False) 
