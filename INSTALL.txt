@@ -38,6 +38,11 @@ I.  Prerequisites:
 	sudo apt-get install python-numpy
 	sudo apt-get install libboost-python-dev
 	sudo apt-get install libboost-signals-dev
+	
+	In order to use VIDLE you also need this:
+	
+	sudo apt-get install tk
+	sudo apt-get install idle
 		
 	You need wxPython (wxpython.org). Currently one needs version 2.9, but
 	on Linux you need to apply a patch. Here is information about the patch:
