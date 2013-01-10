@@ -19,14 +19,10 @@ I.  Prerequisites:
 	An implementation of OpenGL.
 	The Boost C++ libraries
 		
-	Need Python 2.2.x or 2.3.x or 2.4.x or 2.5.x (www.python.org), including
+	Need Python 2.7.x (www.python.org), including
 		the development (dev) package.
-	Need Python modules Polygon, FontTools, and ttfquery, from pypi.python.org.
-	   For each module, unpack and in a terminal cd to the module folder.
-	   Execute "sudo python setup.py install" to build and install the module.
-	Need numpy (numpy.sourceforge.net).
 		
-	From a fresh Ubuntu 12.10 this gets needed pieces:
+	From a fresh Ubuntu 12.04 this gets needed pieces:
 
 	sudo apt-get update
 	sudo apt-get install git
@@ -57,12 +53,16 @@ I.  Prerequisites:
 	and execute this in a terminal:
 	patch -p0 < wxPython-src-2.9.4.1.patch
 	
-	Also, in build/tools/build-wxwidgets.py, Steve had to
-	change line 267 from "--enable-mediactrl" to #"--enable-mediactrl"
+	Also, in build/tools/build-wxwidgets.py, need to change
+	line 267 from "--enable-mediactrl" to #"--enable-mediactrl"
 	for lack of GStreaming.
 	
 	Next cd wxPython (within the wxPython package) and execute
 	sudo python2.7 build-wxpython.py --build_dir=../bld --install
+	
+	Need Python modules Polygon, FontTools, and ttfquery, from pypi.python.org.
+	   For each module, unpack and in a terminal cd to the module folder.
+	   Execute "sudo python setup.py install" to build and install the module.
 
 	Finally, in the repository directory execute this: sudo python2.7 install
 	
