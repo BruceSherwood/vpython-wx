@@ -1,5 +1,5 @@
 """
-Search for packages and include paths to build visual python.
+Search for packages and include paths to build visual python on linux systems.
 """
 import subprocess
 
