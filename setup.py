@@ -136,15 +136,17 @@ setup(
     author='David Scherer et al.', 
     url='http://www.vpython.org/', 
     version=VERSION,
-    packages=['visual', 'vis', 'vidle', 'visual_common', 'vidle.Icons', 'visual.docs', 'visual.docs.visual', 'visual.docs.visual.images', 'visual.examples'], 
+    packages=['visual', 'vis', 'vidle', 'visual_common'],
     package_dir={ 
         'visual': os.path.join(SITE_PACKAGES,'visual'), 
         'vis': os.path.join(SITE_PACKAGES,'vis'), 
         'visual_common':os.path.join(SITE_PACKAGES,'visual_common'), 
-        'vidle': VIDLE_PATH, 
-        'vidle.Icons': os.path.join(VIDLE_PATH, 'Icons')}, 
-    package_data={'': ['*.txt', '*.def', '*.bat', '*.tga', "*.html","*.pdf",
-                       '*.tif', '*.png', '*.icns', '*.jpg']}, 
+        'vidle': VIDLE_PATH,
+        },
+    package_data={'vidle':['*.txt', '*.def','Icons/*.icns'],
+                  'visual':['*.txt','docs/*.html', 'docs/visual/*.html', 'docs/visual/*.gif', 'docs/visual/*.pdf', 'docs/visual/images/*.jpg', 'docs/visual/*.txt', 'examples/*.py'],
+                  'visual_common':['*.tga'],
+                  },
     ext_modules=[CVISUAL],
     install_requires=['Polygon >= 2.0, <3.0', 'FontTools >= 2.0', 'TTFQuery >= 1.0',], # 'wxPython >= 2.9'], <- there is no wxPython 2.9 on PyPy
     zip_safe=False) 
