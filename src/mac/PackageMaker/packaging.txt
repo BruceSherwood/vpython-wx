@@ -1,55 +1,126 @@
-cInstructions for creating a Mac installer.
+Instructions for creating a Mac installer.
 
-To use the Apple Package Manager to create an installer, create a folder named "stage"
-at the same level as vpython-core2, for assembling an installer for Python 3 (if you
-are assembling an installer for Python 2.7, name the folder "stage2"). 
+To use the Apple Package Maker (that comes with XCode) to create an
+installer, create a folder named "stage" at the same level as
+vpython-wx, for assembling an installer for Python 2
 
-Place in stage:
-	Files that will go to site-packages:
-		vis and visual folders (from vpython-core2/site-packages)
-		vidle (from vpython-core2/site-packages or site-packages)
-		numpy files (folder and file from site-packages)
-		FontTools folder and fonttools .egg-info file
-		Polygon folder and Polygon .egg-info file
-		ttfquery folder and TTFQuery .egg-info file
-	
-	Files that will go to Applications/VPython:
-	VPython/examples folder
-	VPython/docs folder
-	VPython/VIDLE launcher (unzip from src/mac/PackageMaker/VIDLE_launcher.zip)
+Place directories in stage as shown:
+
+aluminum:vpython-wx steve$ ls -la ../vpy-stage/*/*
+lrwxr-xr-x  1 root  admin  16 Jan  7 20:00 ../vpy-stage/wx-libraries/wxPython -> wxPython-2.9.4.0
+
+../vpy-stage/VIdle/VPython-Py2.7:
+total 0
+drwxrwxr-x  3 root  admin  102 Jan 10 06:07 .
+drwxrwxr-x  3 root  admin  102 Jan  4 07:53 ..
+drwxrwxr-x  3 root  admin  102 Jan 10 05:41 VIDLE.app
+
+../vpy-stage/site-packages/Font Tools:
+total 8
+drwxrwxr-x  4 root  admin  136 Jan  6 09:59 .
+drwxrwxr-x  8 root  admin  272 Jan 12 16:06 ..
+drwxrwxr-x  8 root  admin  272 Jan  6 09:55 FontTools
+-rw-rw-r--  1 root  admin   10 Jan  6 09:55 FontTools.pth
+
+../vpy-stage/site-packages/Polygon:
+total 8
+drwxrwxr-x   4 root  admin   136 Jan  5 05:20 .
+drwxrwxr-x   8 root  admin   272 Jan 12 16:06 ..
+drwxrwxr-x  11 root  admin   374 Jan  5 05:20 Polygon
+-rw-rw-r--   1 root  admin  2575 Jan  5 05:20 Polygon-2.0.1-py2.7.egg-info
+
+../vpy-stage/site-packages/TTF Query:
+total 8
+drwxrwxr-x   4 root  admin   136 Jan  5 05:21 .
+drwxrwxr-x   8 root  admin   272 Jan 12 16:06 ..
+-rw-rw-r--   1 root  admin  1654 Jan  5 05:20 TTFQuery-1.0.4-py2.7.egg-info
+drwxrwxr-x  24 root  admin   816 Jan  5 05:20 ttfquery
+
+../vpy-stage/site-packages/Visual Extension:
+total 8
+drwxrwxr-x  4 root  admin  136 Jan 12 16:58 .
+drwxrwxr-x  8 root  admin  272 Jan 12 16:06 ..
+drwxrwxr-x  7 root  admin  238 Jan 12 16:58 VPython-6.01-py2.7-macosx-10.6-intel.egg
+-rw-rw-r--  1 root  admin   43 Jan 12 18:16 VPython.pth
+
+../vpy-stage/site-packages/numpy:
+total 8
+drwxrwxr-x   4 root  admin   136 Jan  7 20:44 .
+drwxrwxr-x   8 root  admin   272 Jan 12 16:06 ..
+drwxr-xr-x  38 root  admin  1292 Jan  7 20:42 numpy
+-rw-r--r--   1 root  admin  1658 Jan  7 20:43 numpy-1.6.1-py2.7.egg-info
+
+../vpy-stage/site-packages/wx-redirect:
+total 8
+drwxrwxr-x  3 root  admin  102 Jan  8 14:17 .
+drwxrwxr-x  8 root  admin  272 Jan 12 16:06 ..
+-rw-rw-r--  1 root  admin   78 Jan  8 10:16 wxredirect.pth
+
+../vpy-stage/wx-libraries/wxPython-2.9.4.0:
+total 0
+drwxr-xr-x   6 root  wheel  204 Jul 21 15:26 .
+drwxrwxr-x   4 root  admin  136 Jan  7 20:00 ..
+drwxr-xr-x   5 root  wheel  170 Jul 21 15:26 bin
+drwxr-xr-x   3 root  wheel  102 Jul 21 15:26 include
+drwxr-xr-x  10 root  wheel  340 Jul 21 16:09 lib
+drwxr-xr-x   5 root  wheel  170 Jul 21 15:26 share
+
+If the version of any of the 3rd party packages changes just
+delete the sub-package from the document and drag the appropriate
+folder from the stage directory into the Package Maker document.
+Under the Configuration menu -> Install should be "relative" and
+Destination should be "chosen" to be the site-packages folder.
+
+The VPython.app is a bundle (unzip from src/mac/PackageMaker/VIDLE_launcher.zip)
 
 Clean out irrelevant files from these folders (e.g. CVS folders, make files).
 
-The VIDLE launcher was created starting from the IDLE launcher found in the
-/Applications/Python X.Y folder. Make a copy of this IDLE launcher.
-If you right-click (ctrl-click) IDLE, you can gain access to the contents
-of what is actually a folder. The Python script Resources/idlemain.py was 
-edited with TextEdit to change idlelib.PyShell to vidle.PyShell. 
-Doubleclick info.plist to use the plist editor to change IDLE to VIDLE
-in "Executable file", "Bundle identifier", and "Bundle name".
-Change the name of MacOS/IDLE to MacOS/VIDLE.
-You don't need to change IDLE to VIDLE in the icon file names (*.icns).
-Finally, change the name of the IDLE launcher to VIDLE.
+(Historical Note: The VIDLE launcher was created starting from the
+IDLE launcher found in the /Applications/Python X.Y folder. Make a
+copy of this IDLE launcher. If you right-click (ctrl-click) IDLE, you
+can gain access to the contents of what is actually a folder. The
+Python script Resources/idlemain.py was edited with TextEdit to change
+idlelib.PyShell to vidle.PyShell. Doubleclick info.plist to use the
+plist editor to change IDLE to VIDLE in "Executable file", "Bundle
+identifier", and "Bundle name". Change the name of MacOS/IDLE to
+MacOS/VIDLE. You don't need to change IDLE to VIDLE in the icon file
+names (*.icns). Finally, change the name of the IDLE launcher to
+VIDLE.)
 
-Ctrl-click the stage folder and choose Get Info.
-Expose Sharing & Permissions.
-Click the lock and enter your password.
-Set "everyone" to have Read & Write access.
-At the bottom of the window, click the star menu icon and choose "Apply to enclosed items".
-	This is necessary to permit someone to install over an existing installation.
+Use the python setup.py script to update the VPython egg directory
+when there are updates. If the version number is changed VPython.pth
+will have to be edited. The setup.py script should be edited to use
+the new version number. When run, it will include the new egg
+directory in the easy_install.pth. This should be removed and the
+VPython.pth file should be edited to reflect the new version number.
 
-Now go to PackageMaker folder and doubleclick the package manager file.
+Once this is done there is a "helper" script:
+
+src/mac/PackageMaker/copyFromInstalled.py
+
+That will automatically copy the egg/pth structure from the
+site-packages directory to the staging area. You should edit the paths
+to match the new version numbers etc. This script needs to be run from
+the vpython-wx directory.
+
+Now go to PackageMaker folder and doubleclick the package maker document.
 
 Choose Project > Install Properties to specify the minimum operating system required.
 
-For the VPython folder component (Examples, Documentation, VIDLE shortcut), click the folder
-in the left panel. Highlight the Configuration tab and set the destination to
-/Applications/VPython-PyX.Y (e.g. /Applications/VPython-Py2.7). Make sure that in the stage
-folder for vidle the file config-main.def the HelpFiles entry also specifies 
-/Applications/VPython-PyX.Y.
+For the VPython folder component click the folder in the left panel.
+Highlight the Configuration tab and set the destination to
+/Applications/VPython-PyX.Y (e.g. /Applications/VPython-Py2.7).
 
-Next, highlight the Components tab. 
-IMPORTANT: Make sure that Allow Relocation for VIDLE.app is NOT checked.
-This must be every time you build the installer; the setting is not saved.
+Next, highlight the Components tab. IMPORTANT: Make sure that Allow
+Relocation for VIDLE.app is NOT checked. This must be every time you
+build the installer; the setting is not saved. (Actually it seems to
+be saved sometimes, but best to check anyway)
 
-Build the installer. 
+It helps to run the "dumb_uninstaller.sh" script:
+
+sudo sh -v ./src/mac/PackageMaker/dumb_uninstall.sh
+
+which clears out the old install (including any old version of VPython in 
+the site-packages directory, and wxPython)
+
+Build the installer. Run it.. and test that everything looks OK.
