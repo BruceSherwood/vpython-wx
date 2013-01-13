@@ -13,5 +13,5 @@ apt-get -q -y install python-numpy
 apt-get -q -y install libboost-python-dev
 apt-get -q -y install libboost-signals-dev
 apt-get -q -y install libghc-gstreamer-dev
-apt-get -q -y install idle
+apt-get -q -y install python-tk
 
