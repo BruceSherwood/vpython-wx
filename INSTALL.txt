@@ -39,6 +39,12 @@ I.  Prerequisites:
 	
 	sudo apt-get install tk
 	sudo apt-get install idle
+
+	(There is a helper script in src/gtk2 called apt-get-packages:
+
+	sudo sh -v src/gtk2/apt-get-packages.sh
+
+	that may be convenient for this)
 		
 	You need wxPython (wxpython.org). Currently one needs version 2.9, but
 	on Linux you need to apply a patch. Here is information about the patch:
@@ -53,10 +59,6 @@ I.  Prerequisites:
 	and execute this in a terminal:
 	patch -p0 < wxPython-src-2.9.4.1.patch
 	
-	Also, in build/tools/build-wxwidgets.py, need to change
-	line 267 from "--enable-mediactrl" to #"--enable-mediactrl"
-	for lack of GStreaming.
-	
 	Next cd wxPython (within the wxPython package) and execute
 	sudo python2.7 build-wxpython.py --build_dir=../bld --install
 	
@@ -64,8 +66,7 @@ I.  Prerequisites:
 	   For each module, unpack and in a terminal cd to the module folder.
 	   Execute "sudo python setup.py install" to build and install the module.
 
-	Finally, in the repository directory execute this: sudo python2.7 install
-	
+	Finally, in the repository directory execute this: sudo python2.7 setup.py install
 
 II:   Troubleshooting
 
