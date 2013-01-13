@@ -8,7 +8,7 @@ import platform
 # This file must be placed at the top level of the GitHub project directory
 # and then be executed from a terminal as "python setup.py build"
  
-VERSION = '6.00' 
+VERSION = '6.01' 
 DESCRIPTION = '3D Programming for Ordinary Mortals' 
 LONG_DESCRIPTION = """ 
 VPython is the Python programming language plus a 3D graphics module 
@@ -135,7 +135,7 @@ setup(
     long_description=LONG_DESCRIPTION, 
     author='David Scherer et al.', 
     url='http://www.vpython.org/', 
-    version='6.00', 
+    version=VERSION,
     packages=['visual', 'vis', 'vidle', 'visual_common', 'vidle.Icons', 'visual.docs', 'visual.docs.visual', 'visual.docs.visual.images', 'visual.examples'], 
     package_dir={ 
         'visual': os.path.join(SITE_PACKAGES,'visual'), 

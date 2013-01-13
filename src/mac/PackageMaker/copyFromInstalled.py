@@ -12,8 +12,6 @@ import subprocess
 import os
 import sys
 
-"vpy-stage/site-packages/Visual\ Extension/VPython-6.00-py2.7-macosx-10.6-intel.egg/visual/examples"
-
 #
 # Edit this to match your staging directory etc.
 #
@@ -21,7 +19,7 @@ import sys
 STAGING_DIRECTORY = "../vpy-stage/site-packages/Visual Extension"
 LIBRARY_DIRECTORY = "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages"
 
-VPYTHON_EGG = "VPython-6.00-py2.7-macosx-10.6-intel.egg"
+VPYTHON_EGG = "VPython-6.01-py2.7-macosx-10.6-intel.egg"
 VPYTHON_PTH = "VPython.pth"
 
 if os.getuid() != 0:
@@ -82,7 +80,7 @@ if subprocess.call(['chmod','-R','g+w','.']):
 
 print("chmod successful")
 
-
-
-
+if subprocess.call(['find','.','-name','.DS_Store','-exec','rm','{}',';','-print']):
+    raise RuntimeError("Sorry... .DS_Store clearout didn't work.")
     
+print("Cleared out .DS_Store")
