@@ -143,7 +143,7 @@ setup(
         'visual_common':os.path.join(SITE_PACKAGES,'visual_common'), 
         'vidle': VIDLE_PATH, 
         'vidle.Icons': os.path.join(VIDLE_PATH, 'Icons')}, 
-    package_data={'': ['*.txt', '*.def', '*.bat', '*.tga', "*.html",
+    package_data={'': ['*.txt', '*.def', '*.bat', '*.tga', "*.html","*.pdf",
                        '*.tif', '*.png', '*.icns', '*.jpg']}, 
     ext_modules=[CVISUAL],
     install_requires=['Polygon >= 2.0, <3.0', 'FontTools >= 2.0', 'TTFQuery >= 1.0',], # 'wxPython >= 2.9'], <- there is no wxPython 2.9 on PyPy
