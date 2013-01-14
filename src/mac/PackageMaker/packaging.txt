@@ -6,64 +6,43 @@ vpython-wx, for assembling an installer for Python 2
 
 Place directories in stage as shown:
 
-aluminum:vpython-wx steve$ ls -la ../vpy-stage/*/*
-lrwxr-xr-x  1 root  admin  16 Jan  7 20:00 ../vpy-stage/wx-libraries/wxPython -> wxPython-2.9.4.0
+../vpy-stage/VIdle:
+drwxrwxr-x  3 root   admin  102 Jan 10 05:41 VIDLE-Py2.7.app
 
-../vpy-stage/VIdle/VPython-Py2.7:
-total 0
-drwxrwxr-x  3 root  admin  102 Jan 10 06:07 .
-drwxrwxr-x  3 root  admin  102 Jan  4 07:53 ..
-drwxrwxr-x  3 root  admin  102 Jan 10 05:41 VIDLE.app
+../vpy-stage/site-packages:
+drwxrwxr-x  4 root   admin  136 Jan  6 09:59 Font Tools
+drwxrwxr-x  4 root   admin  136 Jan  5 05:20 Polygon
+drwxrwxr-x  4 root   admin  136 Jan  5 05:21 TTF Query
+drwxrwxr-x  4 root   admin  136 Jan 12 16:58 Visual Extension
+drwxrwxr-x  4 root   admin  136 Jan  7 20:44 numpy
+drwxrwxr-x  3 root   admin  102 Jan  8 14:17 wx-redirect
+
+../vpy-stage/wx-libraries:
+lrwxr-xr-x  1 root   admin   16 Jan  7 20:00 wxPython -> wxPython-2.9.4.0
+drwxr-xr-x  6 root   wheel  204 Jul 21 15:26 wxPython-2.9.4.0
 
 ../vpy-stage/site-packages/Font Tools:
-total 8
-drwxrwxr-x  4 root  admin  136 Jan  6 09:59 .
-drwxrwxr-x  8 root  admin  272 Jan 12 16:06 ..
 drwxrwxr-x  8 root  admin  272 Jan  6 09:55 FontTools
 -rw-rw-r--  1 root  admin   10 Jan  6 09:55 FontTools.pth
 
 ../vpy-stage/site-packages/Polygon:
-total 8
-drwxrwxr-x   4 root  admin   136 Jan  5 05:20 .
-drwxrwxr-x   8 root  admin   272 Jan 12 16:06 ..
 drwxrwxr-x  11 root  admin   374 Jan  5 05:20 Polygon
 -rw-rw-r--   1 root  admin  2575 Jan  5 05:20 Polygon-2.0.1-py2.7.egg-info
 
 ../vpy-stage/site-packages/TTF Query:
-total 8
-drwxrwxr-x   4 root  admin   136 Jan  5 05:21 .
-drwxrwxr-x   8 root  admin   272 Jan 12 16:06 ..
 -rw-rw-r--   1 root  admin  1654 Jan  5 05:20 TTFQuery-1.0.4-py2.7.egg-info
 drwxrwxr-x  24 root  admin   816 Jan  5 05:20 ttfquery
 
 ../vpy-stage/site-packages/Visual Extension:
-total 8
-drwxrwxr-x  4 root  admin  136 Jan 12 16:58 .
-drwxrwxr-x  8 root  admin  272 Jan 12 16:06 ..
 drwxrwxr-x  7 root  admin  238 Jan 12 16:58 VPython-6.01-py2.7-macosx-10.6-intel.egg
--rw-rw-r--  1 root  admin   43 Jan 12 18:16 VPython.pth
+-rw-rw-r--  1 root  admin   43 Jan 13 13:12 VPython.pth
 
 ../vpy-stage/site-packages/numpy:
-total 8
-drwxrwxr-x   4 root  admin   136 Jan  7 20:44 .
-drwxrwxr-x   8 root  admin   272 Jan 12 16:06 ..
 drwxr-xr-x  38 root  admin  1292 Jan  7 20:42 numpy
 -rw-r--r--   1 root  admin  1658 Jan  7 20:43 numpy-1.6.1-py2.7.egg-info
 
 ../vpy-stage/site-packages/wx-redirect:
-total 8
-drwxrwxr-x  3 root  admin  102 Jan  8 14:17 .
-drwxrwxr-x  8 root  admin  272 Jan 12 16:06 ..
 -rw-rw-r--  1 root  admin   78 Jan  8 10:16 wxredirect.pth
-
-../vpy-stage/wx-libraries/wxPython-2.9.4.0:
-total 0
-drwxr-xr-x   6 root  wheel  204 Jul 21 15:26 .
-drwxrwxr-x   4 root  admin  136 Jan  7 20:00 ..
-drwxr-xr-x   5 root  wheel  170 Jul 21 15:26 bin
-drwxr-xr-x   3 root  wheel  102 Jul 21 15:26 include
-drwxr-xr-x  10 root  wheel  340 Jul 21 16:09 lib
-drwxr-xr-x   5 root  wheel  170 Jul 21 15:26 share
 
 If the version of any of the 3rd party packages changes just
 delete the sub-package from the document and drag the appropriate
@@ -116,11 +95,16 @@ Relocation for VIDLE.app is NOT checked. This must be every time you
 build the installer; the setting is not saved. (Actually it seems to
 be saved sometimes, but best to check anyway)
 
-It helps to run the "dumb_uninstaller.sh" script:
+Now you can save the package maker document and/or build the installer.
 
-sudo sh -v ./src/mac/PackageMaker/dumb_uninstall.sh
+There is also now an experimental command line script in the PackageMaker
+directory that will build the package and the .dmg. You may need to
+edit the paths to match your setup/version of Xcode.
 
-which clears out the old install (including any old version of VPython in 
-the site-packages directory, and wxPython)
+sh src/mac/PackageMaker/buildPackage.sh pkg
 
-Build the installer. Run it.. and test that everything looks OK.
+will build the package
+
+sh src/mac/PackageMaker/buildPackage.sh dmg
+
+will build the dmg file for distribution.

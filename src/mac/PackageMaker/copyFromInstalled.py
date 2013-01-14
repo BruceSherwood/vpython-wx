@@ -26,6 +26,11 @@ if os.getuid() != 0:
     print("You need to run this script as root")
     sys.exit(1)
 
+if os.path.split(os.getcwd())[1] != 'vpython-wx':
+    print("Please run this script from the vpython-wx directory, now in:" + os.getcwd())
+    sys.exit(1)
+    
+
 src = os.path.join(LIBRARY_DIRECTORY, VPYTHON_EGG)
 
 cpyList = ['cp','-R',os.path.join(LIBRARY_DIRECTORY, VPYTHON_EGG), os.path.join(STAGING_DIRECTORY,'.')]
@@ -40,7 +45,7 @@ cpyList = ['cp','-R',os.path.join(LIBRARY_DIRECTORY, VPYTHON_PTH), os.path.join(
 if subprocess.call(cpyList):
     raise RuntimeError("Sorry... copy didn't work.")
 else:
-    print("Path copied")
+    print("Path file copied")
 
 #
 # Everything is copied... now clear out .pyc files from examples and force
@@ -66,7 +71,7 @@ for fname in os.listdir('.'):
         except:
             print("removing ", fpath, "failed")
 
-print("Examples cleared out")
+print("Examples pyc files cleared out")
 
 os.chdir('../../..')
 
@@ -83,4 +88,4 @@ print("chmod successful")
 if subprocess.call(['find','.','-name','.DS_Store','-exec','rm','{}',';','-print']):
     raise RuntimeError("Sorry... .DS_Store clearout didn't work.")
     
-print("Cleared out .DS_Store")
+print("Cleared out .DS_Store files")

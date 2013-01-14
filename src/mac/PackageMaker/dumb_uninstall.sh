@@ -8,7 +8,7 @@ do
 done
 
 rm -r $LIB_PATH/wxPython*
-rm -r $APP_PATH/VPython-Py2.7
+rm -r $APP_PATH/VIDLE-Py2.7.app
 
 
 
