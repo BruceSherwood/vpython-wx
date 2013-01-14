@@ -3,6 +3,7 @@ libs/*.*
 /libs/
 *.ncb
 *.suo
+*.sln
 *.htm
 *.idb
 *.pdb
