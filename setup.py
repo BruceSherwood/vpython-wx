@@ -34,7 +34,7 @@ Topic :: Multimedia :: Graphics :: 3D Modeling
 Topic :: Scientific/Engineering :: Physics
 Topic :: Scientific/Engineering :: Visualization
 Topic :: Software Development :: Libraries :: Python Modules
-""".split()
+""".split('\n')
  
 VISUAL_DIR = os.getcwd() 
 VISUAL_INC = os.path.join(VISUAL_DIR,'include') 
