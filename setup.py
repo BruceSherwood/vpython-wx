@@ -17,13 +17,24 @@ easy to create navigable 3D displays and animations, even for those
 with limited programming experience. Because it is based on Python, it 
 also has much to offer for experienced programmers and researchers.""" 
  
-CLASSIFIERS = filter(None, map(str.strip, 
-"""                  
-Intended Audience :: Developers, Educators 
-Programming Language :: Python 
-Operating System :: MacOS :: MacOS X :: Windows :: Linux :: Unix 
-Topic :: Software Development :: 3D Graphics 
-""".splitlines())) 
+classifiers = """
+Intended Audience :: Education
+Intended Audience :: Developers
+Intended Audience :: Science/Research
+Development Status :: 4 - Beta
+Environment :: MacOS X :: Cocoa
+Environment :: Win32 (MS Windows)
+Environment :: X11 Applications :: GTK
+Operating System :: MacOS :: MacOS X
+Operating System :: Microsoft :: Windows
+Operating System :: POSIX :: Linux
+Operating System :: POSIX :: BSD
+Programming Language :: Python :: 2.7
+Topic :: Multimedia :: Graphics :: 3D Modeling
+Topic :: Scientific/Engineering :: Physics
+Topic :: Scientific/Engineering :: Visualization
+Topic :: Software Development :: Libraries :: Python Modules
+""".split()
  
 VISUAL_DIR = os.getcwd() 
 VISUAL_INC = os.path.join(VISUAL_DIR,'include') 
@@ -132,8 +143,9 @@ VIDLE_PATH = os.path.join(SITE_PACKAGES,'vidle%i' % sys.version_info[0])
 setup( 
     name='VPython', 
     description=DESCRIPTION, 
-    long_description=LONG_DESCRIPTION, 
-    author='David Scherer et al.', 
+    long_description=LONG_DESCRIPTION,
+    classifiers=classifiers,
+    author='David Scherer et al.',
     url='http://www.vpython.org/', 
     version=VERSION,
     packages=['visual', 'vis', 'vidle', 'visual_common'],
@@ -149,5 +161,5 @@ setup(
                   'visual_common':['*.tga'],
                   },
     ext_modules=[CVISUAL],
-    install_requires=['Polygon >= 2.0, <3.0', 'FontTools >= 2.0', 'TTFQuery >= 1.0',], # 'wxPython >= 2.9'], <- there is no wxPython 2.9 on PyPy
+    install_requires=['Polygon >= 2.0, <3.0', 'FontTools >= 2.0', 'TTFQuery >= 1.0','wxPython >= 2.9'], # <- there is no wxPython 2.9 on PyPy
     zip_safe=False) 
