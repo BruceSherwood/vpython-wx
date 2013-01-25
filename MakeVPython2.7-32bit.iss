@@ -6,7 +6,7 @@
 
 [Setup]
 AppName=VPython for Python 2.7
-AppVerName=VPython 6.00
+AppVerName=VPython 6.01
 AppPublisherURL=http://vpython.org
 DefaultDirName={code:MyConst}
 
@@ -14,7 +14,7 @@ SourceDir=C:\Python27
 DisableProgramGroupPage=yes
 DirExistsWarning=no
 DisableStartupPrompt=yes
-OutputBaseFilename=VPython-Win-32-Py2.7-6.00
+OutputBaseFilename=VPython-Win-32-Py2.7-6.01
 OutputDir=c:\workspace
 
 [Files]
@@ -32,6 +32,8 @@ Source: "Lib\site-packages\visual\*.py"; DestDir: "{app}\Lib\site-packages\visua
 Source: "Lib\site-packages\visual\license.txt"; DestDir: "{app}\Lib\site-packages\visual\"; Components: Visual
 
 ; Execute compilevisual.py from the Github files to compile the .pyc files:
+Source: "Lib\site-packages\vis\*.py"; DestDir: "{app}\Lib\site-packages\vis\"; Components: Visual
+
 Source: "Lib\site-packages\vis\*.pyc"; DestDir: "{app}\Lib\site-packages\vis\"; Components: Visual
 Source: "Lib\site-packages\visual\*.pyc"; DestDir: "{app}\Lib\site-packages\visual\"; Components: Visual
 Source: "Lib\site-packages\visual_common\*.pyc"; DestDir: "{app}\Lib\site-packages\visual_common\"; Components: Visual
