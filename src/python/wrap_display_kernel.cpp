@@ -67,9 +67,9 @@ class py_display_kernel : public py_base_display_kernel
 
 	// Utility methods for Python subclasses
 	void report_mouse_state(py::object is_button_down,
-							int cursor_client_x, int cursor_client_y,
-							py::object shift_state,
-							bool can_lock_mouse )
+							int old_x, int old_y,
+							int new_x, int new_y,
+							py::object shift_state )
 	{
 		int button_len = boost::python::len( is_button_down );
 		boost::scoped_array<bool> buttons( new bool[button_len] );
@@ -82,9 +82,9 @@ class py_display_kernel : public py_base_display_kernel
 			shift[b] = boost::python::extract<bool>( shift_state[b] );
 
 		mouse.report_mouse_state( button_len, &buttons[0],
-								  cursor_client_x, cursor_client_y,
-								  shift_len, &shift[0],
-								  can_lock_mouse );
+								  old_x, old_y,
+								  new_x, new_y,
+								  shift_len, &shift[0] );
 	}
 };
 

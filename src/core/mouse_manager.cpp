@@ -10,7 +10,7 @@ namespace cvisual {
    about the details of event handling later. */
 
 mouse_manager::mouse_manager( class display_kernel& display )
- : display(display), px(0), py(0), locked(false),
+ : display(display), px(0), py(0),
 	 left_down(false), left_dragging(false), left_semidrag(false),
 	 middle_down(false), middle_dragging(false), middle_semidrag(false),
 	 right_down(false), right_dragging(false), right_semidrag(false)
@@ -29,24 +29,17 @@ static void fill( int out_size, bool out[], int in_size, bool in[], bool def = f
 }
 
 int mouse_manager::get_x() {
-	if (locked)
-		return locked_px;
-	else
-		return px;
+	return px;
 }
 
 int mouse_manager::get_y() {
-	if (locked)
-		return locked_py;
-	else
-		return py;
+	return py;
 }
 
 void mouse_manager::report_mouse_state( int physical_button_count, bool is_button_down[],
-										int cursor_client_x, int cursor_client_y,
-										int shift_state_count, bool shift_state[],
-										bool can_lock_mouse )
-	// can_lock_mouse is 1 if initiating spin or zoom; else 0
+										int old_x, int old_y,
+										int new_x, int new_y,
+										int shift_state_count, bool shift_state[] )
 {
 	// In is_button_down array, position 0=left, 1=right, 2=middle
 
@@ -68,20 +61,21 @@ void mouse_manager::report_mouse_state( int physical_button_count, bool is_butto
 	if (!new_buttons[2] && !buttons[2] && new_buttons[0] != buttons[0] && new_buttons[1] != buttons[1]) {
 		int b = !new_buttons[1];
 		new_buttons[b] = !new_buttons[b];
-		update( new_buttons, cursor_client_x, cursor_client_y, new_shift, can_lock_mouse );
+		update( new_buttons, old_x, old_y, new_x, new_y, new_shift );
 		new_buttons[b] = !new_buttons[b];
 	}
 	
-	update( new_buttons, cursor_client_x, cursor_client_y, new_shift, can_lock_mouse );
+	update( new_buttons, old_x, old_y, new_x, new_y, new_shift );
 }
 
-void mouse_manager::update( bool new_buttons[], int new_px, int new_py, bool new_shift[], bool can_lock_mouse ) {
+void mouse_manager::update( bool new_buttons[], int old_px, int old_py, int new_px, int new_py, bool new_shift[] ) {
 	// Shift states are just passed directly to mouseobject
 	mouse.set_shift( new_shift[0] );
 	mouse.set_ctrl( new_shift[1] );
 	mouse.set_alt( new_shift[2] );
 	mouse.set_command( new_shift[3] );
 
+	/*
 	if (can_lock_mouse) { // we are at start of spin or zoom
 		px = new_px;
 		py = new_py;
@@ -91,25 +85,26 @@ void mouse_manager::update( bool new_buttons[], int new_px, int new_py, bool new
 	locked = (can_lock_mouse && display.zoom_is_allowed() && new_buttons[0] && new_buttons[1]) ||
 	         (can_lock_mouse && display.spin_is_allowed() && new_buttons[1] && !new_buttons[0]);
 	if (locked && !was_locked) { locked_px = new_px; locked_py = new_py; }
+	*/
 
 	if (new_buttons[1]) // handle spin or zoom if allowed
-		display.report_camera_motion( (new_px - px), (new_py - py),
+		display.report_camera_motion( (new_px - old_px), (new_py - old_py),
 									  new_buttons[0] ? display_kernel::MIDDLE : display_kernel::RIGHT );
 
 	// left_semidrag means that we've moved the mouse and so can't get a left click, but we aren't
 	// necessarily actually dragging, because the movement might have occurred with the right button down.
-	if (left_down && !left_dragging && (new_px != px || new_py != py))
+	if (left_down && !left_dragging && (new_px != old_px || new_py != old_py))
 		left_semidrag = true;
 	if (!left_down) left_semidrag = false;
 
 	if (!display.spin_is_allowed()) {
-		if (right_down && !right_dragging && (new_px != px || new_py != py))
+		if (right_down && !right_dragging && (new_px != old_px || new_py != py))
 			right_semidrag = true;
 		if (!right_down) right_semidrag = false;
 	}
 
 	if (!display.zoom_is_allowed()) {
-		if (middle_down && !middle_dragging && (new_px != px || new_py != py))
+		if (middle_down && !middle_dragging && (new_px != old_px || new_py != py))
 			middle_semidrag = true;
 		if (!middle_down) middle_semidrag = false;
 	}
@@ -135,7 +130,7 @@ void mouse_manager::update( bool new_buttons[], int new_px, int new_py, bool new
 			}
 		}
 
-		if ( b && left_down && (new_px != px || new_py != py) && !left_dragging ) {
+		if ( b && left_down && (new_px != old_px || new_py != py) && !left_dragging ) {
 			mouse.push_event( drag_event(1, mouse) );
 			left_dragging = true;
 		}
@@ -161,7 +156,7 @@ void mouse_manager::update( bool new_buttons[], int new_px, int new_py, bool new
 			}
 		}
 
-		if ( b && right_down && (new_px != px || new_py != py) && !right_dragging ) {
+		if ( b && right_down && (new_px != old_px || new_py != py) && !right_dragging ) {
 			mouse.push_event( drag_event(2, mouse) );
 			right_dragging = true;
 		}
@@ -187,7 +182,7 @@ void mouse_manager::update( bool new_buttons[], int new_px, int new_py, bool new
 			}
 		}
 
-		if ( b && middle_down && (new_px != px || new_py != py) && !middle_dragging ) {
+		if ( b && middle_down && (new_px != old_px || new_py != py) && !middle_dragging ) {
 			mouse.push_event( drag_event(3, mouse) );
 			middle_dragging = true;
 		}
@@ -197,12 +192,8 @@ void mouse_manager::update( bool new_buttons[], int new_px, int new_py, bool new
 
 	px = new_px;
 	py = new_py;
-	for(int b=0; b<2; b++) buttons[b] = new_buttons[b];
-}
 
-void mouse_manager::report_setcursor( int new_px, int new_py ) {
-	px = new_px;
-	py = new_py;
+	for(int b=0; b<2; b++) buttons[b] = new_buttons[b];
 }
 
 } // namespace cvisual
