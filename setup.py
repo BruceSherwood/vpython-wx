@@ -8,7 +8,7 @@ import platform
 # This file must be placed at the top level of the GitHub project directory
 # and then be executed from a terminal as "python setup.py build"
  
-VERSION = '6.01' 
+VERSION = '6.02' 
 DESCRIPTION = '3D Programming for Ordinary Mortals' 
 LONG_DESCRIPTION = """ 
 VPython is the Python programming language plus a 3D graphics module 
@@ -156,8 +156,9 @@ setup(
         'vidle': VIDLE_PATH,
         },
     package_data={'vidle':['*.txt', '*.def','Icons/*.icns'],
-                  'visual':['*.txt','docs/*.html', 'docs/visual/*.html', 'docs/visual/*.gif', 'docs/visual/*.pdf',
-                            'docs/visual/images/*.jpg', 'docs/visual/*.txt', 'docs/visual/*.css', 'examples/*.py'],
+                  'visual':['*.txt', 'docs/*.html', 'docs/*.gif', 'docs/*.pdf', 'docs/*.js',
+                            'docs/images/*.jpg', 'docs/*.txt', 'docs/*.css',
+                            'examples/*.py', 'examples/*.tga'],
                   'visual_common':['*.tga'],
                   },
     ext_modules=[CVISUAL],
