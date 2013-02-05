@@ -89,6 +89,16 @@ Building vpython with from Visual Studio C++
 	to. Without this second inno setup to get the .pyc files, every user would
 	have to recompile some of the site-packages/visual/*.py files. No big deal,
 	but nicer to have these files already compiled.
+	
+	Issues with creating installers for 64-bit VPython:
+	The 32-bit and 64-bit Registry is separate.  You need to specify the correct one when trying to use it. Inno defaults to using the 32-bit one, since most applications are 32-bit.
+
+	If you are installing a 64-bit application, then you should select 64-bit install mode (see the examples). If you are installing a 32-bit application that uses 64-bit parts, then you should use the appropriate override flags or constants to tell Inno that you're trying to access the *other* Registry for the foreign parts. These are all documented in the help file.
+
+Result1 := FileExists(
+ExpandConstant('{reg:HKLM\Software\Python\PythonCore\2.7\InstallPath,}\python.exe'));
+
+You should use the RegQuery* family of support functions instead of trying to expand a {reg:...} constant within the code section.
 
 DEBUGGING
 Go to the "System" control panel and choose advanced settings, then environment variables
