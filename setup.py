@@ -162,5 +162,5 @@ setup(
                   'visual_common':['*.tga'],
                   },
     ext_modules=[CVISUAL],
-    install_requires=['Polygon >= 2.0, <3.0', 'FontTools >= 2.0', 'TTFQuery >= 1.0','wxPython >= 2.9'], # <- there is no wxPython 2.9 on PyPy
+    install_requires=['Polygon >= 2.0, <3.0', 'FontTools >= 2.0', 'TTFQuery >= 1.0'], #,'wxPython >= 2.9'], # <- there is no wxPython 2.9 on PyPy
     zip_safe=False) 
