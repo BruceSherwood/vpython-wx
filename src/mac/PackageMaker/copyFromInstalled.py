@@ -5,22 +5,14 @@ that they only need to be copied very rarely.
 
 You'll want to invoke this script with 'sudo' so that it runs with root privs.
 
+Execute this from the 'vpython-wx' directory, which should be the peer of the vpy-stage directory
+
 """
 from __future__ import print_function
 
 import subprocess
 import os
 import sys
-
-#
-# Edit this to match your staging directory etc.
-#
-
-STAGING_DIRECTORY = "../vpy-stage/site-packages/Visual Extension"
-LIBRARY_DIRECTORY = "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages"
-
-VPYTHON_EGG = "VPython-6.01-py2.7-macosx-10.6-intel.egg"
-VPYTHON_PTH = "VPython.pth"
 
 if os.getuid() != 0:
     print("You need to run this script as root")
@@ -30,6 +22,16 @@ if os.path.split(os.getcwd())[1] != 'vpython-wx':
     print("Please run this script from the vpython-wx directory, now in:" + os.getcwd())
     sys.exit(1)
     
+#
+# Edit this to match your staging directory etc.
+#
+
+VPYTHON_WX_DIR=os.getcwd()
+STAGING_DIRECTORY = os.path.join(os.path.split(VPYTHON_WX_DIR)[0],"vpy-stage/site-packages/Visual Extension")
+LIBRARY_DIRECTORY = "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages"
+
+VPYTHON_EGG = "VPython-6.02-py2.7-macosx-10.6-intel.egg"
+VPYTHON_PTH = "VPython.pth"
 
 src = os.path.join(LIBRARY_DIRECTORY, VPYTHON_EGG)
 
@@ -47,6 +49,11 @@ if subprocess.call(cpyList):
 else:
     print("Path file copied")
 
+sedList = ['sed','-e','s/Classic\ Windows/Classic\ OSX/g','-i','.orig',os.path.join(STAGING_DIRECTORY, VPYTHON_EGG, 'vidle','config-main.def')]
+if subprocess.call(sedList):
+    raise RuntimeError("Sorry... key config substitution didn't work.")
+else:
+    print("Key Config changed")
 #
 # Everything is copied... now clear out .pyc files from examples and force
 # permissions and ownership
