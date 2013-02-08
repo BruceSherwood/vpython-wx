@@ -140,7 +140,6 @@ protected:
 	// Mouse and keyboard objects
 	cursor_object cursor;
 	mouse_manager mouse;
-	atomic_queue<std::string> keys;
 
 	// The bounding rectangle of the window on the screen (or equivalent super-window
 	// coordinate system), including all decorations.
@@ -351,7 +350,6 @@ public: // Public Data.
 
 	cursor_object* get_cursor();
 	mouse_t* get_mouse();
-	atomic_queue<std::string>* get_kb();
 
 	static void set_selected( shared_ptr<display_kernel> );
 	static shared_ptr<display_kernel> get_selected();

@@ -182,8 +182,6 @@ wrap_display_kernel(void)
 		.add_property( "exit", &display_kernel::get_exit, &display_kernel::set_exit)
 		.add_property( "cursor", py::make_function(
 			&display_kernel::get_cursor, py::return_internal_reference<>()))
-		.add_property( "kb", py::make_function(
-			&display_kernel::get_kb, py::return_internal_reference<>()))
 		.add_property( "mouse", py::make_function(
 			&display_kernel::get_mouse, py::return_internal_reference<>()))
 		.def( "set_selected", &display_kernel::set_selected)
@@ -215,13 +213,6 @@ wrap_display_kernel(void)
 		.def( "report_closed", &display_kernel::report_closed )
 		.def( "pick", &display_kernel::pick, pick_overloads(
 			py::args( "x", "y", "pixels")))
-		.def( "pushkey", &display_kernel::pushkey )
-		;
-
-	typedef atomic_queue<std::string> kb_object;
-	py::class_< kb_object, noncopyable>( "kb_object", no_init)
-		.def( "getkey", &kb_object::pop, "Returns the next key press value.")
-		.add_property( "keys", &kb_object::size)
 		;
 
 	py::class_< cursor_object, noncopyable>( "cursor_object", no_init)

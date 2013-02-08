@@ -1609,19 +1609,6 @@ display_kernel::get_mouse()
 }
 
 void
-display_kernel::pushkey( std::string k)
-{
-	keys.push(k);
-}
-
-atomic_queue<std::string>*
-display_kernel::get_kb()
-{
-	implicit_activate();
-	return &keys;
-}
-
-void
 display_kernel::set_selected( shared_ptr<display_kernel> d )
 {
 	selected = d;
