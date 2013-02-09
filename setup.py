@@ -57,16 +57,9 @@ os_host = platform.platform(terse=True).split('-')[0].lower()
 if os_host=='darwin': 
     os_host = 'mac' 
  
-if os_host in ('windows','mac'): 
+if os_host=='windows':
     BOOST_DIR = os.path.join(VISUAL_DIR,os.path.join('dependencies','boost_files')) 
- 
-if os_host=='mac': 
-    BOOST_LIBDIR = os.path.join(BOOST_DIR,'mac_libs') 
-elif os_host=='windows': 
     BOOST_LIBDIR = os.path.join(BOOST_DIR,'windows_libs') 
-     
- 
-if os_host in ('windows','mac'): 
     LIBRARY_DIRS = [BOOST_LIBDIR] 
  
 elif os_host in ('linux'): 
@@ -80,8 +73,11 @@ elif os_host in ('linux'):
      
     GTK_INCDIRS = get_includes() 
  
-    LIBRARY_DIRS=[] 
-     
+    LIBRARY_DIRS=[]
+
+else:
+    BOOST_LIBDIR=[]
+    LIBRARY_DIRS=[]
      
 INCLUDE_DIRS = [ 
     numpy.get_include(), 
@@ -90,17 +86,17 @@ INCLUDE_DIRS = [
     os.path.join(VISUAL_INC,'python'), 
     ] 
      
-if os_host in ('mac','windows'): 
-    INCLUDE_DIRS.append(BOOST_DIR) 
+if os_host in ('windows','mac'):
     if os_host == 'mac': 
         INCLUDE_DIRS.append(os.path.join(VISUAL_INC,'mac')) 
     else: 
+        INCLUDE_DIRS.append(BOOST_DIR) 
         INCLUDE_DIRS.append(os.path.join(VISUAL_INC,'win32')) 
          
 elif os_host == 'linux': 
     INCLUDE_DIRS.append(os.path.join(VISUAL_INC,'gtk2')) 
     INCLUDE_DIRS += GTK_INCDIRS 
- 
+
 VISUAL_SOURCES = [] 
  
 patterns = ["/src/core/*.cpp","/src/core/util/*.cpp","/src/python/*.cpp",] 
