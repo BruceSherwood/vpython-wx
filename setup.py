@@ -1,3 +1,6 @@
+from distribute_setup import use_setuptools
+use_setuptools()
+
 import sys 
 import os 
 from glob import glob 
@@ -17,7 +20,7 @@ easy to create navigable 3D displays and animations, even for those
 with limited programming experience. Because it is based on Python, it 
 also has much to offer for experienced programmers and researchers.""" 
  
-classifiers = """
+classifiers = filter(None, [x.strip() for x in """
 Intended Audience :: Education
 Intended Audience :: Developers
 Intended Audience :: Science/Research
@@ -34,7 +37,7 @@ Topic :: Multimedia :: Graphics :: 3D Modeling
 Topic :: Scientific/Engineering :: Physics
 Topic :: Scientific/Engineering :: Visualization
 Topic :: Software Development :: Libraries :: Python Modules
-""".split('\n')
+""".split('\n')])
  
 VISUAL_DIR = os.getcwd() 
 VISUAL_INC = os.path.join(VISUAL_DIR,'include') 
@@ -140,27 +143,37 @@ CVISUAL = Extension(
 SITE_PACKAGES = os.path.join(VISUAL_DIR, 'site-packages') 
 VIDLE_PATH = os.path.join(SITE_PACKAGES,'vidle%i' % sys.version_info[0]) 
 
-setup( 
-    name='VPython', 
-    description=DESCRIPTION, 
-    long_description=LONG_DESCRIPTION,
-    classifiers=classifiers,
-    author='David Scherer et al.',
-    url='http://www.vpython.org/', 
-    version=VERSION,
-    packages=['visual', 'vis', 'vidle', 'visual_common'],
-    package_dir={ 
-        'visual': os.path.join(SITE_PACKAGES,'visual'), 
-        'vis': os.path.join(SITE_PACKAGES,'vis'), 
-        'visual_common':os.path.join(SITE_PACKAGES,'visual_common'), 
-        'vidle': VIDLE_PATH,
-        },
-    package_data={'vidle':['*.txt', '*.def','Icons/*.icns'],
-                  'visual':['*.txt', 'docs/*.html', 'docs/*.gif', 'docs/*.pdf', 'docs/*.js',
-                            'docs/images/*.jpg', 'docs/*.txt', 'docs/*.css',
-                            'examples/*.py', 'examples/*.tga'],
-                  'visual_common':['*.tga'],
-                  },
-    ext_modules=[CVISUAL],
-    install_requires=['Polygon >= 2.0, <3.0', 'FontTools >= 2.0', 'TTFQuery >= 1.0'], #,'wxPython >= 2.9'], # <- there is no wxPython 2.9 on PyPy
-    zip_safe=False) 
+def main():
+
+    setup( 
+        name='VPython', 
+        description=DESCRIPTION, 
+        long_description=LONG_DESCRIPTION,
+        classifiers=classifiers,
+        author='David Scherer et al.',
+        author_email='visualpython-users@lists.sourceforge.net',
+        platforms=['POSIX','MacOS','Windows'],
+        license='other',
+        url='http://www.vpython.org/', 
+        version=VERSION,
+        packages=['visual', 'vis', 'vidle', 'visual_common'],
+        package_dir={ 
+            'visual': os.path.join(SITE_PACKAGES,'visual'), 
+            'vis': os.path.join(SITE_PACKAGES,'vis'), 
+            'visual_common':os.path.join(SITE_PACKAGES,'visual_common'), 
+            'vidle': VIDLE_PATH,
+            },
+        package_data={'vidle':['*.txt', '*.def','Icons/*.icns'],
+                      'visual':['*.txt', 'docs/*.html', 'docs/*.gif', 'docs/*.pdf', 'docs/*.js',
+                                'docs/images/*.jpg', 'docs/*.txt', 'docs/*.css',
+                                'examples/*.py', 'examples/*.tga'],
+                      'visual_common':['*.tga'],
+                      },
+        ext_modules=[CVISUAL],
+        install_requires=['Polygon >= 2.0, <3.0', 'FontTools >= 2.0', 'TTFQuery >= 1.0'], #,'wxPython >= 2.9'],
+        zip_safe=False) 
+
+
+if __name__=='__main__':
+    main()
+    

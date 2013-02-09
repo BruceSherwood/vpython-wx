@@ -21,6 +21,8 @@ if os.getuid() != 0:
 if os.path.split(os.getcwd())[1] != 'vpython-wx':
     print("Please run this script from the vpython-wx directory, now in:" + os.getcwd())
     sys.exit(1)
+
+from setup import VERSION as VPYTHON_WX_VERSION
     
 #
 # Edit this to match your staging directory etc.
@@ -30,7 +32,7 @@ VPYTHON_WX_DIR=os.getcwd()
 STAGING_DIRECTORY = os.path.join(os.path.split(VPYTHON_WX_DIR)[0],"vpy-stage/site-packages/Visual Extension")
 LIBRARY_DIRECTORY = "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages"
 
-VPYTHON_EGG = "VPython-6.02-py2.7-macosx-10.6-intel.egg"
+VPYTHON_EGG = "VPython-" + VPYTHON_WX_VERSION + "-py2.7-macosx-10.6-intel.egg"
 VPYTHON_PTH = "VPython.pth"
 
 src = os.path.join(LIBRARY_DIRECTORY, VPYTHON_EGG)
