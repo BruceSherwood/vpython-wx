@@ -8,8 +8,8 @@ PKG_MAKER_DIR="src/mac/PackageMaker"
 PKG_MAKER="/Developer-3.2.5/Applications/Utilities/PackageMaker.app/Contents/MacOS/PackageMaker"
 PM_DOC="$PKG_MAKER_DIR/VPY-6.0-beta-py27.pmdoc"
 PKG_DIR="$PKG_MAKER_DIR/VisualPythonInstaller"
-PKG_OUT="$PKG_DIR/VPython-Complete-$VERSION$B.pkg"
-DMG_OUT="$HOME_DIR/Dropbox/Public/VPython-$VERSION$-Py2.7-10.6.dmg"
+PKG_OUT="$PKG_DIR/VPython-Complete-{$VERSION}.pkg"
+DMG_OUT="$HOME_DIR/Dropbox/Public/VPython-{$VERSION}-Py2.7-10.6.dmg"
 
 if [ "$1" == "pkg" ]; then
 
