@@ -11,6 +11,7 @@ from vis.factorial import *
 text(text="3D", color=color.red, material=materials.wood)
 print(factorial(4))
 print(version)
+sleep(0.1)
 get_file()
 
 # Run this little program to compile all the visual modules.

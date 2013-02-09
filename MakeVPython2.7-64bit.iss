@@ -44,6 +44,7 @@ Source: "Lib\site-packages\visual\examples\*.py"; DestDir: "{app}\Lib\site-packa
 Source: "Lib\site-packages\visual\examples\*.tga"; DestDir: "{app}\Lib\site-packages\visual\examples\"; Components: Examples
 
 Source: "Lib\site-packages\visual\docs\*.html"; DestDir: "{app}\Lib\site-packages\visual\docs\"; Components: Documentation
+Source: "Lib\site-packages\visual\docs\*.js"; DestDir: "{app}\Lib\site-packages\visual\docs\"; Components: Documentation
 Source: "Lib\site-packages\visual\docs\*.txt"; DestDir: "{app}\Lib\site-packages\visual\docs\"; Components: Documentation
 Source: "Lib\site-packages\visual\docs\*.pdf"; DestDir: "{app}\Lib\site-packages\visual\docs\"; Components: Documentation
 Source: "Lib\site-packages\visual\docs\*.gif"; DestDir: "{app}\Lib\site-packages\visual\docs\"; Components: Documentation

@@ -41,13 +41,13 @@ Source: "Lib\site-packages\visual_common\*.pyc"; DestDir: "{app}\Lib\site-packag
 Source: "Lib\site-packages\visual\examples\*.py"; DestDir: "{app}\Lib\site-packages\visual\examples\"; Components: Examples
 Source: "Lib\site-packages\visual\examples\*.tga"; DestDir: "{app}\Lib\site-packages\visual\examples\"; Components: Examples
 
-Source: "Lib\site-packages\visual\docs\index.html"; DestDir: "{app}\Lib\site-packages\visual\docs\"; Components: Documentation
-Source: "Lib\site-packages\visual\docs\visual\*.html"; DestDir: "{app}\Lib\site-packages\visual\docs\visual\"; Components: Documentation
-Source: "Lib\site-packages\visual\docs\visual\*.txt"; DestDir: "{app}\Lib\site-packages\visual\docs\visual\"; Components: Documentation
-Source: "Lib\site-packages\visual\docs\visual\*.pdf"; DestDir: "{app}\Lib\site-packages\visual\docs\visual\"; Components: Documentation
-Source: "Lib\site-packages\visual\docs\visual\*.gif"; DestDir: "{app}\Lib\site-packages\visual\docs\visual\"; Components: Documentation
-Source: "Lib\site-packages\visual\docs\visual\*.css"; DestDir: "{app}\Lib\site-packages\visual\docs\visual\"; Components: Documentation
-Source: "Lib\site-packages\visual\docs\visual\images\*.jpg"; DestDir: "{app}\Lib\site-packages\visual\docs\visual\images"; Components: Documentation
+Source: "Lib\site-packages\visual\docs\*.html"; DestDir: "{app}\Lib\site-packages\visual\docs\"; Components: Documentation
+Source: "Lib\site-packages\visual\docs\*.js"; DestDir: "{app}\Lib\site-packages\visual\docs\"; Components: Documentation
+Source: "Lib\site-packages\visual\docs\*.txt"; DestDir: "{app}\Lib\site-packages\visual\docs\"; Components: Documentation
+Source: "Lib\site-packages\visual\docs\*.pdf"; DestDir: "{app}\Lib\site-packages\visual\docs\"; Components: Documentation
+Source: "Lib\site-packages\visual\docs\*.gif"; DestDir: "{app}\Lib\site-packages\visual\docs\"; Components: Documentation
+Source: "Lib\site-packages\visual\docs\*.css"; DestDir: "{app}\Lib\site-packages\visual\docs\"; Components: Documentation
+Source: "Lib\site-packages\visual\docs\images\*.jpg"; DestDir: "{app}\Lib\site-packages\visual\docs\images"; Components: Documentation
 
 ; Need to have installed FontTools, numpy, Polygon, ttfquery, vidle, and wx before building Visual,
 ; so that the components are available in site-packages:
