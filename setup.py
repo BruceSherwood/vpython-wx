@@ -1,5 +1,11 @@
-from distribute_setup import use_setuptools
-use_setuptools()
+try:
+    from distribute_setup import use_setuptools
+    use_setuptools()
+except ImportError:
+    #
+    # attempt to use the updated distribute version
+    #
+    pass
 
 import sys 
 import os 

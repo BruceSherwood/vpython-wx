@@ -18,11 +18,18 @@ if os.getuid() != 0:
     print("You need to run this script as root")
     sys.exit(1)
 
-if os.path.split(os.getcwd())[1] != 'vpython-wx':
+
+cwd = os.getcwd()
+dir_part = os.path.split(cwd)[1]
+
+if dir_part != 'vpython-wx':
     print("Please run this script from the vpython-wx directory, now in:" + os.getcwd())
     sys.exit(1)
 
-from setup import VERSION as VPYTHON_WX_VERSION
+import imp
+print("Loading from:", os.path.join(cwd,'setup.py'))
+setup = imp.load_source('setup',os.path.join(cwd,'setup.py'))
+VPYTHON_WX_VERSION = setup.VERSION
     
 #
 # Edit this to match your staging directory etc.
