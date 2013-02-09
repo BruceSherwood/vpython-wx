@@ -9,6 +9,8 @@ AppName=VPython for Python 2.7
 AppVerName=VPython 6.02
 AppPublisherURL=http://vpython.org
 DefaultDirName={code:MyConst}
+ArchitecturesAllowed=x64
+ArchitecturesInstallIn64BitMode=x64
 
 SourceDir=C:\Python27
 DisableProgramGroupPage=yes
@@ -112,6 +114,10 @@ Name: "{commonstartmenu}\VIDLE for VPython"; Filename: "{app}\pythonw.exe"; Para
 program Setup;
 
 // Try to discover where Python is actually installed.
+
+// Advice from the Inno Setup forum about the following code:
+// You should use the RegQuery* family of support functions instead of
+// trying to expand a {reg:...} constant within the code section.
 function MyConst(Param: String): String;
 var Exist1, Exist2: Boolean;
 begin
