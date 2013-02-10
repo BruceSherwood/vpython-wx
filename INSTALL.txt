@@ -61,12 +61,14 @@ I.  Prerequisites:
 	
 	Next cd wxPython (within the wxPython package) and execute
 	sudo python2.7 build-wxpython.py --build_dir=../bld --install
-	
-	Need Python modules Polygon, FontTools, and ttfquery, from pypi.python.org.
-	   For each module, unpack and in a terminal cd to the module folder.
-	   Execute "sudo python setup.py install" to build and install the module.
 
-	Finally, in the repository directory execute this: sudo python2.7 setup.py install
+	In the repository directory execute this: sudo python2.7 setup.py install
+	
+	(You'll need Python modules Polygon, FontTools, and ttfquery, from pypi.python.org.
+	The setup.py script will attempt to build/install these if they are not
+	present, but sometimes it can't find them. If that happens, download the
+	source for each module, unpack and in a terminal cd to the module folder.
+	Execute "sudo python setup.py install" to build and install the module.)
 
 II:   Troubleshooting
 
