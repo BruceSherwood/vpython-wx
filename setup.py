@@ -11,7 +11,6 @@ import sys
 import os 
 from glob import glob 
 from setuptools import Extension, setup 
-import numpy 
 import platform
 
 # This file must be placed at the top level of the GitHub project directory
@@ -48,7 +47,12 @@ Topic :: Software Development :: Libraries :: Python Modules
 VISUAL_DIR = os.getcwd() 
 VISUAL_INC = os.path.join(VISUAL_DIR,'include') 
  
-if 'build' in sys.argv: 
+if 'build' in sys.argv or 'install' in sys.argv or 'build_ext' in sys.argv:
+    try:
+        import numpy
+    except ImportError:
+        raise RuntimeError, "Sorry.. you need to install numpy to build vpython" 
+        
     try: 
         import wx 
     except ImportError: 
@@ -56,7 +60,16 @@ if 'build' in sys.argv:
  
     if tuple([int(x) for x in wx.__version__.split('.')]) < (2,9): 
         raise RuntimeError, "Sorry.. you need to install wxPython (at least 2.9.x) to build this version of vpython" 
-     
+
+    INCLUDE_DIRS = [ 
+        numpy.get_include(), 
+        VISUAL_INC, 
+        os.path.join(VISUAL_INC,'util'), 
+        os.path.join(VISUAL_INC,'python'), 
+        ]
+else:
+    INCLUDE_DIRS=[]
+
 versionString = ''.join([`sys.version_info.major`, `sys.version_info.minor`]) 
  
 os_host = platform.platform(terse=True).split('-')[0].lower() 
@@ -84,13 +97,6 @@ elif os_host in ('linux'):
 else:
     BOOST_LIBDIR=[]
     LIBRARY_DIRS=[]
-     
-INCLUDE_DIRS = [ 
-    numpy.get_include(), 
-    VISUAL_INC, 
-    os.path.join(VISUAL_INC,'util'), 
-    os.path.join(VISUAL_INC,'python'), 
-    ] 
      
 if os_host in ('windows','mac'):
     if os_host == 'mac': 
