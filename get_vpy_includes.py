@@ -1,3 +1,4 @@
+from __future__ import print_function
 """
 Search for packages and include paths to build visual python on linux systems.
 """
@@ -53,7 +54,7 @@ def get_installed():
         errors.append("Can't find gtk[2/+] package: " + ','.join(gtk_list))
 
     if errors:
-        raise RuntimeError, ','.join(errors)
+        raise RuntimeError(','.join(errors))
 
     return installed
 
@@ -92,9 +93,9 @@ def get_libs():
     return libs
 
 if __name__=='__main__':
-    print "looks like we need:"
-    print get_includes()
-    print get_libs()
+    print("looks like we need:")
+    print(get_includes())
+    print(get_libs())
 
 
 
