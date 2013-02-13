@@ -91,10 +91,16 @@ for creating a VPython installer for the Mac, and instructions in packaging.txt.
 Be sure to set the project status to require OSX 10.4 and above.
 
 BUILDING BOOST LIBRARIES
+First, do the following because the Boost build procedures otherwise fail to find
+the Python 3.2 include files:
+
+cd //Library/Frameworks/Python.framework/Versions/3.2/include
+sudo ln -s python3.2m python3.2
+
 The Boost libraries were built by downloading the source.
 cd to the Boost directory and execute 
 
-./bootstrap.sh --with-toolset=gcc --with-python-version=2.7 --with-python-root=/Library/Frameworks/Python.framework/Versions/2.7 --with-python=python2.7 --with-libraries=python,signals
+./bootstrap.sh --with-toolset=gcc --with-python-version=3.2 --with-python-root=/Library/Frameworks/Python.framework/Versions/3.2 --with-python=python3.2 --with-libraries=python,signals
 
 to create the bjam tool and project-config.jam.
 
@@ -102,13 +108,13 @@ In the file project-config.jam, change "using gcc ;" to "using gcc : 4.2 : g++-4
 
 Now execute this, to build Boost libraries for both 32-bit and 64-bit architectures:
 
-./b2 link=static threading=multi toolset=darwin cxxflags="-arch i386 -arch x86_64" 
+./b2 link=static threading=multi toolset=darwin cxxflags="-arch i386 -arch x86_64"
 
 Copy the boost folder (the Boost include files) to dependencies/boost_files/boost.
 
 The library files you want will be in stage/lib.
 Copy the following files to dependencies/boost_files/mac_libs:
-libboost_python.a
+libboost_python.a (There may also be a duplicate named libboost_python3.a; include it too)
 libboost_signals.a
 
 
