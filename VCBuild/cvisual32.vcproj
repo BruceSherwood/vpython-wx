@@ -330,7 +330,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\include\win32;..\include;&quot;c:\Python27\Lib\site-packages\numpy\core\include&quot;;..\dependencies\boost_files;c:\Python27\include;.;$(NOINHERIT)"
+				AdditionalIncludeDirectories="..\include\win32;..\include;&quot;c:\Python32\Lib\site-packages\numpy\core\include&quot;;..\dependencies\boost_files;c:\Python32\include;.;$(NOINHERIT)"
 				PreprocessorDefinitions="X64;_USRDLL;MSC;BOOST_PYTHON_STATIC_LIB;NDEBUG"
 				StringPooling="true"
 				EnableFunctionLevelLinking="true"
@@ -359,12 +359,12 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="python27.lib opengl32.lib glu32.lib user32.lib advapi32.lib gdi32.lib"
+				AdditionalDependencies="python32.lib opengl32.lib glu32.lib user32.lib advapi32.lib gdi32.lib"
 				ShowProgress="0"
 				OutputFile="$(ProjectDir)\..\site-packages\visual_common\cvisual.pyd"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="c:\Python27\libs;..\dependencies\boost_files\win_libs"
+				AdditionalLibraryDirectories="c:\Python32\libs;..\dependencies\boost_files\win_libs"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="libs/cvisual-release.pdb"
 				SubSystem="0"

@@ -130,13 +130,13 @@ libaries are to be built:
 
 using python : 2.7 : "C:/Python27" ;
 
-To build the Boost libraries, execute this for Python 2.x, using Visual Studio 2008 set up for 64-bit compiles:
+To build the Boost libraries, execute this for 64-bit Python, using Visual Studio 2008 set up for 64-bit compiles:
 
 .\bjam --toolset=msvc-9.0 address-model=64 --build-type=complete --with-signals --with-python stage
     (Save this line, right-click in the Windows command prompt to paste.
      Right-click the title bar for additional options.)
 
-or this for Python 3.x
+or this for 32-bit Python:
 
 .\bjam --build-type=complete --with-python --with-signals --with-random stage
 
