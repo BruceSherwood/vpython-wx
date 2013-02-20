@@ -1,3 +1,7 @@
 [build_ext]
+#
+# specify the boost lib/include files here if they are not found automatically
+#
+
 include-dirs=dependencies/boost_files
 library-dirs=dependencies/boost_files/mac_libs

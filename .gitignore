@@ -26,3 +26,6 @@ Thumbs.db
 /dist/
 *~
 /VPython.egg-info/
+
+# Distribute eggs and tarball
+distribute-*

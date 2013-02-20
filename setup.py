@@ -18,7 +18,7 @@ import platform
 # This file must be placed at the top level of the GitHub project directory
 # and then be executed from a terminal as "python setup.py build"
  
-VERSION = '6.02' 
+VERSION = '6.03' 
 DESCRIPTION = '3D Programming for Ordinary Mortals' 
 LONG_DESCRIPTION = """ 
 VPython is the Python programming language plus a 3D graphics module 
@@ -62,7 +62,19 @@ versionString = ''.join([str(sys.version_info.major), str(sys.version_info.minor
  
 os_host = platform.platform(terse=True).split('-')[0].lower() 
 if os_host=='darwin': 
-    os_host = 'mac' 
+    os_host = 'mac'
+
+if os_host == 'mac':
+    if not os.path.exists('setup.cfg'):
+        #
+        # we have no setup.cfg file, assume boost is in 'dependencies'
+        #
+        BOOST_DIR = os.path.join(VISUAL_DIR,os.path.join('dependencies','boost_files')) 
+        BOOST_LIBDIR = os.path.join(BOOST_DIR,'mac_libs') 
+        LIBRARY_DIRS = [BOOST_LIBDIR]
+    else:
+        BOOST_LIBDIR=[] # let setup.cfg handle it
+        LIBRARY_DIRS=[]
  
 if os_host=='windows':
     BOOST_DIR = os.path.join(VISUAL_DIR,os.path.join('dependencies','boost_files')) 
@@ -95,7 +107,9 @@ INCLUDE_DIRS = [
      
 if os_host in ('windows','mac'):
     if os_host == 'mac': 
-        INCLUDE_DIRS.append(os.path.join(VISUAL_INC,'mac')) 
+        INCLUDE_DIRS.append(os.path.join(VISUAL_INC,'mac'))
+        if not os.path.exists('setup.cfg'):
+            INCLUDE_DIRS.append(BOOST_DIR) 
     else: 
         INCLUDE_DIRS.append(BOOST_DIR) 
         INCLUDE_DIRS.append(os.path.join(VISUAL_INC,'win32')) 
@@ -119,7 +133,7 @@ for pattern in patterns:
     VISUAL_SOURCES.extend(glob(VISUAL_DIR + pattern)) 
  
 if os_host == 'mac': 
-    os.environ['LDFLAGS'] = '-framework Cocoa -framework OpenGL -framework Python' 
+    os.environ['LDFLAGS'] = '-framework Cocoa -framework OpenGL -framework Python'
 elif os_host == 'linux': 
     os.environ['LD_FLAGS'] = LINK_FLAGS 
  
