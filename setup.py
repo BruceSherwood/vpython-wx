@@ -64,18 +64,6 @@ os_host = platform.platform(terse=True).split('-')[0].lower()
 if os_host=='darwin': 
     os_host = 'mac'
 
-if os_host == 'mac':
-    if not os.path.exists('setup.cfg'):
-        #
-        # we have no setup.cfg file, assume boost is in 'dependencies'
-        #
-        BOOST_DIR = os.path.join(VISUAL_DIR,os.path.join('dependencies','boost_files')) 
-        BOOST_LIBDIR = os.path.join(BOOST_DIR,'mac_libs') 
-        LIBRARY_DIRS = [BOOST_LIBDIR]
-    else:
-        BOOST_LIBDIR=[] # let setup.cfg handle it
-        LIBRARY_DIRS=[]
- 
 if os_host=='windows':
     BOOST_DIR = os.path.join(VISUAL_DIR,os.path.join('dependencies','boost_files')) 
     BOOST_LIBDIR = os.path.join(BOOST_DIR,'windows_libs') 
@@ -94,6 +82,18 @@ elif os_host in ('linux'):
  
     LIBRARY_DIRS=[]
 
+elif os_host == 'mac':
+    if not os.path.exists('setup.cfg'):
+        #
+        # we have no setup.cfg file, assume boost is in 'dependencies'
+        #
+        BOOST_DIR = os.path.join(VISUAL_DIR,os.path.join('dependencies','boost_files')) 
+        BOOST_LIBDIR = os.path.join(BOOST_DIR,'mac_libs')
+        LIBRARY_DIRS = [BOOST_LIBDIR]
+    else:
+        BOOST_LIBDIR=[] # let setup.cfg handle it
+        LIBRARY_DIRS=[]
+ 
 else:
     BOOST_LIBDIR=[]
     LIBRARY_DIRS=[]
