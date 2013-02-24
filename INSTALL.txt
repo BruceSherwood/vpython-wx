@@ -34,11 +34,7 @@ I.  Prerequisites:
 	sudo apt-get install python-numpy
 	sudo apt-get install libboost-python-dev
 	sudo apt-get install libboost-signals-dev
-	
-	In order to use VIDLE you also need this:
-	
 	sudo apt-get install tk
-	sudo apt-get install idle
 
 	(There is a helper script in src/gtk2 called apt-get-packages:
 
@@ -47,22 +43,30 @@ I.  Prerequisites:
 	that may be convenient for this)
 		
 	You need wxPython (wxpython.org). Currently one needs version 2.9, but
-	on Linux you need to apply a patch. Here is information about the patch:
+	on Linux you need to apply a patch before building wxPython. 
+	Here is information about the patch:
 	
 	https://groups.google.com/forum/?fromgroups=#!topic/wxpython-users/e27JioMs1fs
 	
 	In this forum post is a link to the patch, located at
 	
 	http://sourceforge.net/projects/wxpython/files/wxPython/2.9.4.0/wxPython-src-2.9.4.1.patch/download 
-	
-	Place the patch file in the wxPython directory, cd to that directory,
-	and execute this in a terminal:
+
+	Suppose you've unpacked the source package from wxpython.org into wxPython-src-2.9.4.0.
+	Place the patch file in this directory (the directory that contains the README file), 
+	cd to that directory, and execute this in a terminal:
 	patch -p0 < wxPython-src-2.9.4.1.patch
+
+	Now copy the dummy file wxPython-src-2.9.4.0/wxPython/wx/lib/pubsub/__init__.py into
+	wxPython-src-2.9.4.0/wxPython/wx/lib/pubsub/pubsub2/ and also into 
+	wxPython-src-2.9.4.0/wxPython/wx/tools/XRCed/plugins/
 	
-	Next cd wxPython (within the wxPython package) and execute
+	Next execute this:
+	cd wxPython-src-2.9.4.0/wxPython
 	sudo python2.7 build-wxpython.py --build_dir=../bld --install
 
-	In the repository directory execute this: sudo python2.7 setup.py install
+	Now you are ready to build VPython. In the VPython repository directory execute
+	sudo python2.7 setup.py install
 	
 	(You'll need Python modules Polygon, FontTools, and ttfquery, from pypi.python.org.
 	The setup.py script will attempt to build/install these if they are not
