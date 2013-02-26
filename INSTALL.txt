@@ -22,7 +22,7 @@ I.  Prerequisites:
 	Need Python 2.7.x (www.python.org), including
 		the development (dev) package.
 		
-	From a fresh Ubuntu 12.04 this gets needed pieces:
+	From a fresh Ubuntu 12.04 this gets needed prerequisites:
 
 	sudo apt-get update
 	sudo apt-get install git
@@ -41,6 +41,24 @@ I.  Prerequisites:
 	sudo sh -v src/gtk2/apt-get-packages.sh
 
 	that may be convenient for this)
+
+	From https://groups.google.com/forum/?fromgroups=&hl=en#!topic/wxpython-users/XWyd995Ci_Q
+	comes this advice by Patrick Korsnick on how to get prerequisites needed to build wxPython:
+	
+	opensuse 12.2
+	-------------
+	zypper in gtk2-devel freeglut-devel gstreamer-0_10-devel gstreamer-0_10-plugins-base-devel python-devel
+
+
+	Fedora 17
+	---------
+	yum install gtk2-devel freeglut-devel gstreamer-plugins-base-devel python-devel
+
+
+	Ubuntu 12.04 LTS
+	----------------
+	apt-get install g++ libgtk2.0-dev freeglut3-dev libgstreamer0.10-dev libgstreamer-plugins-base0.10-dev python-dev
+
 		
 	You need wxPython (wxpython.org). Currently one needs version 2.9, but
 	on Linux you need to apply a patch before building wxPython. 
