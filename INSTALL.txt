@@ -56,14 +56,18 @@ I.  Prerequisites:
 	Place the patch file in this directory (the directory that contains the README file), 
 	cd to that directory, and execute this in a terminal:
 	patch -p0 < wxPython-src-2.9.4.1.patch
-
-	Now copy the dummy file wxPython-src-2.9.4.0/wxPython/wx/lib/pubsub/__init__.py into
-	wxPython-src-2.9.4.0/wxPython/wx/lib/pubsub/pubsub2/ and also into 
-	wxPython-src-2.9.4.0/wxPython/wx/tools/XRCed/plugins/
 	
 	Next execute this:
 	cd wxPython-src-2.9.4.0/wxPython
-	sudo python2.7 build-wxpython.py --build_dir=../bld --install
+	sudo python2.7 build-wxpython.py --build_dir=../bld
+
+	If you specify --install in this build, sometimes the build/install fails in odd ways.
+	So it seems safer to just build without installing, then point to the build files.
+	
+	At the conclusion of the build you will see something like the following:
+	 To use wxPython you may need to execute these statements:
+	   export PYTHONPATH="/home/bruce/Downloads/wxPython-src-2.9.4.0/wxPython"
+	   export LD_LIBRARY_PATH="/home/bruce/Downloads/wxPython-src-2.9.4.0/bld/lib"
 
 	Now you are ready to build VPython. In the VPython repository directory execute
 	sudo python2.7 setup.py install
@@ -73,6 +77,18 @@ I.  Prerequisites:
 	present, but sometimes it can't find them. If that happens, download the
 	source for each module, unpack and in a terminal cd to the module folder.
 	Execute "sudo python setup.py install" to build and install the module.)
+
+	Create a file "vidle.sh" containing three statements like the following
+	(see the final output of the build), execute "chmod a=rwx vidle.sh" to make
+	the file executable, then doubleclick the file to start the VIDLE editor:
+
+	export PYTHONPATH="/home/bruce/Downloads/wxPython-src-2.9.4.0/wxPython"
+	export LD_LIBRARY_PATH="/home/bruce/Downloads/wxPython-src-2.9.4.0/bld/lib"
+	python2.7 /usr/local/lib/python2.7/dist-packages/VPython-6.03-py2.7-linux-x86_64.egg/vidle/idle.py
+
+	Alternatively you could place the export statements in your .profile or .bashrc files
+	in which case you wouldn't need them in vidle.sh.
+
 
 II:   Troubleshooting
 
