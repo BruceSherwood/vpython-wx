@@ -89,6 +89,16 @@ I.  Prerequisites:
 	Alternatively you could place the export statements in your .profile or .bashrc files
 	in which case you wouldn't need them in vidle.sh.
 
+	Another option is this: After building wxPython, repeat the operation with install:
+	sudo python2.7 build-wxpython.py --build_dir=../bld --install
+
+	This will place wxPython files into /usr/local/lib/dist-packages, which is on the
+	Python module search path, and additional files in /usr/local/lib, which is not.
+	Change the contents of vidle.sh to the following:
+
+	export LD_LIBRARY_PATH="/usr/local/lib"
+	python2.7 /usr/local/lib/python2.7/dist-packages/VPython-6.03-py2.7-linux-x86_64.egg/vidle/idle.py
+
 
 II:   Troubleshooting
 
