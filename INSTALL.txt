@@ -47,18 +47,15 @@ I.  Prerequisites:
 	
 	opensuse 12.2
 	-------------
-	zypper in gtk2-devel freeglut-devel gstreamer-0_10-devel gstreamer-0_10-plugins-base-devel python-devel
-
+	sudo zypper in gtk2-devel freeglut-devel gstreamer-0_10-devel gstreamer-0_10-plugins-base-devel python-devel
 
 	Fedora 17
 	---------
-	yum install gtk2-devel freeglut-devel gstreamer-plugins-base-devel python-devel
-
+	sudo yum install gtk2-devel freeglut-devel gstreamer-plugins-base-devel python-devel
 
 	Ubuntu 12.04 LTS
 	----------------
-	apt-get install g++ libgtk2.0-dev freeglut3-dev libgstreamer0.10-dev libgstreamer-plugins-base0.10-dev python-dev
-
+	sudo apt-get install g++ libgtk2.0-dev freeglut3-dev libgstreamer0.10-dev libgstreamer-plugins-base0.10-dev python-dev
 		
 	You need wxPython (wxpython.org). Currently one needs version 2.9, but
 	on Linux you need to apply a patch before building wxPython. 
@@ -94,7 +91,7 @@ I.  Prerequisites:
 	The setup.py script will attempt to build/install these if they are not
 	present, but sometimes it can't find them. If that happens, download the
 	source for each module, unpack and in a terminal cd to the module folder.
-	Execute "sudo python setup.py install" to build and install the module.)
+	Execute "sudo python2.7 setup.py install" to build and install the module.)
 
 	Create a file "vidle.sh" containing three statements like the following
 	(see the final output of the build), execute "chmod a=rwx vidle.sh" to make
