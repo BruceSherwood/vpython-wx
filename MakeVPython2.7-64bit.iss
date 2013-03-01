@@ -6,7 +6,7 @@
 
 [Setup]
 AppName=VPython for Python 2.7
-AppVerName=VPython 6.02
+AppVerName=VPython 6.04
 AppPublisherURL=http://vpython.org
 DefaultDirName={code:MyConst}
 ArchitecturesAllowed=x64
@@ -16,7 +16,7 @@ SourceDir=C:\Python27
 DisableProgramGroupPage=yes
 DirExistsWarning=no
 DisableStartupPrompt=yes
-OutputBaseFilename=VPython-Win-64-Py2.7-6.02
+OutputBaseFilename=VPython-Win-64-Py2.7-6.04
 OutputDir=c:\workspace
 
 [Files]
@@ -90,7 +90,7 @@ Name: numpy; Description: "numpy 1.6.2 {code:NumpyStatus|C:\Python27}"; Types: f
 ; FontTools, ttfquery, and Polygon are needed by the 3D text object
 Name: FontTools; Description: "FontTools 2.3 {code:FontToolsStatus|C:\Python27}"; Types: full; Check: CheckFontTools( 'C:\Python27' )
 Name: ttfquery; Description: "ttfquery 1.0.4 {code:ttfqueryStatus|C:\Python27}"; Types: full; Check: Checkttfquery( 'C:\Python27' )
-Name: Polygon; Description: "Polygon 2.0.2 {code:PolygonStatus|C:\Python27}"; Types: full; Check: CheckPolygon( 'C:\Python27' )
+Name: Polygon; Description: "Polygon 2.0.5 {code:PolygonStatus|C:\Python27}"; Types: full; Check: CheckPolygon( 'C:\Python27' )
 
 Name: VIDLE; Description: "VIDLE: improved version of the IDLE program editor"; Types: full custom
 
