@@ -18,7 +18,7 @@ import platform
 # This file must be placed at the top level of the GitHub project directory
 # and then be executed from a terminal as "python setup.py build"
  
-VERSION = '6.03' 
+VERSION = '6.04'
 DESCRIPTION = '3D Programming for Ordinary Mortals' 
 LONG_DESCRIPTION = """ 
 VPython is the Python programming language plus a 3D graphics module 
