@@ -60,8 +60,7 @@ Source: "Lib\site-packages\numpy\*"; DestDir: "{app}\Lib\site-packages\numpy\"; 
 Source: "Lib\site-packages\Polygon*egg-info"; DestDir: "{app}\Lib\site-packages\"; Components: Polygon
 Source: "Lib\site-packages\Polygon\*"; DestDir: "{app}\Lib\site-packages\Polygon\"; Components: Polygon; Flags: recursesubdirs
 
-; Don't know why the next statement fails with egg-info not found:
-;Source: "Lib\site-packages\TTFQuery*egg-info\*"; DestDir: "{app}\Lib\site-packages\"; Components: ttfquery
+Source: "Lib\site-packages\TTFQuery*egg-info"; DestDir: "{app}\Lib\site-packages\"; Components: ttfquery
 Source: "Lib\site-packages\ttfquery\*"; DestDir: "{app}\Lib\site-packages\ttfquery\"; Components: ttfquery; Flags: recursesubdirs
 
 Source: "Lib\site-packages\vidle\*.py"; DestDir: "{app}\Lib\site-packages\vidle\"; Components: VIDLE; Flags: recursesubdirs

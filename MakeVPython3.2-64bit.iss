@@ -5,18 +5,18 @@
 ; Also, make sure that vidle\config-main.def has the correct Python version number for documentation
 
 [Setup]
-AppName=VPython for Python 2.7
+AppName=VPython for Python 3.2
 AppVerName=VPython 6.04
 AppPublisherURL=http://vpython.org
 DefaultDirName={code:MyConst}
 ArchitecturesAllowed=x64
 ArchitecturesInstallIn64BitMode=x64
 
-SourceDir=C:\Python27
+SourceDir=C:\Python32
 DisableProgramGroupPage=yes
 DirExistsWarning=no
 DisableStartupPrompt=yes
-OutputBaseFilename=VPython-Win-64-Py2.7-6.04
+OutputBaseFilename=VPython-Win-64-Py3.2-6.04
 OutputDir=c:\workspace
 
 [Files]
@@ -36,9 +36,9 @@ Source: "Lib\site-packages\visual\license.txt"; DestDir: "{app}\Lib\site-package
 ; Execute compilevisual.py from the Github files to compile the .pyc files:
 Source: "Lib\site-packages\vis\*.py"; DestDir: "{app}\Lib\site-packages\vis\"; Components: Visual
 
-Source: "Lib\site-packages\vis\*.pyc"; DestDir: "{app}\Lib\site-packages\vis\"; Components: Visual
-Source: "Lib\site-packages\visual\*.pyc"; DestDir: "{app}\Lib\site-packages\visual\"; Components: Visual
-Source: "Lib\site-packages\visual_common\*.pyc"; DestDir: "{app}\Lib\site-packages\visual_common\"; Components: Visual
+;Source: "Lib\site-packages\vis\*.pyc"; DestDir: "{app}\Lib\site-packages\vis\"; Components: Visual
+;Source: "Lib\site-packages\visual\*.pyc"; DestDir: "{app}\Lib\site-packages\visual\"; Components: Visual
+;Source: "Lib\site-packages\visual_common\*.pyc"; DestDir: "{app}\Lib\site-packages\visual_common\"; Components: Visual
 
 Source: "Lib\site-packages\visual\examples\*.py"; DestDir: "{app}\Lib\site-packages\visual\examples\"; Components: Examples
 Source: "Lib\site-packages\visual\examples\*.tga"; DestDir: "{app}\Lib\site-packages\visual\examples\"; Components: Examples
@@ -75,25 +75,23 @@ Source: "Lib\site-packages\vidle\*.def"; DestDir: "{app}\Lib\site-packages\vidle
 ;Source: "Lib\site-packages\vidle\*.gif"; DestDir: "{app}\Lib\site-packages\vidle\"; Components: VIDLE; Flags: recursesubdirs
 Source: "Lib\site-packages\vidle\*.icns"; DestDir: "{app}\Lib\site-packages\vidle\"; Components: VIDLE; Flags: recursesubdirs
 
-Source: "Lib\site-packages\wx-2.9.4-msw\*"; DestDir: "{app}\Lib\site-packages\wx-2.9.4-msw\"; Components: wx; Flags: recursesubdirs
-Source: "Lib\site-packages\wx.pth"; DestDir: "{app}\Lib\site-packages\"; Components: wx; Flags: recursesubdirs 
-Source: "Lib\site-packages\wxversion.py"; DestDir: "{app}\Lib\site-packages\"; Components: wx; Flags: recursesubdirs
+Source: "Lib\site-packages\wx\*"; DestDir: "{app}\Lib\site-packages\wx\"; Components: wx; Flags: recursesubdirs
 
 [Components]
 Name: Visual; Description: "The Visual extension module for Python"; Types: full compact custom; Flags: fixed
 Name: Documentation; Description: "Documentation for the Visual extension to Python"; Types: full
 Name: Examples; Description: "Example programs"; Types: full
 
-Name: numpy; Description: "numpy 1.6.2 {code:NumpyStatus|C:\Python27}"; Types: full; Check: CheckNumpy( 'C:\Python27' )
+Name: numpy; Description: "numpy 1.7.1 {code:NumpyStatus|C:\Python32}"; Types: full; Check: CheckNumpy( 'C:\Python32' )
 
 ; FontTools, ttfquery, and Polygon are needed by the 3D text object
-Name: FontTools; Description: "FontTools 2.3 {code:FontToolsStatus|C:\Python27}"; Types: full; Check: CheckFontTools( 'C:\Python27' )
-Name: ttfquery; Description: "ttfquery 1.0.4 {code:ttfqueryStatus|C:\Python27}"; Types: full; Check: Checkttfquery( 'C:\Python27' )
-Name: Polygon; Description: "Polygon 2.0.5 {code:PolygonStatus|C:\Python27}"; Types: full; Check: CheckPolygon( 'C:\Python27' )
+Name: FontTools; Description: "FontTools 2.3 {code:FontToolsStatus|C:\Python32}"; Types: full; Check: CheckFontTools( 'C:\Python32' )
+Name: ttfquery; Description: "ttfquery 1.0.4 {code:ttfqueryStatus|C:\Python32}"; Types: full; Check: Checkttfquery( 'C:\Python32' )
+Name: Polygon; Description: "Polygon 2.0.5 {code:PolygonStatus|C:\Python32}"; Types: full; Check: CheckPolygon( 'C:\Python32' )
 
 Name: VIDLE; Description: "VIDLE: improved version of the IDLE program editor"; Types: full custom
 
-Name: wx; Description: "wxPython 2.9.4 {code:WxPythonStatus|C:\Python27}"; Types: full; Check: CheckWxPython( 'C:\Python27' )
+Name: wx; Description: "wxPython 2.9.4 {code:WxPythonStatus|C:\Python32}"; Types: full; Check: CheckWxPython( 'C:\Python32' )
 
 [Tasks]
 Name: desktopicon; Description: "Create a desktop icon to start VIDLE"
@@ -121,14 +119,14 @@ program Setup;
 function MyConst(Param: String): String;
 var Exist1, Exist2: Boolean;
 begin
-    Exist1 := FileExists( ExpandConstant('{reg:HKLM\Software\Python\PythonCore\2.7\InstallPath,}\python.exe'));
+    Exist1 := FileExists( ExpandConstant('{reg:HKLM\Software\Python\PythonCore\3.2\InstallPath,}\python.exe'));
     if Exist1 then
-      Result := ExpandConstant('{reg:HKLM\Software\Python\PythonCore\2.7\InstallPath,}')
+      Result := ExpandConstant('{reg:HKLM\Software\Python\PythonCore\3.2\InstallPath,}')
     else
       begin
-      Exist2 := FileExists( ExpandConstant('{reg:HKCU\Software\Python\PythonCore\2.7\InstallPath,}\python.exe'));
+      Exist2 := FileExists( ExpandConstant('{reg:HKCU\Software\Python\PythonCore\3.2\InstallPath,}\python.exe'));
       if Exist2 then
-        Result := ExpandConstant('{reg:HKCU\Software\Python\PythonCore\2.7\InstallPath,}')
+        Result := ExpandConstant('{reg:HKCU\Software\Python\PythonCore\3.2\InstallPath,}')
       else
         Result := 'C:\'
       end
@@ -140,11 +138,11 @@ begin
   case CurPage of
     wpSelectDir:
       begin
-      Result1 := FileExists( ExpandConstant('{reg:HKLM\Software\Python\PythonCore\2.7\InstallPath,}\python.exe'));
-      Result2 := FileExists( ExpandConstant('{reg:HKCU\Software\Python\PythonCore\2.7\InstallPath,}\python.exe'));
+      Result1 := FileExists( ExpandConstant('{reg:HKLM\Software\Python\PythonCore\3.2\InstallPath,}\python.exe'));
+      Result2 := FileExists( ExpandConstant('{reg:HKCU\Software\Python\PythonCore\3.2\InstallPath,}\python.exe'));
       Result := Result1 or Result2
       if not Result then
-         MsgBox('Could not locate where Python 2.7 is installed.' #13 'You will be asked where python.exe is located.', mbInformation, MB_OK);
+         MsgBox('Could not locate where Python 3.2 is installed.' #13 'You will be asked where python.exe is located.', mbInformation, MB_OK);
       end
     else
       Result := False;
