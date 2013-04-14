@@ -691,7 +691,6 @@ display_kernel::draw(view& scene_geometry, int whicheye)
 			i = layer_world.erase(i.base());
 			continue;
 		}
-
 		i->outer_render( scene_geometry);
 		++i;
 	}
@@ -925,7 +924,7 @@ display_kernel::render_scene(void)
 
 	catch (gl_error e) {
 		std::ostringstream msg;
-		msg << "OpenGL error: " << e.what() << ", aborting.\n";
+		msg << "render_scene OpenGL error: " << e.what() << ", aborting.\n";
 		VPYTHON_CRITICAL_ERROR( msg.str());
 		std::exit(1);
 	}
@@ -1089,7 +1088,7 @@ display_kernel::pick( int x, int y, float d_pixels)
 	}
 	catch (gl_error e) {
 		std::ostringstream msg;
-		msg << "OpenGL error: " << e.what() << ", aborting.\n";
+		msg << "pick OpenGL error: " << e.what() << ", aborting.\n";
 		VPYTHON_CRITICAL_ERROR( msg.str());
 		std::exit(1);
 	}

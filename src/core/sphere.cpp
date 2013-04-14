@@ -8,6 +8,7 @@
 #include "util/errors.hpp"
 #include "util/icososphere.hpp"
 #include "util/gl_enable.hpp"
+#include <iostream>
 
 #include <vector>
 
@@ -34,8 +35,6 @@ sphere::gl_pick_render( view& geometry)
 	//init_model();
 	init_model(geometry);
 
-	clear_gl_error();
-
 	gl_matrix_stackguard guard;
 	model_world_transform( geometry.gcf, get_scale() ).gl_mult();
 
@@ -51,8 +50,6 @@ sphere::gl_render( view& geometry)
 
 	//init_model();
 	init_model(geometry);
-
-	clear_gl_error();
 	
 	// coverage is the radius of this sphere in pixels:
 	double coverage = geometry.pixel_coverage( pos, radius);
@@ -98,7 +95,6 @@ sphere::gl_render( view& geometry)
 		// Render a simple sphere.
 		geometry.sphere_model[lod].gl_render();
 	}
-	check_gl_error();
 }
 
 void
@@ -113,8 +109,6 @@ sphere::init_model(view& scene)
 {
 	//if (lod_cache[0]) return;
 	if (scene.sphere_model[0].compiled()) return;
-
-	clear_gl_error();
 
 	quadric sph;
 	

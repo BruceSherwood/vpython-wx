@@ -83,7 +83,10 @@ void
 clear_gl_error_real()
 {
 	#ifndef NDEBUG
-	glGetError();
+	while (true) {
+		GLenum err_code = glGetError();
+		if (err_code == GL_NO_ERROR) break;
+	}
 	#endif
 }
 
@@ -91,14 +94,13 @@ void
 check_gl_error_real( const char* file, int line)
 {
 	#ifndef NDEBUG
-	GLenum err_code = glGetError();
 	// Insert the manual cast from the unsigned char pointer to signed char
 	// pointer type.
-	if (err_code != GL_NO_ERROR) {
+	GLenum err_code = glGetError();
+	if (err_code != GL_NO_ERROR && err_code != GL_INVALID_OPERATION) {
 		std::ostringstream err;
 		err << file << ":" << line << " " << (const char*)gluErrorString(err_code);
 		throw gl_error( err.str().c_str(), err_code);
-		
 	}
 	#endif
 }

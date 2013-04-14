@@ -684,7 +684,7 @@ extrusion::adjust_colors( const view& scene, double* tcolor, size_t pcount)
 	return mono;
 }
 
-// There were unsolvable problems with rotate. See comments with intrude routine.
+// There were unsolvable problems with rotate. See comments with the extrude routine.
 /*
 void
 extrusion::rotate( double angle, const vector& _axis, const vector& origin)

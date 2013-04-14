@@ -4,6 +4,8 @@
 // See the file authors.txt for a complete list of contributors.
 
 #include "frame.hpp"
+#include "util/errors.hpp"
+#include <iostream>
 
 #include <algorithm>
 
@@ -375,6 +377,7 @@ frame::gl_pick_render(view& scene)
 	}
 	// Pop name
 	glPopName();
+	check_gl_error();
 }
 
 void
