@@ -691,7 +691,9 @@ display_kernel::draw(view& scene_geometry, int whicheye)
 			i = layer_world.erase(i.base());
 			continue;
 		}
+		check_gl_error();
 		i->outer_render( scene_geometry);
+		check_gl_error();
 		++i;
 	}
 

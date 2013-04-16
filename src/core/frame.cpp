@@ -344,6 +344,7 @@ frame::gl_render(view& v)
 		v.screen_objects.insert( std::make_pair( fwt*i->first, i->second));
 		++i;
 	}
+	//check_gl_error();
 }
 
 void
@@ -377,7 +378,7 @@ frame::gl_pick_render(view& scene)
 	}
 	// Pop name
 	glPopName();
-	check_gl_error();
+	//check_gl_error();
 }
 
 void

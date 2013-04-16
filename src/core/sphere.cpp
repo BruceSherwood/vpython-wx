@@ -39,7 +39,7 @@ sphere::gl_pick_render( view& geometry)
 	model_world_transform( geometry.gcf, get_scale() ).gl_mult();
 
 	geometry.sphere_model[0].gl_render();
-	check_gl_error();
+	//check_gl_error();
 }
 
 void
@@ -137,7 +137,7 @@ sphere::init_model(view& scene)
 	sph.render_sphere( 1.0, 140, 69);
 	scene.sphere_model[5].gl_compile_end();
 	
-	check_gl_error();
+	//check_gl_error();
 }
 
 vector
