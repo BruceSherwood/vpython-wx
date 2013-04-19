@@ -234,7 +234,7 @@
 				Optimization="2"
 				InlineFunctionExpansion="1"
 				AdditionalIncludeDirectories="..\include\win32;..\include;c:\Python27\Lib\site-packages\numpy\core\include;..\dependencies\boost_files;c:\Python27\include;.;..\dependencies\threadpool\include\;$(NOINHERIT)"
-				PreprocessorDefinitions="WIN32;_USRDLL;MSC;BOOST_PYTHON_STATIC_LIB;NDEBUG"
+				PreprocessorDefinitions="WIN32;_USRDLL;MSC;BOOST_PYTHON_STATIC_LIB"
 				StringPooling="true"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="true"

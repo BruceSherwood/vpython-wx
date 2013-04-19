@@ -6,7 +6,7 @@
 
 [Setup]
 AppName=VPython for Python 2.7
-AppVerName=VPython 6.04
+AppVerName=VPython 6.05
 AppPublisherURL=http://vpython.org
 DefaultDirName={code:MyConst}
 ArchitecturesAllowed=x64
@@ -16,7 +16,7 @@ SourceDir=C:\Python27
 DisableProgramGroupPage=yes
 DirExistsWarning=no
 DisableStartupPrompt=yes
-OutputBaseFilename=VPython-Win-64-Py2.7-6.04
+OutputBaseFilename=VPython-Win-64-Py2.7-6.05
 OutputDir=c:\workspace
 
 [Files]
@@ -62,7 +62,7 @@ Source: "Lib\site-packages\numpy\*"; DestDir: "{app}\Lib\site-packages\numpy\"; 
 Source: "Lib\site-packages\Polygon*egg-info"; DestDir: "{app}\Lib\site-packages\"; Components: Polygon
 Source: "Lib\site-packages\Polygon\*"; DestDir: "{app}\Lib\site-packages\Polygon\"; Components: Polygon; Flags: recursesubdirs
 
-Source: "Lib\site-packages\TTFQuery*egg-info"; DestDir: "{app}\Lib\site-packages\"; Components: ttfquery
+; Source: "Lib\site-packages\TTFQuery*egg-info"; DestDir: "{app}\Lib\site-packages\"; Components: ttfquery
 Source: "Lib\site-packages\ttfquery\*"; DestDir: "{app}\Lib\site-packages\ttfquery\"; Components: ttfquery; Flags: recursesubdirs
 
 Source: "Lib\site-packages\vidle\*.py"; DestDir: "{app}\Lib\site-packages\vidle\"; Components: VIDLE; Flags: recursesubdirs
