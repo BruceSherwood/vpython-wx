@@ -427,8 +427,8 @@ label::gl_initialize( const view& v ) {
 	double tc_x, tc_y;
 
 	// next_power_of_two is in texture.cpp
-	tx_width = next_power_of_two( bitmap_width );
-	tx_height = next_power_of_two( bitmap_height );
+	tx_width = (int)next_power_of_two( bitmap_width );
+	tx_height = (int)next_power_of_two( bitmap_height );
 	tc_x = ((double)bitmap_width) / tx_width;
 	tc_y = ((double)bitmap_height) / tx_height;
 
@@ -484,7 +484,7 @@ void label::gl_render_to_quad( const view& v, const vector& text_pos ) {
 
 	gl_disable tex2(GL_TEXTURE_2D);
 	check_gl_error();
-}
+		}
 
 void
 label::draw_quad() {
