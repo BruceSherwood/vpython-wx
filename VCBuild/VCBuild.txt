@@ -2,7 +2,7 @@ Building vpython with from Visual Studio C++
 
 	You may find Eclipse a useful development and CVS environment (eclipse.org)		
 	
-	VPython CVS
+	VPython Github repository
 	    Check-out the vpython-wx module from
 		github.com/BruceSherwood/vpython-wx
 
@@ -10,13 +10,14 @@ Building vpython with from Visual Studio C++
 		Install Python X.N via the Windows Installer at http://www.python.org/download/.
 		Make sure it is installed on the main drive, in \PythonXN.
 		
-	Install these Python modules: numpy, FontTools, ttfquery.
+	Install these Python modules: numpy, FontTools, ttfquery, wxPython 2.9.4.
 	
 	Copy into C:\PythonXN\Lib\site-packages the folders site-packages\vis, site-packages\visual,
 	and site-packages\visual_common.
                 
     Install Visual Studio C++ 2008 Express Edition, from
-        http://www.microsoft.com/en-us/download/details.aspx?id=3092
+        This link no longer works: http://www.microsoft.com/en-us/download/details.aspx?id=3092
+        http://freewareupdate.com/developer-tools/download-microsoft-visual-studio-2008-express-editions/1685-9385277637648729434538230869724179479494560372718823035706706601629596
     Download the ISO disk image and write it to a DVD.
     Run from the DVD to install the C++ version.
     
