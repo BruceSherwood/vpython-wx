@@ -188,9 +188,9 @@ def main():
                       },
         ext_modules=[CVISUAL],
         install_requires=[
-            'FontTools >= 2.0',
-            'Polygon2',
-            'TTFQuery >= 1.0',
+            'fontTools',
+            'Polygon',
+            'ttfquery',
             #,'wxPython >= 2.9'],
         ],
         zip_safe=False)
