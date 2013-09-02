@@ -1,1 +1,3 @@
+FontTools>=2.0
 Polygon2==2.0.6
+TTFQuery>=1.0
