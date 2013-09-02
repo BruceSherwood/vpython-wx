@@ -1,4 +1,4 @@
-Building vpython with from Visual Studio C++ 
+Building vpython with Visual Studio C++ 
 
 	You may find Eclipse a useful development and CVS environment (eclipse.org)		
 	
@@ -14,6 +14,15 @@ Building vpython with from Visual Studio C++
 	
 	Copy into C:\PythonXN\Lib\site-packages the folders site-packages\vis, site-packages\visual,
 	and site-packages\visual_common.
+        
+    It is important to use the older 2008 version of Visual C++, because that's what built Python 2.7.
+    The Python shell shows the compiler version number v.1500, which is Visual Studio 2008.
+    However, see the following for how to try to use Visual C++ 2010 with Python 2.7:
+    	http://nukeit.org/compile-python-2-7-packages-with-visual-studio-2010-express
+	Also, make sure that in the Visual Studio 2010 project properties, Linker > Input,
+	you specify "Ignore Specific Default Libraries" to /NODEFAULTLIB:MSVCRT.lib.
+	To avoid the link error Error 1 error LNK1220: '/DELAYSIGN' requires '/KEYFILE' or '/KEYCONTAINER'
+	you need to go to Visual Studio project properties, Linker > Advanced, and clear Delay Sign.
                 
     Install Visual Studio C++ 2008 Express Edition, from
         This link no longer works: http://www.microsoft.com/en-us/download/details.aspx?id=3092
@@ -26,10 +35,12 @@ Building vpython with from Visual Studio C++
     Download the ISO disk image and write it to a DVD.
     Run from the DVD to install.
     
-    Next study the following detailed instructions on how to get Visual Studio 2008 to do 64-bit compiles:    
+    Next read the following detailed instructions on how to get Visual Studio 2008 to do 64-bit compiles:    
         http://jenshuebel.wordpress.com/2009/02/12/visual-c-2008-express-edition-and-64-bit-targets/
-    I found it useful to run the program provided by Xia to update the registry.
-    Be sure to inspect the output in the shell window, and do any operations by hand that fail there.
+    I found it sufficient to run the program provided by Xia to update the registry:
+	http://www.cppblog.com/Files/xcpp/VCE64BIT_WIN7SDK.zip
+		Read the readme file for information about this.
+		Be sure to inspect the output in the shell window, and do any operations by hand that fail there.
     
     At Tools->Options->Projects and Solutions->VC++ Directories you can see what resources
     are invoked for Platform x64. You should see $(VCInstallDir)bin\x86_amd64, where $(VCInstallDir)
@@ -43,29 +54,15 @@ Building vpython with from Visual Studio C++
         :x86_amd64
         if not exist "%~dp0bin\vcvarsx86_amd64.bat" goto missing
         call "%~dp0bin\vcvarsx86_amd64.bat"
-        
-    It is important to use the older 2008 version of Visual C++, because that's what built Python 2.7.
-    The Python shell shows the compiler version number v.1500, which is Visual Studio 2008.
-    However, see the following for how to try to use Visual C++ 2010 with Python 2.7:
-    	http://nukeit.org/compile-python-2-7-packages-with-visual-studio-2010-express
-	Also, make sure that in the Visual Studio 2010 project properties, Linker > Input,
-	you specify "Ignore Specific Default Libraries" to /NODEFAULTLIB:MSVCRT.lib.
-	To avoid the link error Error 1 error LNK1220: '/DELAYSIGN' requires '/KEYFILE' or '/KEYCONTAINER'
-	you need to go to Visual Studio project properties, Linker > Advanced, and clear Delay Sign.
 
-    Unzip Boost
-        The folder vpython-wx/dependencies/boost_files should contain 
-        boost (include files) and win_libs folders.
-        
-        These files were obtained from http://www.boostpro.com/download
-        (If these files are not up to date with the current Python, you may have to
-        build the Boost libraries from source. See below. This was the case in 
-        Aug. 2010 when the standard release of Python was 2.7, but the boostpro 
-        libraries had been built for Python 2.6.)
+    Boost libraries: There used to be 32-bit and 64-bit Windows builds of Boost at 
+	http://www.boostpro.com/download. However these are no longer being maintained, and
+	a recent attempt to use them (Aug. 2013) didn't work. See below for how to build Boost.
 
 	Build cvisual.pyd
-        Open the cvisual.sln project file in Visual Studio Express, make Release the active 
-        configuration, then press F7.
+        Open the VCBuild/cvisual.sln project file in Visual Studio Express, 
+		choose 32-bit or 64-bit configuration, make Release the active 
+        configuration, then press on the Build menu choose build or rebuild visual.
 
         The .pyd file is placed in vpython-wx\site-packages\visual_common
         Copy this file to C:\PythonXN\Lib\site-packages\visual_common
@@ -99,7 +96,7 @@ Building vpython with from Visual Studio C++
 Result1 := FileExists(
 ExpandConstant('{reg:HKLM\Software\Python\PythonCore\2.7\InstallPath,}\python.exe'));
 
-You should use the RegQuery* family of support functions instead of trying to expand a {reg:...} constant within the code section.
+It has been said that one should use the RegQuery* family of support functions instead of trying to expand a {reg:...} constant within the code section.
 
 DEBUGGING
 Go to the "System" control panel and choose advanced settings, then environment variables
@@ -161,22 +158,8 @@ libboost_signals-vc90-mt-s-1_43.lib
 
 Also, you need to copy the directory named boost from the Boost files into dependencies\boost_file.
 
+Presumably you're using GitHub, in which case you should add a file dependencies/.gitignore containing this:
+*.*
+
 For Boost 1_42_0, in line 21 of boost\python\exception_translator.hpp you may need
 to change bind to boost::bind. 
-
-Problem bulding with Boost 1.37; found this on the web (this problem disappeared for Boost 1.42):
-Furthermore building pyrap with boost-1.37 and gcc-4.3.2 gave an error 
-due to a missing include. The following patch has to be applied to boost:
-
-Index: boost/python/detail/translate_exception.hpp
-===================================================================
---- boost/python/detail/translate_exception.hpp (revision 50228)
-+++ boost/python/detail/translate_exception.hpp (working copy)
-@@ -9,6 +9,7 @@
- 
- # include <boost/call_traits.hpp>
- # include <boost/type_traits/add_const.hpp>
-+# include <boost/type_traits/add_reference.hpp>
- 
- # include <boost/function/function0.hpp>
---------------------------------------
