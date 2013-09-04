@@ -1,6 +1,6 @@
 Building vpython with Visual Studio C++ 
 
-	You may find Eclipse a useful development and CVS environment (eclipse.org)		
+	You may find Eclipse a useful development environment (eclipse.org)		
 	
 	VPython Github repository
 	    Check-out the vpython-wx module from
@@ -37,9 +37,9 @@ Building vpython with Visual Studio C++
     
     Next read the following detailed instructions on how to get Visual Studio 2008 to do 64-bit compiles:    
         http://jenshuebel.wordpress.com/2009/02/12/visual-c-2008-express-edition-and-64-bit-targets/
-    I found it sufficient to run the program provided by Xia to update the registry:
+    I found it sufficient to run the program provided in this article by Xia to update the registry:
 	http://www.cppblog.com/Files/xcpp/VCE64BIT_WIN7SDK.zip
-		Read the readme file for information about this.
+		Read Xia's readme file for information about this.
 		Be sure to inspect the output in the shell window, and do any operations by hand that fail there.
     
     At Tools->Options->Projects and Solutions->VC++ Directories you can see what resources
@@ -62,7 +62,7 @@ Building vpython with Visual Studio C++
 	Build cvisual.pyd
         Open the VCBuild/cvisual.sln project file in Visual Studio Express, 
 		choose 32-bit or 64-bit configuration, make Release the active 
-        configuration, then press on the Build menu choose build or rebuild visual.
+        configuration, then on the Build menu choose build or rebuild visual.
 
         The .pyd file is placed in vpython-wx\site-packages\visual_common
         Copy this file to C:\PythonXN\Lib\site-packages\visual_common
