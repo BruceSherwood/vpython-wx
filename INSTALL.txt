@@ -45,44 +45,48 @@ I.  Prerequisites:
 	From https://groups.google.com/forum/?fromgroups=&hl=en#!topic/wxpython-users/XWyd995Ci_Q
 	comes this advice by Patrick Korsnick on how to get prerequisites needed to build wxPython:
 	
-	opensuse 12.2
-	-------------
+	opensuse 12.2:
 	sudo zypper in gtk2-devel freeglut-devel gstreamer-0_10-devel gstreamer-0_10-plugins-base-devel python-devel
 
-	Fedora 17
-	---------
+	Fedora 17:
 	sudo yum install gtk2-devel freeglut-devel gstreamer-plugins-base-devel python-devel
 
-	Ubuntu 12.04 LTS
-	----------------
+	Ubuntu 12.04 LTS:
 	sudo apt-get install g++ libgtk2.0-dev freeglut3-dev libgstreamer0.10-dev libgstreamer-plugins-base0.10-dev python-dev
-		
-	You need wxPython (wxpython.org). Currently one needs version 2.9, but
-	on Linux you need to apply a patch before building wxPython. 
-	Here is information about the patch:
 	
-	https://groups.google.com/forum/?fromgroups=#!topic/wxpython-users/e27JioMs1fs
+	-----------------------------------------------------------	
+	BUILD wxPython
 	
-	In this forum post is a link to the patch, located at
+	Currently one needs version 2.9.4, at 
+	http://sourceforge.net/projects/wxpython/files/wxPython/2.9.4.0/
 	
-	http://sourceforge.net/projects/wxpython/files/wxPython/2.9.4.0/wxPython-src-2.9.4.1.patch/download 
+	On Linux you need to apply a patch before building wxPython. 
+    Here is information about the patch:
+    https://groups.google.com/forum/?fromgroups=#!topic/wxpython-users/e27JioMs1fs
 
-	Suppose you've unpacked the source package from wxpython.org into wxPython-src-2.9.4.0.
-	Place the patch file in this directory (the directory that contains the README file), 
-	cd to that directory, and execute this in a terminal:
-	patch -p0 < wxPython-src-2.9.4.1.patch
-	
-	Next execute this:
-	cd wxPython-src-2.9.4.0/wxPython
-	sudo python2.7 build-wxpython.py --build_dir=../bld
+    In this forum post is a link to the patch, located at
+    http://sourceforge.net/projects/wxpython/files/wxPython/2.9.4.0/wxPython-src-2.9.4.1.patch/download 
 
-	If you specify --install in this build, sometimes the build/install fails in odd ways.
-	So it seems safer to just build without installing, then point to the build files.
+    Suppose you've unpacked the source package from wxpython.org into wxPython-src-2.9.4.0.
+    Place the patch file in this directory (the directory that contains the README file), 
+    cd to that directory, and execute this in a terminal:
+    patch -p0 < wxPython-src-2.9.4.1.patch
+
+    Next execute this:
+    cd wxPython-src-2.9.4.0/wxPython
+    sudo python2.7 build-wxpython.py --build_dir=../bld
+
+    If you specify --install in this build, sometimes the build/install fails in odd ways.
+    So it seems safer to just build without installing, then point to the build files.
+
+    At the conclusion of the build you will see something like the following (discussed later):
+     To use wxPython you may need to execute these statements:
+       export PYTHONPATH="/home/bruce/Downloads/wxPython-src-2.9.4.0/wxPython"
+       export LD_LIBRARY_PATH="/home/bruce/Downloads/wxPython-src-2.9.4.0/bld/lib"
+	   
+	--------------------------------------------------------------
 	
-	At the conclusion of the build you will see something like the following:
-	 To use wxPython you may need to execute these statements:
-	   export PYTHONPATH="/home/bruce/Downloads/wxPython-src-2.9.4.0/wxPython"
-	   export LD_LIBRARY_PATH="/home/bruce/Downloads/wxPython-src-2.9.4.0/bld/lib"
+	BUILD VPython
 
 	Now you are ready to build VPython. In the VPython repository directory execute
 	sudo python2.7 setup.py install
@@ -92,14 +96,18 @@ I.  Prerequisites:
 	present, but sometimes it can't find them. If that happens, download the
 	source for each module, unpack and in a terminal cd to the module folder.
 	Execute "sudo python2.7 setup.py install" to build and install the module.)
+	
+	-----------------------------------------------------------------
+	
+	CREATE VIDLE EDITOR SHORTCUT
 
 	Create a file "vidle.sh" containing three statements like the following
 	(see the final output of the build), execute "chmod a=rwx vidle.sh" to make
 	the file executable, then doubleclick the file to start the VIDLE editor:
 
-	export PYTHONPATH="/home/bruce/Downloads/wxPython-src-2.9.4.0/wxPython"
-	export LD_LIBRARY_PATH="/home/bruce/Downloads/wxPython-src-2.9.4.0/bld/lib"
-	python2.7 /usr/local/lib/python2.7/dist-packages/VPython-6.03-py2.7-linux-x86_64.egg/vidle/idle.py
+	export PYTHONPATH="/home/bruce/Downloads/wxPython-src-2.9.5.0/wxPython"
+	export LD_LIBRARY_PATH="/home/bruce/Downloads/wxPython-src-2.9.5.0/bld/lib"
+	python2.7 /usr/local/lib/python2.7/dist-packages/VPython-6.05-py2.7-linux-x86_64.egg/vidle/idle.py
 
 	Alternatively you could place the export statements in your .profile or .bashrc files
 	in which case you wouldn't need them in vidle.sh.
