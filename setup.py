@@ -192,6 +192,7 @@ def main():
             'numpy',
             'Polygon',
             'ttfquery',
+            'wx',
             #,'wxPython >= 2.9'],
         ],
         zip_safe=False)
