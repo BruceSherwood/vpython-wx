@@ -1,3 +1,4 @@
 fonttools2==2.3
+numpy
 Polygon2==2.0.6
 TTFQuery==1.0.5

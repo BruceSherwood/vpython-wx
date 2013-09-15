@@ -187,8 +187,9 @@ def main():
                       'visual_common':['*.tga'],
                       },
         ext_modules=[CVISUAL],
-        install_requires=[
+        requires=[
             'fontTools',
+            'numpy',
             'Polygon',
             'ttfquery',
             #,'wxPython >= 2.9'],
