@@ -1,5 +1,6 @@
 vpython-wx
 ==========
+[![Build Status](https://travis-ci.org/BruceSherwood/vpython-wx.png?branch=master,stable)](https://travis-ci.org/BruceSherwood/vpython-wx)
 
 Experimental version of VPython (vpython.org) based on the cross-platform library wxPython. It differs from the older VPython (5.74 and before) by eliminating nearly all platform-dependent code and by eliminating the threading associated with rendering. 
 
