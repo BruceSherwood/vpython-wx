@@ -5,6 +5,10 @@ python:
   - "3.2"
   - "3.3"
 # command to install dependencies
+# http://about.travis-ci.org/docs/user/build-configuration/#Installing-Packages-Using-apt
+before_install:
+  - sudo apt-get update -qq
+  - sudo apt-get install -qq libgtk2.0-dev libgtkglextmm-x11-1.2-dev libgtkmm-2.4-dev
 install:
   - "pip install -r requirements.txt --use-mirrors"
   - "pip install . --use-mirrors"
