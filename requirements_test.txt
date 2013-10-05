@@ -1,0 +1,4 @@
+-r requirements.txt
+
+mock==1.0.1
+tox==1.5.0
