@@ -11,6 +11,16 @@ before_install:
   - sudo apt-get install -qq libgtk2.0-dev libgtkglextmm-x11-1.2-dev libgtkmm-2.4-dev
   - sudo apt-get install python-dev
   - sudo apt-get install libboost-python-dev libboost-signals-dev
+  - wget http://sourceforge.net/projects/wxpython/files/wxPython/2.9.4.0/wxPython-src-2.9.4.0.tar.bz2
+  - tar xf wxPython-src-2.9.4.0.tar.bz2
+  - cd wxPython-src-2.9.4.0/
+  - patch -p0 < wxPython-src-2.9.4.1.patch
+  - cd wxPython/
+  - python build-wxpython.py --build_dir=../bld
+  - cd ..
+  - export PYTHONPATH="$PWD/wxPython"
+  - export LD_LIBRARY_PATH="$PWD/bld/lib"
 install:
   - "pip install -r requirements.txt --use-mirrors"
   - "pip install . --use-mirrors"
+script: python -m unittest discover
