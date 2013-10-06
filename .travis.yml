@@ -22,6 +22,7 @@ before_install:
   - cd ..
   - export PYTHONPATH="$PWD/wxPython"
   - export LD_LIBRARY_PATH="$PWD/bld/lib"
+  - cd ..
 install:
   - "pip install -r requirements.txt --use-mirrors"
   - "pip install . --use-mirrors"
