@@ -53,7 +53,6 @@ I.  Prerequisites:
 
 	Ubuntu 12.04 LTS:
 	sudo apt-get install g++ libgtk2.0-dev freeglut3-dev libgstreamer0.10-dev libgstreamer-plugins-base0.10-dev python-dev
-<<<<<<< Updated upstream
 	
 	-----------------------------------------------------------	
 	BUILD wxPython
@@ -88,7 +87,6 @@ I.  Prerequisites:
 	--------------------------------------------------------------
 	
 	BUILD VPython
-=======
 		
 	You need wxPython (wxpython.org). Currently one needs version 2.9.5.0, but
 	on Linux you need to apply a patch before building wxPython. 
@@ -114,7 +112,6 @@ I.  Prerequisites:
 	 To use wxPython you may need to execute these statements:
 	   export PYTHONPATH="/home/bruce/Downloads/wxPython-src-2.9.5.0/wxPython"
 	   export LD_LIBRARY_PATH="/home/bruce/Downloads/wxPython-src-2.9.5.0/bld/lib"
->>>>>>> Stashed changes
 
 	Now you are ready to build VPython. In the VPython repository directory execute
 	sudo python2.7 setup.py install
