@@ -83,6 +83,21 @@ I.  Prerequisites:
      To use wxPython you may need to execute these statements:
        export PYTHONPATH="/home/bruce/Downloads/wxPython-src-2.9.4.0/wxPython"
        export LD_LIBRARY_PATH="/home/bruce/Downloads/wxPython-src-2.9.4.0/bld/lib"
+       
+    NOTE: A user of 32-bit Ubuntu reported that he had to make the following change to build wxPython 2.9.5:
+
+    In file ".../wxPython-src-2.9.5.0/build/tools/builder.py", around line 134, make it read like this:
+
+    def install(self, dir=None, projectFile=None, options=[]):
+         if self.isAvailable():
+             args = [self.getProgramPath()]
+             args.extend(self.getProjectFileArg(projectFile))
+             args.append("install")
+             if options:
+                 args.extend(options)
+             result = runInDir(args, dir)
+             return result
+         return 1
 	   
 	--------------------------------------------------------------
 	
