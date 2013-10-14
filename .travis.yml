@@ -2,8 +2,10 @@ language: python
 python:
   - "2.6"
   - "2.7"
-  - "3.2"
-  - "3.3"
+# vpython-wx and its dependencies are not Python3-compatible at this moment
+#  - "3.2"
+#  - "3.3"
+
 # command to install dependencies
 # http://about.travis-ci.org/docs/user/build-configuration/#Installing-Packages-Using-apt
 before_install:
