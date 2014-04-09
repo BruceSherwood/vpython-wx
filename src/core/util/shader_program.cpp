@@ -5,7 +5,7 @@
 namespace cvisual {
 
 shader_program::shader_program( const std::string& source )
- : source(source), program((GLhandleARB)-1)
+ : source(source), program( (GLhandleARB)-1 )
 {
 }
 
@@ -32,7 +32,7 @@ void shader_program::set_uniform_matrix( const view& v, int loc, const tmatrix& 
 }
 
 void shader_program::realize( const view& v ) {
-	if ((intptr_t)program != -1) return;
+	if (program != (GLhandleARB)-1) return;
 
 	if ( !v.enable_shaders ) return;
 
@@ -171,7 +171,7 @@ void use_shader_program::init(shader_program* program) {
 }
 
 use_shader_program::~use_shader_program() {
-	if ((intptr_t)oldProgram<0 || !v.glext.ARB_shader_objects) return;
+	if (oldProgram < (GLhandleARB)0 || !v.glext.ARB_shader_objects) return;
 	v.glext.glUseProgramObjectARB( oldProgram );
 }
 
