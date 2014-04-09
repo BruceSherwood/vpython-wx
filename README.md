@@ -8,4 +8,4 @@ The new version makes one essential change to the syntax of VPython programs. No
 
 The heart of the user-interface code (creating windows and handling events) is the file site-packages/visual_common/create_display.py. It is imported by visual/__init__.py and by /vis/__init__.py; the difference is that for convenience visual imports math and numpy, whereas vis doesn't.
 
-Please report issues to the [Github repository](https://github.com/BruceSherwood/vpython-wx), or to the VPython mailing list.
+Please report issues to the [Github repository](https://github.com/BruceSherwood/vpython-wx), or to the VPython forum at https://groups.google.com/forum/?fromgroups&hl=en#!forum/vpython-users.
