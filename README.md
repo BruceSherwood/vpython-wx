@@ -2,7 +2,7 @@ vpython-wx
 ==========
 [![Build Status](https://travis-ci.org/BruceSherwood/vpython-wx.png?branch=master,stable)](https://travis-ci.org/BruceSherwood/vpython-wx)
 
-Experimental version of VPython (vpython.org) based on the cross-platform library wxPython. It differs from the older VPython (5.74 and before) by eliminating nearly all platform-dependent code and by eliminating the threading associated with rendering. 
+VPython 6 (vpython.org) based on the cross-platform library wxPython. It differs from the older VPython (5.74 and before) by eliminating nearly all platform-dependent code and by eliminating the threading associated with rendering. 
 
 The new version makes one essential change to the syntax of VPython programs. Now, an animation loop MUST contain a rate statement, which limits the number of loop iterations per second as before but also when appropriate (about 30 times per second) updates the 3D scene and handles mouse and keyboard events. Without a rate statement, the scene will not be updated until and unless the loop is completed.
 
