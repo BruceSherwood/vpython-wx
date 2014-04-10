@@ -33,7 +33,9 @@ before_install:
 # Polygon2 needs to do an explicit download
   - wget https://bitbucket.org/jraedler/polygon2/downloads/Polygon2-2.0.6.zip
   - unzip Polygon2-2.0.6
+  - pwd
 install:
-  - "pip install -r requirements.txt --use-mirrors"
-  - "pip install . --use-mirrors"
+  - pwd
+  - "pip install -r requirements.txt"
+  - "pip install ."
 script: python -m unittest discover
