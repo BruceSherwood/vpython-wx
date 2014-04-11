@@ -41,5 +41,5 @@ install:
   - echo "Done with install part"
   - export PYTHONPATH=$PYTHONPATH:./site-packages
   - echo $PYTHONPATH
-  - ls
+  - ls -lR
 script: python -m unittest discover
