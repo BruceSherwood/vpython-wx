@@ -33,13 +33,13 @@ before_install:
 # Polygon2 needs to do an explicit download
   - wget https://bitbucket.org/jraedler/polygon2/downloads/Polygon2-2.0.6.zip
   - unzip Polygon2-2.0.6
-  - pwd
 install:
-  - pwd
   - "pip install -r requirements.txt"
   - "pip install ."
   - echo "Done with install part"
   - export PYTHONPATH=$PYTHONPATH:./site-packages
   - echo $PYTHONPATH
-  - ls -lR
+# vidle2 and vidle3 seem to be confused.
+  - ln -s vidle2 site-packages/vidle
+  - ls . site-packages
 script: python -m unittest discover
