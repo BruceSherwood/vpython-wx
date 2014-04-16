@@ -16,11 +16,14 @@ Boost libraries consist of inline functions and templates in header files.
 [**GCC**](http://gcc.gnu.org): Gnu Compiler Collection, which includes the
 *gcc* compiler and *gcov* coverage/profiler tool.
 
+[**GStreamer**](http://gstreamer.freedesktop.org): An open multimedia
+library for contructing, chaining, and playing media.
+
 [**Markdown**](https://daringfireball.net/projects/markdown/): A typesetter
 format that produces *html* files from *md* files.  Note that GitHub
-automatically renders *.md* files.
+automatically renders markdown files.
 
-[**Polygon 2**](http://www.j-raedler.de/projects/polygon/):  A 2D polygon package with useful operators and bindings to the General Polygon Clipping Library.  Has a complex license.
+[**Polygon 2**](http://www.j-raedler.de/projects/polygon/):  A 2D polygon package with useful operators and bindings to the [General Polygon Clipping Library (GPC)](http://www.cs.man.ac.uk/~toby/gpc/).  Has a complex license.
 
 [**Travis CI**](https://travis-ci.org): a hosted continuous
   integration service that builds and runs tests according to the
@@ -32,11 +35,16 @@ automatically renders *.md* files.
   [README.md](https://github.com/BruceSherwood/vpython-wx/blob/master/README.md),
   and emails the author of the commit if any tests fail.
 
-[**WxPython**](http://www.wxpython.org): a cross-platform GUI and
-widget kit blending Python with [C++ class libraries]
-(http://docs.wxwidgets.org/3.0/index.html).  This library compares
-with TkInter for Tcl/Tk or PySide and PyQt for Qt. Many people select
-among this list based on their licenses.
+[**WxPython**](http://www.wxpython.org): a cross-platform Python
+library for the Wx GUI and widget kit.  It blends Python with wrappers
+for the [wxWidgets](http://docs.wxwidgets.org/3.0/index.html) C++
+class libraries.  This library compares with the
+[TkInter](https://docs.python.org/2/library/tkinter.html) library
+wrapping [Tcl/Tk](https://www.tcl.tk) and either
+[PySide](https://pypi.python.org/pypi/PySide) or
+[PyQt](http://www.riverbankcomputing.com/software/pyqt/intro) wrapping
+[Qt](http://qt-project.org).  Selection among GUI libraries is often
+made based on the licenses.
 
 [**xvfb**](http://en.wikipedia.org/wiki/Xvfb): A minimal virtual
-framebuffer for X Windows.  Useful for testing.
+framebuffer for X Windows that is used in testing.
