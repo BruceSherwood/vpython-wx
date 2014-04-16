@@ -19,9 +19,17 @@ Boost libraries consist of inline functions and templates in header files.
 [**GStreamer**](http://gstreamer.freedesktop.org): An open multimedia
 library for contructing, chaining, and playing media.
 
+[**GTK+**](http://www.gtk.org):  a multi-platform GUI and widget toolkit, sometimes known as *the GIMP Toolkit*.  Related libraries include *gtkmm* (C++ interfaces for GTK+ and Gnome), *GtkGLExt* (extensions for OpenGL), and *GtkGLExtMM* (C++ interface to *GtkGLExt*).
+
 [**Markdown**](https://daringfireball.net/projects/markdown/): A typesetter
 format that produces *html* files from *md* files.  Note that GitHub
 automatically renders markdown files.
+
+[**NumPy**](http://www.numpy.org): a Python package for scientific
+computing.  It includes N-dimensional array objects, good random numbers,
+and linear algebra tools.
+
+[**OpenGL**](http://www.opengl.org):  A cross-platform, multi-language API for 2D and 3D vector graphics.
 
 [**Polygon 2**](http://www.j-raedler.de/projects/polygon/):  A 2D polygon package with useful operators and bindings to the [General Polygon Clipping Library (GPC)](http://www.cs.man.ac.uk/~toby/gpc/).  Has a complex license.
 
@@ -48,3 +56,13 @@ made based on the licenses.
 
 [**xvfb**](http://en.wikipedia.org/wiki/Xvfb): A minimal virtual
 framebuffer for X Windows that is used in testing.
+
+Orientation to Files
+---
+
+**./README.md**: user readme file in markdown format, also used as the
+  project discription on GitHub.
+
+**./INSTALL.TXT**:  documentation on building for Linux.
+
+**./.travis.yml**:  the configuration file Travis CI, which builds on a generic Linux machine.
