@@ -1,8 +1,9 @@
 language: python
 python:
-  - "2.6"
+# No longer support the 2008 version of Python
+#  - "2.6"
   - "2.7"
-# vpython-wx and its dependencies are not Python3-compatible at this moment
+# vpython-wx and its dependencies are not Python3-compatible at this moment.
 #  - "3.2"
 #  - "3.3"
 
@@ -30,7 +31,18 @@ before_install:
 # http://about.travis-ci.org/docs/user/gui-and-headless-browsers/
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
+# Polygon2 needs to do an explicit download
+  - wget https://bitbucket.org/jraedler/polygon2/downloads/Polygon2-2.0.6.zip
+  - unzip Polygon2-2.0.6
 install:
-  - "pip install -r requirements.txt --use-mirrors"
-  - "pip install . --use-mirrors"
-script: python -m unittest discover
+  - "pip install -r requirements.txt"
+  - "pip install ."
+  - echo "Done with install part"
+  - export PYTHONPATH=$PYTHONPATH:./site-packages
+  - echo $PYTHONPATH
+# vidle2 and vidle3 seem to be confused.
+  - ln -s vidle2 site-packages/vidle
+  - ls . site-packages
+script: python -m unittest discover 2>&1 | tee unittest.out; tail -1 < unittest.out | grep -q OK
+# unittest does not set the exit code, so look for OK in the last line.
+# the complicated line is needed to both copy to stdout and set the exit code
