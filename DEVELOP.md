@@ -76,8 +76,8 @@ These include:
      files for Visual modules.
    * **MakeVPython\*.iss**: Inno Setup configurations for bundling
      MS-Windows versions.
-   * **.travis.yml**: the configuration file Travis CI, which builds
-     on a generic Linux machine.
+   * **.travis.yml**: the configuration file for Travis CI, which builds
+     on a generic Linux machine on each GitHub commit.
 
 These are the subdirectories off the root:
 
@@ -92,13 +92,15 @@ License Overview
 ---
 
 VPython consists of a number of components with distinct licenses.
-*The Visual Library* is a simple, but custom, attribution license.
+*The Visual Library* uses a simple, but custom, attribution license.
 *The Polygon Library* contains two licenses: the *Lesser Gnu Public
-Library (LGPL)* of an unspecified version and an additional license for
-the incorporated *Generic Polygon Library* which prohibits commericial
-use without an additional license.  The *num_util.\** files use the
-derivative *Boost Software License* while
+Library (LGPL)* of an unspecified version and an additional license
+for the incorporated *Generic Polygon Library* which prohibits
+commericial use without an additional license.  The *num_util.\**
+files use the derivative *Boost Software License* while
 *site-packages/visual_common/shapes.py* is released under the *Blender
-Artistic License* which requires some documentation of changes.  *NumPy* uses the attribution *NumPy License*.   There are likely other licenses lurking about as well.
+Artistic License* which requires some documentation of changes.
+*NumPy* uses the attribution *NumPy License*.  There are likely other
+licenses lurking about as well.
 
 In short, it should be fine to use for non-commerical use.
