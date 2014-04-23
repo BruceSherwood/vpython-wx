@@ -6,7 +6,7 @@ compiler.  It does have a number of components from other projects.
 
 
 Glossary
-===
+----
 
 Developing VPython uses a number of different tools, not all of which will be familiar to all developers.
 
@@ -57,12 +57,50 @@ made based on the licenses.
 [**xvfb**](http://en.wikipedia.org/wiki/Xvfb): A minimal virtual
 framebuffer for X Windows that is used in testing.
 
-Orientation to Files
----
+File System Orientation
+----
 
-**./README.md**: user readme file in markdown format, also used as the
+**README.md**: user readme file in markdown format, also used as the
   project discription on GitHub.
 
-**./INSTALL.TXT**:  documentation on building for Linux.
+**DEVELOP.md**:  This file; information for new VPython developers.
 
-**./.travis.yml**:  the configuration file Travis CI, which builds on a generic Linux machine.
+The rest of the files in the root directory are related to builds.
+These include:
+
+   * **INSTALL.TXT**:  documentation for building on Linux.
+   * **MAC-OSX.TXT**:  documentation for building on OS/X 10.6+
+   * **MSWINDOWS.TXT**: obsolete documentation for building on
+     MS-Windows.  See *VCBuild/VCBuild.txt* instead.
+   * **compilevisual.py**: a program which will force creation of .pyc
+     files for Visual modules.
+   * **MakeVPython\*.iss**: Inno Setup configurations for bundling
+     MS-Windows versions.
+   * **.travis.yml**: the configuration file for Travis CI, which builds
+     on a generic Linux machine on each GitHub commit.
+
+These are the subdirectories off the root:
+
+   * **include/**:  C++ header files.
+   * **src/**: a makefile and C++ source files
+   * **tests/**:  contains a simple integration test
+   * **site-packages/**:  the visual and vidle Python modules.
+   * **VCBuild/**:  build files for MS-Windows.
+
+
+License Overview
+---
+
+VPython consists of a number of components with distinct licenses.
+*The Visual Library* uses a simple, but custom, attribution license.
+*The Polygon Library* contains two licenses: the *Lesser Gnu Public
+Library (LGPL)* of an unspecified version and an additional license
+for the incorporated *Generic Polygon Library* which prohibits
+commericial use without an additional license.  The *num_util.\**
+files use the derivative *Boost Software License* while
+*site-packages/visual_common/shapes.py* is released under the *Blender
+Artistic License* which requires some documentation of changes.
+*NumPy* uses the attribution *NumPy License*.  There are likely other
+licenses lurking about as well.
+
+In short, it should be fine to use for non-commerical use.
