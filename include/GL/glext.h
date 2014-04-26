@@ -3408,7 +3408,7 @@ typedef ptrdiff_t GLsizeiptrARB;
 #ifndef GL_ARB_shader_objects
 /* GL types for handling shader object handles and program/shader text */
 	typedef char GLcharARB;		/* native character */
-	#ifdef __MAC_10_7 /* c.f. http://meandmark.com/blog/2011/11/sdl-opengl-typedef-redefinition-error-on-mac-os-x-10-7/ */
+	#ifdef __MAC_10_9
 		typedef void *GLhandleARB;
 	#else
 		typedef unsigned int GLhandleARB;	/* shader object handle */
