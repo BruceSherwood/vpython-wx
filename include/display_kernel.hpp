@@ -26,7 +26,7 @@ namespace cvisual {
 
 using boost::indirect_iterator;
 
-class cursor_object;
+//class cursor_object;
 
 /** A class that manages all OpenGL aspects of a given scene.  This class
 	requires platform-specific support from render_surface to manage an OpenGL
@@ -138,7 +138,7 @@ class display_kernel
 
 protected:
 	// Mouse and keyboard objects
-	cursor_object cursor;
+	//cursor_object cursor;
 	mouse_manager mouse;
 
 	// The bounding rectangle of the window on the screen (or equivalent super-window
@@ -348,7 +348,7 @@ public: // Public Data.
 
 	static bool enable_shaders;
 
-	cursor_object* get_cursor();
+	//cursor_object* get_cursor();
 	mouse_t* get_mouse();
 
 	static void set_selected( shared_ptr<display_kernel> );
