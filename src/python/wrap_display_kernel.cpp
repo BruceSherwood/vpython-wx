@@ -180,8 +180,6 @@ wrap_display_kernel(void)
 		//	&display_kernel::set_show_toolbar)
 		.add_property( "visible", &display_kernel::get_visible, &display_kernel::set_visible)
 		.add_property( "exit", &display_kernel::get_exit, &display_kernel::set_exit)
-		//.add_property( "cursor", py::make_function(
-		//	&display_kernel::get_cursor, py::return_internal_reference<>()))
 		.add_property( "mouse", py::make_function(
 			&display_kernel::get_mouse, py::return_internal_reference<>()))
 		.def( "set_selected", &display_kernel::set_selected)
@@ -214,11 +212,6 @@ wrap_display_kernel(void)
 		.def( "pick", &display_kernel::pick, pick_overloads(
 			py::args( "x", "y", "pixels")))
 		;
-	/*
-	py::class_< cursor_object, noncopyable>( "cursor_object", no_init)
-		.add_property( "visible", &cursor_object::get_visible, &cursor_object::set_visible)
-		;
-	*/
 
 	py::to_python_converter<
 		std::vector<shared_ptr<renderable> >,

@@ -1595,15 +1595,6 @@ display_kernel::set_show_toolbar( bool fs)
 	show_toolbar = fs;
 }
 
-//cursor_object*
-/*
-display_kernel::get_cursor()
-{
-	implicit_activate();
-	return &cursor;
-}
-*/
-
 mouse_t*
 display_kernel::get_mouse()
 {

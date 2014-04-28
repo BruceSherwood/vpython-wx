@@ -10,7 +10,8 @@ Building vpython with Visual Studio C++
 		Install Python X.N via the Windows Installer at http://www.python.org/download/.
 		Make sure it is installed on the main drive, in \PythonXN.
 		
-	Install these Python modules: numpy, FontTools, ttfquery, wxPython 2.9.4.
+	Install these Python modules: numpy, FontTools, ttfquery, wxPython.
+    A 64-bit binary for numpy is available at http://www.lfd.uci.edu/~gohlke/pythonlibs.
 	
 	Copy into C:\PythonXN\Lib\site-packages the folders site-packages\vis, site-packages\visual,
 	and site-packages\visual_common.
@@ -70,6 +71,7 @@ Building vpython with Visual Studio C++
         This is the only step that needs to be repeated as you make changes to the C++ source code.
         
     Get Polygon module.
+    A 64-bit binary is available at http://www.lfd.uci.edu/~gohlke/pythonlibs.
     In setup.py I tried setting withNumPy=True and defaultStyle='STYLE_NUMPY', but it won't compile.
     In the Polygon directory execute C:\Python2N\python setup.py install
     
