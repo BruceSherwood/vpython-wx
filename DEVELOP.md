@@ -13,6 +13,8 @@ Developing VPython uses a number of different tools, not all of which will be fa
 [**Boost**](http://www.boost.org): a standard set of C++ libraries.  Most
 Boost libraries consist of inline functions and templates in header files.
 
+[**Enthought**](https://enthought.com/products/epd/):  a company selling to scientific Python users.   EPD (Enthought Python Distribution) and Canopy (desktop environment) have free and commericial versions.
+
 [**GCC**](http://gcc.gnu.org): Gnu Compiler Collection, which includes the
 *gcc* compiler and *gcov* coverage/profiler tool.
 
