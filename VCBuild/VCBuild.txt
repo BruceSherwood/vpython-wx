@@ -26,15 +26,27 @@ Building vpython with Visual Studio C++
 	you need to go to Visual Studio project properties, Linker > Advanced, and clear Delay Sign.
                 
     Install Visual Studio C++ 2008 Express Edition, from
-        This link no longer works: http://www.microsoft.com/en-us/download/details.aspx?id=3092
-        http://freewareupdate.com/developer-tools/download-microsoft-visual-studio-2008-express-editions/1685-9385277637648729434538230869724179479494560372718823035706706601629596
-    Download the ISO disk image and write it to a DVD.
-    Run from the DVD to install the C++ version.
+
+        http://go.microsoft.com/?linkid=7729279
+
+    Run the downloaded file to install Visual Studio.
     
-    Install Windows SDK for Windows 7 and .NET Framework 3.5 SP1 (ISO), from
+    Install Windows SDK for Windows 7 and .NET Framework 3.5 SP1 (ISO), from either:
+
         http://www.microsoft.com/en-us/download/details.aspx?id=18950
-    Download the ISO disk image and write it to a DVD.
+    
+    (ISO format) Download the ISO disk image and write it to a DVD.
     Run from the DVD to install.
+
+    OR from: 
+
+        http://www.microsoft.com/en-us/download/details.aspx?id=3138
+
+    just download and install.
+
+    Either way, you need to configure Visual Studio 2008 to use this SDK, following the instructions at
+
+        http://blogs.msdn.com/b/windowssdk/archive/2009/08/07/using-the-win-7-sdk-build-environment-with-vs-2008.aspx
     
     Next read the following detailed instructions on how to get Visual Studio 2008 to do 64-bit compiles:    
         http://jenshuebel.wordpress.com/2009/02/12/visual-c-2008-express-edition-and-64-bit-targets/
@@ -61,9 +73,9 @@ Building vpython with Visual Studio C++
 	a recent attempt to use them (Aug. 2013) didn't work. See below for how to build Boost.
 
 	Build cvisual.pyd
-        Open the VCBuild/cvisual.sln project file in Visual Studio Express, 
-		choose 32-bit or 64-bit configuration, make Release the active 
-        configuration, then on the Build menu choose build or rebuild visual.
+        32 bit: Open the VCBuild/cvisual-32bit.vcproj project file in Visual Studio Express
+        64 bit: Open the VCBuild/cvisual.sln project file in Visual Studio Express, 
+		Make Release the active configuration, then on the Build menu choose build or rebuild visual.
 
         The .pyd file is placed in vpython-wx\site-packages\visual_common
         Copy this file to C:\PythonXN\Lib\site-packages\visual_common
@@ -123,22 +135,17 @@ cd to the Boost directory and execute
 
 .\bootstrap.bat
 
-to create the bjam tool and project-config.jam.
-
-In the file project-config.jam, add the Python version (such as 2.7) for which the Boost
-libaries are to be built:
-
-using python : 2.7 : "C:/Python27" ;
+to create the b2 tool and project-config.jam.
 
 To build the Boost libraries, execute this for 64-bit Python, using Visual Studio 2008 set up for 64-bit compiles:
 
-.\bjam --toolset=msvc-9.0 address-model=64 --build-type=complete --with-signals --with-python stage
+.\b2 --toolset=msvc-9.0 address-model=64 --build-type=complete --with-signals --with-python stage
     (Save this line, right-click in the Windows command prompt to paste.
      Right-click the title bar for additional options.)
 
 or this for 32-bit Python:
 
-.\bjam --build-type=complete --with-python --with-signals --with-random stage
+.\b2 --build-type=complete --with-python --with-signals stage
 
 "complete" means "make various variants of the libraries".
 
@@ -158,7 +165,7 @@ For Python 3.x:
 libboost_python3-vc90-mt-s-1_43.lib (and then change the name in win_libs to libboost_python-vc90-mt-s-1_43.lib)
 libboost_signals-vc90-mt-s-1_43.lib
 
-Also, you need to copy the directory named boost from the Boost files into dependencies\boost_file.
+Also, you need to copy the directory named boost from the Boost files into dependencies\boost_files.
 
 Presumably you're using GitHub, in which case you should add a file dependencies/.gitignore containing this:
 *.*
