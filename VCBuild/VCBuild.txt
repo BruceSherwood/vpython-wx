@@ -74,7 +74,7 @@ Building vpython with Visual Studio C++
 
 	Build cvisual.pyd
         32 bit: Open the VCBuild/cvisual-32bit.vcproj project file in Visual Studio Express
-        64 bit: Open the VCBuild/cvisual.sln project file in Visual Studio Express, 
+        64 bit: Open the VCBuild/cvisual27.sln project file in Visual Studio Express, 
 		Make Release the active configuration, then on the Build menu choose build or rebuild visual.
 
         The .pyd file is placed in vpython-wx\site-packages\visual_common
