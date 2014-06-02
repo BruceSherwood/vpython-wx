@@ -33,7 +33,7 @@ class shader_program {
 	
 	std::string source;
 	std::map<std::string, int> uniforms;
-	int program;
+	GLhandleARB program;
 	PFNGLDELETEOBJECTARBPROC glDeleteObjectARB;
 };
 
@@ -49,7 +49,7 @@ class use_shader_program {
 
  private:
 	const view& v;
-	int oldProgram;
+	GLhandleARB oldProgram;
 	bool m_ok;
 	void init( shader_program* program );
 };
