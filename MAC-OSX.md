@@ -178,3 +178,136 @@ CREATE INSTALLER
 In src/mac/PackageMaker is an Apple PackageMaker project file, a
 Welcome text file for creating a VPython installer for the Mac, and
 instructions in packaging.txt.
+
+
+NOTES ABOUT XCODE5
+------
+
+I've been experimenting with various build/binary options for MacOSX/vpython during the last few weeks. I've managed to build VPython from the latest git using the tools that come with Xcode 5 (clang 5) so that it works with python.org python. The hardest part seems to be getting boost compiled/linked in a way that makes everybody happy. Here's what I have now for boost 1.55:
+
+    ./bootstrap.sh --with-toolset=clang --with-python-version=2.7 --with-python-root=/Library/Frameworks/Python.framework/Versions/Current --with-python=python --with-libraries=python,signals
+
+    ./b2 toolset=clang cxxflags="-stdlib=libstdc++ -arch i386 -arch x86_64" linkflags=-stdlib=libstdc++ link=static threading=multi
+
+In the vpython source tree I've been setting:
+
+aluminum:vpython-wx steve$ ls -laR dependencies/
+total 0
+drwxr-xr-x   3 steve  501   102 Feb 20  2013 .
+drwxr-xr-x  48 steve  501  1632 Jun 17 15:30 ..
+drwxr-xr-x   4 steve  501   136 Jun 16 06:47 boost_files
+
+dependencies//boost_files:
+total 16
+drwxr-xr-x  4 steve  501  136 Jun 16 06:47 .
+drwxr-xr-x  3 steve  501  102 Feb 20  2013 ..
+lrwxr-xr-x  1 steve  501   27 Jun 16 06:46 boost -> ../../../boost_1_55_0/boost
+lrwxr-xr-x  1 steve  501   31 Jun 16 06:47 mac_libs -> ../../../boost_1_55_0/stage/lib
+
+Of course these can point to wherever your boost sources are living.
+
+Once this is done I've been running:
+
+    python setup.py build
+
+in the vpython source directory, then:
+
+    sudo python setup.py install
+
+to install vpython in site-packages.
+
+This works for python.org python and produces an "egg" distribution in site-packages:
+
+"/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/VPython-6.05-py2.7-macosx-10.6-intel.egg"
+
+My "quick and dirty" test is to run:
+
+    python -c 'import visual; visual.sphere()'
+
+from the command line to check it.
+
+If you have ‘pip’ (<http://pip.readthedocs.org/en/latest/installing.html>) and 'virtualenv' installed (<http://virtualenv.readthedocs.org/en/latest/virtualenv.html>) you can create a virtual environment to play in and use wheels that I've created using this python/boost combo that works with scipy, ipython, etc. as follows:
+
+    $ virtualenv -p /Library/Frameworks/Python.framework/Versions/Current/bin/pythonw testvpy
+    Running virtualenv with interpreter /Library/Frameworks/Python.framework/Versions/Current/bin/pythonw
+    New python executable in testvpy/bin/python
+    Installing setuptools, pip...done.
+
+    $ source testvpy/bin/activate
+    (testvpy)aluminum:~ steve$ 
+
+This is a "fresh" python environment with nothing installed
+
+    (testvpy)aluminum:~ steve$ python
+    Python 2.7.6 (v2.7.6:3a1db0d2747e, Nov 10 2013, 00:42:54) 
+    [GCC 4.2.1 (Apple Inc. build 5666) (dot 3)] on darwin
+    Type "help", "copyright", "credits" or "license" for more information.
+    >>> import numpy
+    Traceback (most recent call last):
+      File "<stdin>", line 1, in <module>
+    ImportError: No module named numpy
+    >>> import scipy
+    Traceback (most recent call last):
+      File "<stdin>", line 1, in <module>
+    ImportError: No module named scipy
+    >>> import visual
+    Traceback (most recent call last):
+      File "<stdin>", line 1, in <module>
+    ImportError: No module named visual
+
+You can use "pip" to install stuff:
+
+    (testvpy)aluminum:~ steve$ pip install numpy
+    Downloading/unpacking numpy
+      Downloading numpy-1.8.1-cp27-none-macosx_10_6_intel.macosx_10_9_intel.macosx_10_9_x86_64.whl (12.0MB): 12.0MB downloaded
+    Installing collected packages: numpy
+    Successfully installed numpy
+    Cleaning up...
+
+    (testvpy)aluminum:~ steve$ pip install scipy
+    Downloading/unpacking scipy
+      Downloading scipy-0.14.0-cp27-none-macosx_10_6_intel.macosx_10_9_intel.macosx_10_9_x86_64.whl (26.7MB): 26.7MB downloaded
+    Installing collected packages: scipy
+    Successfully installed scipy
+    Cleaning up...
+
+I've put some wheels up to enable vpython  (built as above) to work. If you are willing, I'd appreciate if you'd try this:
+
+    (testvpy)aluminum:~ steve$ pip install https://dl.dropboxusercontent.com/u/20562746/VPythonWheels/VPython-6.05-cp27-none-macosx_10_6_intel.whl
+    Downloading/unpacking https://dl.dropboxusercontent.com/u/20562746/VPythonWheels/VPython-6.05-cp27-none-macosx_10_6_intel.whl
+      Downloading VPython-6.05-cp27-none-macosx_10_6_intel.whl (8.7MB): 8.7MB downloaded
+    Installing collected packages: VPython
+    Successfully installed VPython
+    Cleaning up...
+
+    (testvpy)aluminum:~ steve$ pip install https://dl.dropboxusercontent.com/u/20562746/VPythonWheels/TTFQuery-1.0.5-py2-none-any.whl
+    Downloading/unpacking https://dl.dropboxusercontent.com/u/20562746/VPythonWheels/TTFQuery-1.0.5-py2-none-any.whl
+      Downloading TTFQuery-1.0.5-py2-none-any.whl
+    Installing collected packages: TTFQuery
+    Successfully installed TTFQuery
+    Cleaning up...
+
+    (testvpy)aluminum:~ steve$ pip install https://dl.dropboxusercontent.com/u/20562746/VPythonWheels/FontTools-2.4-cp27-none-macosx_10_6_intel.whl
+    Downloading/unpacking https://dl.dropboxusercontent.com/u/20562746/VPythonWheels/FontTools-2.4-cp27-none-macosx_10_6_intel.whl
+      Downloading FontTools-2.4-cp27-none-macosx_10_6_intel.whl (342kB): 342kB downloaded
+    Requirement already satisfied (use --upgrade to upgrade): numpy in ./testvpy/lib/python2.7/site-packages (from FontTools==2.4)
+    Installing collected packages: FontTools
+    Successfully installed FontTools
+    Cleaning up...
+
+    (testvpy)aluminum:~ steve$ pip install https://dl.dropboxusercontent.com/u/20562746/VPythonWheels/Polygon2-2.0.6-cp27-none-macosx_10_6_intel.whl
+    Downloading/unpacking https://dl.dropboxusercontent.com/u/20562746/VPythonWheels/Polygon2-2.0.6-cp27-none-macosx_10_6_intel.whl
+      Downloading Polygon2-2.0.6-cp27-none-macosx_10_6_intel.whl (77kB): 77kB downloaded
+    Installing collected packages: Polygon2
+    Successfully installed Polygon2
+    Cleaning up...
+
+There is no "pip" way to install wxpython yet, so I just copied the wxredirect.pth file from my python.org installation:
+
+    cp /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/wxredirect.pth ~/testvpy/lib/python2.7/site-packages/
+
+Now, you can do a quick test as:
+
+    python -c 'import visual; visual.sphere()'
+
+More on canopy/brew soon!
