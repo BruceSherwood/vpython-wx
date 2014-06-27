@@ -47,6 +47,13 @@ Building vpython with Visual Studio C++
     Either way, you need to configure Visual Studio 2008 to use this SDK, following the instructions at
 
         http://blogs.msdn.com/b/windowssdk/archive/2009/08/07/using-the-win-7-sdk-build-environment-with-vs-2008.aspx
+        
+        Here is the main information from this link:
+        Use the Windows SDK Configuration Tool to set the Windows 7 SDK as the “current” SDK for MSBuild and VCBuild.
+        This will update the Windows 7 SDK build environment and the Visual Studio 2008 IDE build environment to use 
+        the Windows 7 SDK headers, libraries and tools. You can also use this tool to switch it back again.
+        To run the GUI version of the Windows SDK Configuration Tool, go to Start, All Programs, 
+        Microsoft Windows SDK v7.0, Visual Studio Registration, Windows SDK Configuration Tool.
     
     Next read the following detailed instructions on how to get Visual Studio 2008 to do 64-bit compiles:    
         http://jenshuebel.wordpress.com/2009/02/12/visual-c-2008-express-edition-and-64-bit-targets/
@@ -56,7 +63,7 @@ Building vpython with Visual Studio C++
 		Be sure to inspect the output in the shell window, and do any operations by hand that fail there.
     
     At Tools->Options->Projects and Solutions->VC++ Directories you can see what resources
-    are invoked for Platform x64. You should see $(VCInstallDir)bin\x86_amd64, where $(VCInstallDir)
+    are invoked for Platform x64. You should see $(VCInstallDir)bin, where $(VCInstallDir)
     represents C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC.
     In this VC folder there is a major error in the file vcvarsall.bat that affects
     building Boost from source. The following lines
