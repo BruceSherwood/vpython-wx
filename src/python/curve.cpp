@@ -205,6 +205,20 @@ curve::thickline( const view& scene, double* spos, float* tcolor, size_t pcount,
 	size_t i = closed ? 0 : sides;
 	bool mono = adjust_colors( scene, tcolor, pcount);
 
+	// eliminate initial duplicate points
+	vector start( &v_i[0] );
+	size_t reduce = 0;
+	for (size_t corner=0; corner < pcount; ++corner, v_i += 3, c_i += 3) {
+		vector next( &v_i[3] );
+		vector A = (next - start).norm();
+		if (!A) {
+			reduce += 1;
+			continue;
+		}
+		pcount -= reduce;
+		break;
+	}
+
 	for (size_t corner=0; corner < pcount; ++corner, v_i += 3, c_i += 3) {
 		vector current( &v_i[0] );
 
@@ -213,21 +227,7 @@ curve::thickline( const view& scene, double* spos, float* tcolor, size_t pcount,
 		if (corner != pcount-1) {
 			next = vector( &v_i[3] ); // The next vector in spos
 			A = (next - current).norm();
-			if (!A) {
-				if (corner == 0) {
-					const double* tv_i = v_i;
-					for (size_t tcorner=0; tcorner < pcount; ++tcorner, tv_i += 3) {
-						A = (vector( &tv_i[3] ) - current).norm();
-						if (!A) continue;
-					}
-					if (!A) { // all the points of this curve are at the same location; abort
-						return;
-					}
-					lastA = A;
-				} else {
-					A = lastA;
-				}
-			}
+			if (!A) A = lastA;
 			bisecting_plane_normal = (A + lastA).norm();
 			if (!bisecting_plane_normal) {  //< Exactly 180 degree bend
 				bisecting_plane_normal = vector(0,0,1).cross(A);
