@@ -88,10 +88,6 @@ class display_kernel
 	/** Called at the end of a render cycle to complete lighting. */
 	void disable_lights();
 
-	/** Whether or not we should display the speed of the renderer.
-	 * Default: false.
-	 */
-	bool show_rendertime;
 	rgb background; ///< The background color of the scene.
 	rgb foreground; ///< The default color for objects to be rendered into the scene.
 
@@ -288,9 +284,6 @@ public: // Public Data.
 
 	void set_autocenter( bool);
 	bool get_autocenter();
-
-	void set_show_rendertime( bool);
-	bool is_showing_rendertime();
 
 	void set_range_d( double);
 	void set_range( const vector&);

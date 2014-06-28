@@ -147,7 +147,6 @@ display_kernel::display_kernel()
 	gcf_changed(false),
 	ambient( 0.2f, 0.2f, 0.2f),
 	show_toolbar( false),
-	show_rendertime( false),
 	last_time(0),
 	background(0, 0, 0), //< Transparent black.
 	spin_allowed(true),
@@ -738,16 +737,6 @@ display_kernel::render_scene(void)
 		realize();
 	}
 
-	/*
-	double start_time, cycle;
-	if (show_rendertime) {
-		start_time = render_timer.elapsed();
-		cycle = start_time - last_time;
-		last_time = start_time;
-	}
-	*/
-
-
 	try {
 		recalc_extent();
 		view scene_geometry( internal_forward.norm(), center, view_width,
@@ -870,53 +859,6 @@ display_kernel::render_scene(void)
 				break;
 			}
 		}
-		/*
-		if (show_rendertime) {
-			double render_time = render_timer.elapsed()-start_time, flush_time = -1;
-
-			#if 0 //< Only for performance measurement; disable in shipping code
-			glFinish();
-
-			flush_time = render_timer.elapsed() - start_time - render_time;
-			#endif
-
-			std::wostringstream render_msg;
-			render_msg.precision(3);
-
-			// render time does not include pick time, which may be negligible
-			//render_msg << "cycle: " << int(1000*cycle) <<
-			//   " render: " << int(1000*(render_time));
-
-			// render_time is only a portion of the actual paint time,
-			// so it is misleading to display it.
-			// The cycle time assumes only one scene, but at least it is accurate in this important special case.
-			render_msg << "cycle: " << int(1000*cycle);
-
-			if (flush_time>=0) render_msg << " flush: " << int(1000*flush_time);
-			glColor3f(
-				1.0f - background.red, 1.0f-background.green, 1.0f-background.blue);
-
-			glMatrixMode( GL_PROJECTION);
-			glPushMatrix();
-			glLoadIdentity();
-			gluOrtho2D( 0, view_width, 0, view_height);
-			glMatrixMode( GL_MODELVIEW);
-			glPushMatrix();
-			glLoadIdentity();
-
-			{
-				gl_disable depth_test(GL_DEPTH_TEST);
-				boost::shared_ptr<font> default_font = font::find_font();
-				boost::shared_ptr<layout> lay_out = default_font->lay_out( render_msg.str());
-				lay_out->gl_render( scene_geometry, vector(5, lay_out->extent( scene_geometry ).y + 3));
-			}
-
-			glPopMatrix();
-			glMatrixMode( GL_PROJECTION);
-			glPopMatrix();
-			glMatrixMode( GL_MODELVIEW);
-		}
-		*/
 
 		// Cleanup
 		check_gl_error();
@@ -930,11 +872,6 @@ display_kernel::render_scene(void)
 		VPYTHON_CRITICAL_ERROR( msg.str());
 		std::exit(1);
 	}
-	/*
-	if (show_rendertime) {
-		render_time = render_timer.elapsed()-start_time;
-	}
-	*/
 
 	// TODO: Can we delay picking until the Python program actually wants one of these attributes?
 	mouse.get_mouse().cam = camera;
@@ -1317,18 +1254,6 @@ void
 display_kernel::set_autocenter( bool n_autocenter)
 {
 	autocenter = n_autocenter;
-}
-
-void
-display_kernel::set_show_rendertime( bool show)
-{
-	show_rendertime = show;
-}
-
-bool
-display_kernel::is_showing_rendertime()
-{
-	return show_rendertime;
 }
 
 void

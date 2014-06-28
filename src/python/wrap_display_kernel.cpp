@@ -160,9 +160,6 @@ wrap_display_kernel(void)
 			&display_kernel::set_autocenter)
 		.add_property( "stereo", &display_kernel::get_stereomode,
 			&display_kernel::set_stereomode)
-		.add_property( "show_rendertime",
-			&display_kernel::is_showing_rendertime,
-			&display_kernel::set_show_rendertime)
 		.add_property( "userspin", &display_kernel::spin_is_allowed,
 			&display_kernel::allow_spin)
 		.add_property( "userzoom", &display_kernel::zoom_is_allowed,
