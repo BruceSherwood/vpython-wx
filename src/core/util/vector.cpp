@@ -114,15 +114,6 @@ vector::diff_angle( const vector& v) const throw()
 		return 3.14159265358979323846 - 2.0*std::asin(d/2.0);
 	}
 	return std::acos(d);
-
-	/*
-	// Old version gave nan when rounding led to acos(1+epsilon)
-	double magfirst = this->mag2();
-	double magsecond = v.mag2();
-	if (magfirst == 0.0 || magsecond == 0.0)
-		return (double) 0.0;
-	return std::acos( this->dot( v) / std::sqrt(magfirst*magsecond) );
-	*/
 }
 
 std::string
