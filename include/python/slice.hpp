@@ -42,7 +42,7 @@ class slice : public boost::python::object
 	// that created this slice, than that parameter is None here, and compares 
 	// equal to a default-constructed boost::python::object.
 	// If a user-defined type wishes to support slicing, then support for the 
-	// special meaning associated with negative indicies is up to the user.
+	// special meaning associated with negative indices is up to the user.
 	boost::python::object start();
 	boost::python::object stop();
 	boost::python::object step();
@@ -50,7 +50,7 @@ class slice : public boost::python::object
  public:
 	// This declaration, in conjunction with the specialization of 
 	// object_manager_traits<> below, allows C++ functions accepting slice 
-	// arguments to be called from from Python.  These constructors should never
+	// arguments to be called from Python.  These constructors should never
 	// be used in client code.
 	BOOST_PYTHON_FORWARD_OBJECT_CONSTRUCTORS(slice, boost::python::object)
 };
@@ -64,6 +64,6 @@ struct object_manager_traits<cvisual::python::slice>
 {
 };
 	
-} } }// !namesapce boost::python::converter
+} } }// !namespace boost::python::converter
 
 #endif // !defined VVPYTHON_PYTHON_SLICE_HPP

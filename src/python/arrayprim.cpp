@@ -23,6 +23,8 @@ void arrayprim_array<CTYPE>::set_length( size_t new_len ) {
 
 	size_t old_len = length;
 
+	if (new_len == old_len) { return; } // no need to adjust the length
+
 	if (new_len < old_len ) {
 		// Shrink, keeping the last points (for retain)
 		//(*this)[ slice(0,new_len) ] = (*this)[ slice(old_len-new_len,old_len) ];
