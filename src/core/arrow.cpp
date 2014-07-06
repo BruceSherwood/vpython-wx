@@ -66,6 +66,7 @@ void
 arrow::set_shaftwidth( double sw)
 {
 	shaftwidth = sw;
+	fixedwidth = true;
 }
 
 double
