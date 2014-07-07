@@ -6,7 +6,7 @@
 
 [Setup]
 AppName=VPython for Python 2.7
-AppVerName=VPython 6.01
+AppVerName=VPython 6.10
 AppPublisherURL=http://vpython.org
 DefaultDirName={code:MyConst}
 
@@ -14,7 +14,7 @@ SourceDir=C:\Python27
 DisableProgramGroupPage=yes
 DirExistsWarning=no
 DisableStartupPrompt=yes
-OutputBaseFilename=VPython-Win-32-Py2.7-6.01
+OutputBaseFilename=VPython-Win-32-Py2.7-6.10
 OutputDir=c:\workspace
 
 [Files]
