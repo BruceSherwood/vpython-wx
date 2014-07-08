@@ -218,6 +218,7 @@ curve::thickline( const view& scene, double* spos, float* tcolor, size_t pcount,
 		pcount -= reduce;
 		break;
 	}
+	if (pcount < 2) return;
 
 	for (size_t corner=0; corner < pcount; ++corner, v_i += 3, c_i += 3) {
 		vector current( &v_i[0] );
