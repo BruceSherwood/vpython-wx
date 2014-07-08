@@ -17,7 +17,7 @@ DisableProgramGroupPage=yes
 DirExistsWarning=no
 DisableStartupPrompt=yes
 OutputBaseFilename=VPython-Win-64-Py2.7-6.10
-OutputDir=c:\workspace
+OutputDir=H:\HP_Cdrive\workspace
 
 [Files]
 ; The following overwrite is no longer performed, now that VIDLE is an option:
@@ -75,7 +75,7 @@ Source: "Lib\site-packages\vidle\*.def"; DestDir: "{app}\Lib\site-packages\vidle
 ;Source: "Lib\site-packages\vidle\*.gif"; DestDir: "{app}\Lib\site-packages\vidle\"; Components: VIDLE; Flags: recursesubdirs
 Source: "Lib\site-packages\vidle\*.icns"; DestDir: "{app}\Lib\site-packages\vidle\"; Components: VIDLE; Flags: recursesubdirs
 
-Source: "Lib\site-packages\wx-2.9.4-msw\*"; DestDir: "{app}\Lib\site-packages\wx-2.9.4-msw\"; Components: wx; Flags: recursesubdirs
+Source: "Lib\site-packages\wx-3.0-msw\*"; DestDir: "{app}\Lib\site-packages\wx-3.0-msw\"; Components: wx; Flags: recursesubdirs
 Source: "Lib\site-packages\wx.pth"; DestDir: "{app}\Lib\site-packages\"; Components: wx; Flags: recursesubdirs 
 Source: "Lib\site-packages\wxversion.py"; DestDir: "{app}\Lib\site-packages\"; Components: wx; Flags: recursesubdirs
 
@@ -84,16 +84,16 @@ Name: Visual; Description: "The Visual extension module for Python"; Types: full
 Name: Documentation; Description: "Documentation for the Visual extension to Python"; Types: full
 Name: Examples; Description: "Example programs"; Types: full
 
-Name: numpy; Description: "numpy 1.6.2 {code:NumpyStatus|C:\Python27}"; Types: full; Check: CheckNumpy( 'C:\Python27' )
+Name: numpy; Description: "numpy 1.8.1 {code:NumpyStatus|C:\Python27}"; Types: full; Check: CheckNumpy( 'C:\Python27' )
 
 ; FontTools, ttfquery, and Polygon are needed by the 3D text object
 Name: FontTools; Description: "FontTools 2.3 {code:FontToolsStatus|C:\Python27}"; Types: full; Check: CheckFontTools( 'C:\Python27' )
 Name: ttfquery; Description: "ttfquery 1.0.4 {code:ttfqueryStatus|C:\Python27}"; Types: full; Check: Checkttfquery( 'C:\Python27' )
-Name: Polygon; Description: "Polygon 2.0.5 {code:PolygonStatus|C:\Python27}"; Types: full; Check: CheckPolygon( 'C:\Python27' )
+Name: Polygon; Description: "Polygon 2.0.6 {code:PolygonStatus|C:\Python27}"; Types: full; Check: CheckPolygon( 'C:\Python27' )
 
 Name: VIDLE; Description: "VIDLE: improved version of the IDLE program editor"; Types: full custom
 
-Name: wx; Description: "wxPython 2.9.4 {code:WxPythonStatus|C:\Python27}"; Types: full; Check: CheckWxPython( 'C:\Python27' )
+Name: wx; Description: "wxPython 3.0.0 {code:WxPythonStatus|C:\Python27}"; Types: full; Check: CheckWxPython( 'C:\Python27' )
 
 [Tasks]
 Name: desktopicon; Description: "Create a desktop icon to start VIDLE"
