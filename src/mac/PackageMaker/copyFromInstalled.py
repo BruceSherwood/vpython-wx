@@ -1,5 +1,5 @@
 """
-This script copies a fully installed version of VPython (not FontTools, TTFQuery, Polygon, or wxPython)
+This script copies a fully installed version of VPython (not FontTools, numpy, TTFQuery, Polygon, or wxPython)
 from the site-packages directory to the staging area. These other packages change so rarely
 that they only need to be copied very rarely.
 
