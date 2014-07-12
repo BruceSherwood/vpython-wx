@@ -1,4 +1,5 @@
 from __future__ import print_function
+
 try:
     from distribute_setup import use_setuptools
     use_setuptools()
@@ -137,7 +138,7 @@ for pattern in patterns:
     VISUAL_SOURCES.extend(glob(VISUAL_DIR + pattern))
 
 if os_host == 'mac':
-    os.environ['LDFLAGS'] = '-framework Cocoa -framework OpenGL -framework Python'
+    os.environ['LDFLAGS'] = '-framework Cocoa -framework OpenGL' # -framework Python'
 elif os_host == 'linux':
     os.environ['LD_FLAGS'] = LINK_FLAGS
 
