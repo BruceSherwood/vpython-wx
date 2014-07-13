@@ -22,4 +22,6 @@ tidier) you can use the included script:
 $ sudo sh -v vpy_uninstall.sh
 
 Or you can try the "vpy_uninstall.app" which is a simple Automator
-wrapper around the shell script.
+wrapper around the shell script. Note that "vpy_uninstall.app" will
+only work if the .dmg is mounted since it simply calls the script
+that's located on the .dmg!
