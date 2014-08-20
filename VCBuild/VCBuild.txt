@@ -29,7 +29,7 @@ Building vpython with Visual Studio C++
 
         http://go.microsoft.com/?linkid=7729279
         
-    (Python 3.4 was compiled using VS 2010, available at http://www.microsoft.com/en-us/download/confirmation.aspx?id=23507)
+    (Python 3.4 was compiled using VS 2010, available at http://www.visualstudio.com/downloads/download-visual-studio-vs#DownloadFamilies_4)
 
     Run the downloaded file to install Visual Studio.
     
