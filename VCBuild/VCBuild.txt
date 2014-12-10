@@ -122,13 +122,13 @@ ExpandConstant('{reg:HKLM\Software\Python\PythonCore\2.7\InstallPath,}\python.ex
 It has been said that one should use the RegQuery* family of support functions instead of trying to expand a {reg:...} constant within the code section.
 
 DEBUGGING
-Go to the "System" control panel and choose advanced settings, then environment variables
+Go to the "System" control panel and choose advanced settings, then environment variables.
 Create a user variable "VPYTHON_DEBUG" and give it the value 1.
 
 Run the Windows command prompt, found in Accessories in the program listings, cd to a
 directory with a Python script, and execute this:
 
-\Python2N\python.exe sometest.py
+C:\Python2N\python.exe sometest.py
 
 You'll get a trace of the VPYTHON_NOTE entries in the source code.
 
