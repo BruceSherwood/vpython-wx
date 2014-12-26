@@ -6,7 +6,7 @@
 
 [Setup]
 AppName=VPython for Python 2.7
-AppVerName=VPython 6.10
+AppVerName=VPython 6.11
 AppPublisherURL=http://vpython.org
 DefaultDirName={code:MyConst}
 ArchitecturesAllowed=x64
@@ -16,8 +16,8 @@ SourceDir=C:\Python27
 DisableProgramGroupPage=yes
 DirExistsWarning=no
 DisableStartupPrompt=yes
-OutputBaseFilename=VPython-Win-64-Py2.7-6.10
-OutputDir=H:\HP_Cdrive\workspace
+OutputBaseFilename=VPython-Win-64-Py2.7-6.11
+OutputDir=M:\HP_Cdrive\workspace
 
 [Files]
 ; The following overwrite is no longer performed, now that VIDLE is an option:
@@ -84,7 +84,7 @@ Name: Visual; Description: "The Visual extension module for Python"; Types: full
 Name: Documentation; Description: "Documentation for the Visual extension to Python"; Types: full
 Name: Examples; Description: "Example programs"; Types: full
 
-Name: numpy; Description: "numpy 1.8.1 {code:NumpyStatus|C:\Python27}"; Types: full; Check: CheckNumpy( 'C:\Python27' )
+Name: numpy; Description: "numpy 1.8.2 {code:NumpyStatus|C:\Python27}"; Types: full; Check: CheckNumpy( 'C:\Python27' )
 
 ; FontTools, ttfquery, and Polygon are needed by the 3D text object
 Name: FontTools; Description: "FontTools 2.3 {code:FontToolsStatus|C:\Python27}"; Types: full; Check: CheckFontTools( 'C:\Python27' )

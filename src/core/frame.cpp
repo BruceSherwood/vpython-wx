@@ -84,7 +84,9 @@ frame::get_z()
 void
 frame::set_axis( const vector& n_axis)
 {
-	axis = n_axis;
+	vector a = axis.cross(n_axis);
+	double angle = n_axis.diff_angle(axis);
+	rotate(angle, a, pos);
 }
 
 shared_vector&

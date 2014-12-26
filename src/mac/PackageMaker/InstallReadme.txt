@@ -9,7 +9,7 @@ uninstall script. The intro to the .pkg installer reads:
 The Python.org “Python 2.7” distribution must first be installed from
 python.org before installing this Python module. This installer installs
 everything you need (except for Python itself) to edit and run vpython
-programs on MacOS X. In addition to the visual module (6.10), this
+programs on MacOS X. In addition to the visual module (6.11), this
 installer installs numpy-1.8.1, wxPython-3.0.0, TTFQuery-1.04,
 Polygon-2.06 and FontTools-2.3.
 
