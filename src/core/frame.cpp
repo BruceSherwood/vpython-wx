@@ -85,8 +85,13 @@ void
 frame::set_axis( const vector& n_axis)
 {
 	vector a = axis.cross(n_axis);
-	double angle = n_axis.diff_angle(axis);
-	rotate(angle, a, pos);
+	if (a.mag() == 0.0) {
+		axis = n_axis;
+	} else {
+		double angle = n_axis.diff_angle(axis);
+		axis = n_axis.mag()*axis.norm();
+		rotate(angle, a, pos);
+	}
 }
 
 shared_vector&
