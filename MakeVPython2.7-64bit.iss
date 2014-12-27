@@ -84,7 +84,7 @@ Name: Visual; Description: "The Visual extension module for Python"; Types: full
 Name: Documentation; Description: "Documentation for the Visual extension to Python"; Types: full
 Name: Examples; Description: "Example programs"; Types: full
 
-Name: numpy; Description: "numpy 1.8.2 {code:NumpyStatus|C:\Python27}"; Types: full; Check: CheckNumpy( 'C:\Python27' )
+Name: numpy; Description: "numpy 1.9.1 {code:NumpyStatus|C:\Python27}"; Types: full; Check: CheckNumpy( 'C:\Python27' )
 
 ; FontTools, ttfquery, and Polygon are needed by the 3D text object
 Name: FontTools; Description: "FontTools 2.3 {code:FontToolsStatus|C:\Python27}"; Types: full; Check: CheckFontTools( 'C:\Python27' )
