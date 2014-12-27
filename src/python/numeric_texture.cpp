@@ -255,10 +255,6 @@ void
 numeric_texture::set_data( boost::python::numeric::array data)
 {
 	namespace py = boost::python;
-	if (data == py::object() && texdata != py::object()) {
-		throw std::invalid_argument(
-			"Cannot nullify a texture by assigning its data to None");
-	}
 
 	NPY_TYPES t = type(data);
 	if (t == NPY_CFLOAT || t == NPY_CDOUBLE || t == NPY_OBJECT || t == NPY_NOTYPE)
