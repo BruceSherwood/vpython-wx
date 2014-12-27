@@ -6,7 +6,7 @@
 
 [Setup]
 AppName=VPython for Python 2.7
-AppVerName=VPython 6.10
+AppVerName=VPython 6.11
 AppPublisherURL=http://vpython.org
 DefaultDirName={code:MyConst}
 
@@ -14,7 +14,7 @@ SourceDir=C:\Python27
 DisableProgramGroupPage=yes
 DirExistsWarning=no
 DisableStartupPrompt=yes
-OutputBaseFilename=VPython-Win-32-Py2.7-6.10
+OutputBaseFilename=VPython-Win-32-Py2.7-6.11
 OutputDir=c:\workspace
 
 [Files]
@@ -82,7 +82,7 @@ Name: Visual; Description: "The Visual extension module for Python"; Types: full
 Name: Documentation; Description: "Documentation for the Visual extension to Python"; Types: full
 Name: Examples; Description: "Example programs"; Types: full
 
-Name: numpy; Description: "numpy 1.6.2 {code:NumpyStatus|C:\Python27}"; Types: full; Check: CheckNumpy( 'C:\Python27' )
+Name: numpy; Description: "numpy 1.8.2 {code:NumpyStatus|C:\Python27}"; Types: full; Check: CheckNumpy( 'C:\Python27' )
 
 ; FontTools, ttfquery, and Polygon are needed by the 3D text object
 Name: FontTools; Description: "FontTools 2.3 {code:FontToolsStatus|C:\Python27}"; Types: full; Check: CheckFontTools( 'C:\Python27' )
@@ -91,7 +91,7 @@ Name: Polygon; Description: "Polygon 2.0.2 {code:PolygonStatus|C:\Python27}"; Ty
 
 Name: VIDLE; Description: "VIDLE: improved version of the IDLE program editor"; Types: full custom
 
-Name: wx; Description: "wxPython 2.9.4 {code:WxPythonStatus|C:\Python27}"; Types: full; Check: CheckWxPython( 'C:\Python27' )
+Name: wx; Description: "wxPython 3.0 {code:WxPythonStatus|C:\Python27}"; Types: full; Check: CheckWxPython( 'C:\Python27' )
 
 [Tasks]
 Name: desktopicon; Description: "Create a desktop icon to start VIDLE"
