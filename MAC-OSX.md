@@ -323,21 +323,30 @@ You can do a quick test:
 
 --------------------------------------
 
-Notes for installing vpython on MacOSX for Canopy:
+Notes for installing vpython on MacOSX for Enthought Canopy:
 
-Make a virtual environment (e.g. my_venv):
+You can install vpython in the main canopy environment by running the canopy application and selecting:
 
-/Applications/Canopy.app/Contents/MacOS/Canopy_cli venv ~/my_venv -s
+Tools -> Canopy Terminal
 
-You'll need to install wxPython-3.0.0 cocoa (as of this commit canopy only has 2.9.2.4-1 which won't work)
+You can install from wheels by upgrading pip. Download:
 
-(You can do this using either the wxPython installer 
+<https://bootstrap.pypa.io/get-pip.py>
 
-After wxPython-3.0.0 is installed create a file:
+and execute:
 
-~/my_venv/lib/python2.7/site-packages/wxredirect.pth
+(Canopy 64bit) $python ~/Downloads/get-pip.py 
 
-that contains the script: "import site; site.addsitedir('/usr/local/lib/wxPython-3.0.0.0/lib/python2.7')"
+Then install from binary wheels on Dropbox:
+
+(Canopy 64bit) $pip install https://dl.dropboxusercontent.com/u/20562746/VPythonWheels/canopy/VPython-6.10-cp27-none-macosx_10_6_x86_64.whl
+(Canopy 64bit) $pip install https://dl.dropboxusercontent.com/u/20562746/VPythonWheels/canopy/Polygon2-2.0.6-cp27-none-macosx_10_6_x86_64.whl
+(Canopy 64bit) $pip install https://dl.dropboxusercontent.com/u/20562746/VPythonWheels/canopy/FontTools-2.4-cp27-none-macosx_10_6_x86_64.whl
+(Canopy 64bit) $pip install https://dl.dropboxusercontent.com/u/20562746/VPythonWheels/canopy/TTFQuery-1.0.4-py2-none-any.whl
+
+*OR*
+
+You can install vpython in a virtual environment without disturbing your global canopy environment
 
 You can install from wheels by upgrading pip. Download:
 
@@ -354,7 +363,9 @@ Then install from binary wheels on Dropbox:
 ~/my_venv/bin/pip install https://dl.dropboxusercontent.com/u/20562746/VPythonWheels/canopy/FontTools-2.4-cp27-none-macosx_10_6_x86_64.whl
 ~/my_venv/bin/pip install https://dl.dropboxusercontent.com/u/20562746/VPythonWheels/canopy/TTFQuery-1.0.4-py2-none-any.whl
 
-You can also build vpython from source, but you'll need to built boost as well:
+*OR*
+
+You can build vpython from source, but you'll need to built boost as well:
 
 in the boost boost_1_55_0 directory execute:
 
@@ -374,3 +385,4 @@ Then build per above instructions for XCODE5.
 
 You don't need to worry about the 'dependencies' folder since brew puts boost libs in /usr/local/lib where the compiler will find them by default.
 
+Brew also has a formula for wxpython which is new enough (3.0+) to work with visual python 6 if you want to use that one.

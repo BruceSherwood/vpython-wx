@@ -80,7 +80,8 @@ elif os_host in ('linux'):
     LINK_FLAGS="-Wl,--export-dynamic"
 
     GTK_VIS_LIBS = get_libs()
-    GTK_VIS_LIBS.append('boost_python-mt-py' + versionString)
+    # GTK_VIS_LIBS.append('boost_python-mt-py' + versionString)
+    GTK_VIS_LIBS.append('boost_python-py' + versionString)
     GTK_VIS_LIBS.append('boost_signals')
 
     GTK_INCDIRS = get_includes()
