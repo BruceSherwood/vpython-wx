@@ -6,6 +6,10 @@ pmdoc file to construct the package...
 
 if the command line argument is 'dmg' then use the hdutil program to create a .dmg
 
+manual step to sign for now:
+
+productsign --sign "Developer ID Installer: Silicon Prairie Ventures Inc" src/mac/PackageMaker/VisualPythonInstaller/VPython-Mac-Py2.7-6.11.pkg ~/outpath/VPython-Mac-6.02-Py2.7.pkg 
+
 """
 
 import os
@@ -25,7 +29,7 @@ VERSION = setup.VERSION
 HOME_DIR=os.path.expanduser("~")
 PKG_MAKER_DIR="src/mac/PackageMaker"
 PKG_MAKER="/Applications/PackageMaker.app/Contents/MacOS/PackageMaker"
-PM_DOC=os.path.join(PKG_MAKER_DIR,'VPY-6.0-beta-py27.pmdoc')
+PM_DOC=os.path.join(PKG_MAKER_DIR,'VPY-6-py27.pmdoc')
 PKG_DIR=os.path.join(PKG_MAKER_DIR,'VisualPythonInstaller')
 PKG_OUT=os.path.join(PKG_DIR,'VPython-Mac-Py2.7-' + VERSION + '.pkg')
 DMG_OUT=os.path.join(PKG_MAKER_DIR,'VPython-Mac-Py2.7-' + VERSION + '.dmg')
@@ -53,4 +57,4 @@ elif len(sys.argv)>1 and sys.argv[1]=='dmg':
     print "Executing:", cmdList
     subprocess.call(cmdList)
 else:
-    print "Usage:", sys.arv[0], '[ pkg , dmg ]'
+    print "Usage:", sys.argv[0], '[ pkg , dmg ]'

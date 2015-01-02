@@ -1,5 +1,4 @@
 *.pmdoc
 VisualPythonInstaller
-VIDLE.app
+*.app
 *.dmg
-
