@@ -8,7 +8,7 @@ if the command line argument is 'dmg' then use the hdutil program to create a .d
 
 manual step to sign for now:
 
-productsign --sign "Developer ID Installer: Silicon Prairie Ventures Inc" src/mac/PackageMaker/VisualPythonInstaller/VPython-Mac-Py2.7-6.11.pkg ~/outpath/VPython-Mac-6.02-Py2.7.pkg 
+productsign --sign "Developer ID Installer: Silicon Prairie Ventures Inc" src/mac/PackageMaker/VisualPythonInstaller/VPython-Mac-Py2.7-6.11.pkg ~/outpath/VPython-Mac-Py2.7-6.11.pkg
 
 """
 

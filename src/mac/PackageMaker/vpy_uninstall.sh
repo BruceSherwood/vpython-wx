@@ -2,7 +2,8 @@
 #
 # This is an experimental uninstall tool for VPython. It will uninstall VPython 
 # and its dependencies from the python.org python site packages and wxPython
-# from /usr/local/lib
+# from /usr/local/lib. Beware it will delete all versions of these libraries
+# so if you have multiple versions, you should do this manually.
 #
 
 SITE_PATH="/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages"
