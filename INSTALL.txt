@@ -58,6 +58,8 @@ I.  Prerequisites:
 	BUILD wxPython
 	
 	Currently one needs version 3, at http://www.wxpython.org/download.php
+	
+	After unzipping the download, see README.1st.txt for documentation on how to build wxPython.
 
     At the conclusion of the build you will see something like the following (discussed later):
      To use wxPython you may need to execute these statements:
@@ -83,8 +85,9 @@ I.  Prerequisites:
 	CREATE VIDLE EDITOR SHORTCUT
 
 	Create a file "vidle.sh" containing three statements like the following
-	(see the final output of building wxPython), execute "chmod a=rwx vidle.sh" to make
-	the file executable, then doubleclick the file to start the VIDLE editor:
+	(see the final output of building wxPython), then cd to wherever the file is
+	and execute "chmod a=rwx vidle.sh" to make 	the file executable, then 
+	doubleclick the file to start the VIDLE editor:
 
 	export PYTHONPATH="/home/bruce/Downloads/wxPython-src-X.Y.Z/wxPython"
 	export LD_LIBRARY_PATH="/home/bruce/Downloads/wxPython-src-X.Y.Z/bld/lib"
