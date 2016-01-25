@@ -79,6 +79,21 @@ elif os_host in ('linux'):
 
     LIBRARY_DIRS=[]
 
+elif os_host in ('freebsd'):
+    from get_vpy_includes import get_includes, get_libs
+
+    LINK_FLAGS="-Wl,--export-dynamic"
+
+    GTK_VIS_LIBS = get_libs()
+    # freebsd ports install libboost_python for py27
+    GTK_VIS_LIBS.append('boost_python')
+    GTK_VIS_LIBS.append('boost_signals')
+
+    GTK_INCDIRS = get_includes()
+
+    LIBRARY_DIRS=[]
+
+
 elif os_host == 'mac':
     if not os.path.exists('setup.cfg'):
         #
@@ -115,6 +130,10 @@ elif os_host == 'linux':
     INCLUDE_DIRS.append(os.path.join(VISUAL_INC,'gtk2'))
     INCLUDE_DIRS += GTK_INCDIRS
 
+elif os_host == 'freebsd':
+    INCLUDE_DIRS.append(os.path.join(VISUAL_INC,'gtk2'))
+    INCLUDE_DIRS += GTK_INCDIRS
+
 VISUAL_SOURCES = []
 
 patterns = ["/src/core/*.cpp","/src/core/util/*.cpp","/src/python/*.cpp",]
@@ -122,6 +141,8 @@ patterns = ["/src/core/*.cpp","/src/core/util/*.cpp","/src/python/*.cpp",]
 if os_host == 'mac':
     patterns.append("/src/mac/*.cpp")
 elif os_host == 'linux':
+    patterns.append("/src/gtk2/*.cpp")
+elif os_host == 'freebsd':
     patterns.append("/src/gtk2/*.cpp")
 elif os_host == 'windows':
     patterns.append("/src/win32/*.cpp")
@@ -143,6 +164,8 @@ elif os_host == 'windows':
     libraries=['opengl32', 'glu32', 'user32', 'advapi32', 'gdi32']
     extra_compile_args.append('/DM_PI=3.1415926535897932384626433832795')
 elif os_host == 'linux':
+    libraries=GTK_VIS_LIBS
+elif os_host == 'freebsd':
     libraries=GTK_VIS_LIBS
 
 CVISUAL = Extension(
