@@ -1,3 +1,11 @@
+# Future development of vpython has moved to a new project
+
+This incarnation of `vpython` will not be developed further; see [this announcement](https://matterandinteractions.wordpress.com/2016/04/27/a-time-line-for-vpython-development/) for an explanation and history. Development efforts are now focused on a Jupyter notebook-based version [vpython-jupyter](https://github.com/BruceSherwood/vpython-jupyter) and an in-browser version that requires no local installation at all and runs on mobile devices, at [glowscript.org](http://glowscript.org).
+
+The home of vpython on the web is still at [vpython.org](http://vpython.org).
+
+## Read on for more information about the old vpython...
+
 vpython-wx
 ==========
 
