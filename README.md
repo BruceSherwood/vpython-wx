@@ -4,7 +4,7 @@ This incarnation of `vpython` will not be developed further; see [this announcem
 
 The home of vpython on the web is still at [vpython.org](http://vpython.org).
 
-## Read on for more information about the old vpython...
+## Read on for more information about the old VPython...
 
 vpython-wx
 ==========
