@@ -5,6 +5,10 @@ for Windows and Mac are available at vpython.org.
 Windows and Mac builds are now special to them; 
 see VCBuild/VCBuild.txt and MAC-OSX.txt.
 
+Aishwarya Unnikrishnan <shwarya.unnikrishnan@gmail.com> has created a script
+that simplified installation on Linux, at least for Ubuntu Linus:
+https://github.com/katanachan/installer/blob/master/VisualPythonInstaller.sh
+
 Table of Contents:
 I:   Prerequisites
 II:   Troubleshooting
