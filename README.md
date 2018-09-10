@@ -1,6 +1,6 @@
 ## Future development of VPython has moved to a new project
 
-This incarnation of VPython will not be developed further; see [this announcement](http://vpython.org/contents/announcements/evolution.html) for an explanation and [this history](https://matterandinteractions.wordpress.com/2016/04/27/a-time-line-for-vpython-development/) of the development of VPython. Development efforts are now focused on a Jupyter notebook-based version [vpython-jupyter](https://github.com/BruceSherwood/vpython-jupyter) and an in-browser version that requires no local installation at all and runs on mobile devices, at [glowscript.org](http://glowscript.org).
+This incarnation of VPython will not be developed further; see [this announcement](http://vpython.org/contents/announcements/evolution.html) for an explanation and [this history](https://matterandinteractions.wordpress.com/2016/04/27/a-time-line-for-vpython-development/) of the development of VPython. Development efforts are now focused on VPython 7 [vpython-jupyter](https://github.com/BruceSherwood/vpython-jupyter). which runs with installed Python, including in a Jupyter notebook, and an in-browser version that requires no local installation at all and runs on mobile devices, at [glowscript.org](http://glowscript.org).
 
 The home of vpython on the web is still at [vpython.org](http://vpython.org).
 
